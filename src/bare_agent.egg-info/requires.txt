@@ -1,0 +1,6 @@
+groq
+python-dotenv
+
+[dev]
+pytest
+mypy
