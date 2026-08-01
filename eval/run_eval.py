@@ -1,0 +1,317 @@
+"""Run the agent against eval/tasks.json and report a pass rate.
+
+Each task is handed to run_agent() with a freshly rebuilt workspace/ shared
+across the whole run, and the final answer is matched against the task's
+`expect` value. Three matching modes exist — plain substring, and two
+keyword heuristics for the tasks where the right behaviour is "refuse" or
+"flag the bad data" rather than "produce a number".
+
+The agent narrates its ReAct loop to stdout. That narration is captured per
+task into eval/traces/{id}.log so the console shows only the results table;
+full results, including every answer, land in eval/results/.
+
+Run from the repo root (tools.WORKSPACE_DIR is the relative path workspace/):
+    python eval/run_eval.py
+"""
+
+from __future__ import annotations
+
+import contextlib
+import io
+import json
+import shutil
+import sys
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import TypedDict, cast
+
+from bare_agent import tools
+from bare_agent.agent import run_agent
+
+EVAL_DIR = Path("eval")
+TASKS_FILE = EVAL_DIR / "tasks.json"
+FIXTURES_DIR = EVAL_DIR / "fixtures"
+TRACES_DIR = EVAL_DIR / "traces"
+RESULTS_DIR = EVAL_DIR / "results"
+
+# Groq's free tier rate-limits requests per minute, and one task costs
+# several model round-trips. Pausing between tasks keeps a full run inside it.
+_SLEEP_BETWEEN_TASKS_SECONDS = 2
+
+REFUSE_EXPECTED = "REFUSE_EXPECTED"
+FLAG_BAD_DATA = "FLAG_BAD_DATA"
+
+# Heuristic, not a proof. There is no reliable way to test "did the model
+# admit it doesn't know?" without a second model, so we look for the phrases
+# an honest refusal tends to contain. A model that refuses in wording not
+# listed here scores a false FAIL; one that says "the file does not contain
+# a Q4 figure, but I estimate..." scores a false PASS. Read the trace before
+# trusting a borderline row.
+REFUSAL_PHRASES: tuple[str, ...] = (
+    "not in",
+    "not available",
+    "not found",
+    "doesn't contain",
+    "does not contain",
+    "no phone",
+    "not listed",
+    "unable",
+    "cannot",
+    "can't",
+    "couldn't",
+    "could not",
+    "no such",
+    "not present",
+    "not specified",
+)
+
+# Heuristic, same caveat as REFUSAL_PHRASES. These tasks contain a corrupt
+# line ("R1,2oo") that a careless agent will silently drop or coerce, still
+# returning a plausible total. We pass the task only if the answer mentions
+# the problem in one of these ways, which under-credits an agent that flags
+# it in unusual wording.
+BAD_DATA_PHRASES: tuple[str, ...] = (
+    "malformed",
+    "invalid",
+    "bad data",
+    "not a number",
+    "unclear",
+    "appears to be",
+    "typo",
+    "r1,2oo",
+    "blank",
+    "empty",
+    "missing",
+    "skipped",
+    "excluded",
+    "ambiguous",
+)
+
+
+class Task(TypedDict):
+    """One row of eval/tasks.json."""
+
+    id: str
+    category: str
+    task: str
+    expect: str
+
+
+class Result(TypedDict):
+    """One scored task: the task fields plus what the agent did with them."""
+
+    id: str
+    category: str
+    task: str
+    expect: str
+    answer: str
+    status: str
+    error: str | None
+
+
+def load_tasks(path: Path) -> list[Task]:
+    """Load the task set from disk.
+
+    Args:
+        path: Path to tasks.json, relative to the repo root.
+
+    Returns:
+        The task list as written in the file. The contents are trusted: this
+        is a checked-in fixture, not user input.
+    """
+    with path.open(encoding="utf-8") as handle:
+        return cast("list[Task]", json.load(handle))
+
+
+def prepare_workspace() -> None:
+    """Rebuild workspace/ from eval/fixtures/, discarding anything already there.
+
+    Called once per run, not once per task: the task set is written to share
+    a single workspace state, and several tasks (file counts, greps across
+    files) only give the expected answer against the full fixture set.
+    """
+    if tools.WORKSPACE_DIR.exists():
+        shutil.rmtree(tools.WORKSPACE_DIR)
+    shutil.copytree(FIXTURES_DIR, tools.WORKSPACE_DIR)
+
+
+def matches(expect: str, answer: str) -> bool:
+    """Decide whether an answer satisfies a task's expectation.
+
+    Args:
+        expect: The task's `expect` value. The two sentinel values
+            REFUSE_EXPECTED and FLAG_BAD_DATA select keyword heuristics;
+            anything else is treated as a literal substring.
+        answer: The agent's final answer.
+
+    Returns:
+        True if the answer counts as a pass. Matching is case-insensitive in
+        all three modes.
+    """
+    lowered = answer.lower()
+    if expect == REFUSE_EXPECTED:
+        return any(phrase in lowered for phrase in REFUSAL_PHRASES)
+    if expect == FLAG_BAD_DATA:
+        return any(phrase in lowered for phrase in BAD_DATA_PHRASES)
+    return expect.lower() in lowered
+
+
+def write_trace(task_id: str, transcript: str, error: str | None) -> None:
+    """Write one task's captured stdout to eval/traces/{task_id}.log.
+
+    Args:
+        task_id: The task's id, used as the filename stem.
+        transcript: Everything run_agent() printed before returning or raising.
+        error: Exception text if the task errored, else None. Appended to the
+            transcript so a truncated trace explains itself.
+    """
+    TRACES_DIR.mkdir(parents=True, exist_ok=True)
+    body = transcript if not error else f"{transcript}\n=== ERROR ===\n{error}\n"
+    (TRACES_DIR / f"{task_id}.log").write_text(body, encoding="utf-8")
+
+
+def run_task(task: Task) -> Result:
+    """Run one task and score it.
+
+    An exception from run_agent() (an API failure, a bad response) is caught
+    and recorded as ERROR rather than FAIL, so infrastructure trouble stays
+    visibly distinct from the agent answering wrongly.
+
+    Args:
+        task: The task to run.
+
+    Returns:
+        The scored result, with status one of PASS, FAIL, or ERROR.
+    """
+    buffer = io.StringIO()
+    answer = ""
+    error: str | None = None
+
+    try:
+        with contextlib.redirect_stdout(buffer):
+            answer = run_agent(task["task"])
+    except Exception as exc:
+        error = f"{type(exc).__name__}: {exc}"
+
+    write_trace(task["id"], buffer.getvalue(), error)
+
+    if error is not None:
+        status = "ERROR"
+    else:
+        status = "PASS" if matches(task["expect"], answer) else "FAIL"
+
+    return {
+        "id": task["id"],
+        "category": task["category"],
+        "task": task["task"],
+        "expect": task["expect"],
+        "answer": answer,
+        "status": status,
+        "error": error,
+    }
+
+
+def truncate(text: str, width: int) -> str:
+    """Shorten text to fit a table column, marking the cut with an ellipsis."""
+    return text if len(text) <= width else text[: width - 1] + "…"
+
+
+def print_table(results: list[Result]) -> None:
+    """Print the per-task pass/fail table."""
+    id_width = 10
+    cat_width = 15
+    task_width = 52
+    header = (
+        f"{'#':<3} {'STATUS':<6} {'ID':<{id_width}} "
+        f"{'CATEGORY':<{cat_width}} {'TASK':<{task_width}}"
+    )
+    print(header)
+    print("-" * len(header))
+    for i, result in enumerate(results, start=1):
+        print(
+            f"{i:<3} {result['status']:<6} "
+            f"{truncate(result['id'], id_width):<{id_width}} "
+            f"{truncate(result['category'], cat_width):<{cat_width}} "
+            f"{truncate(result['task'], task_width):<{task_width}}"
+        )
+        if result["error"] is not None:
+            print(f"    {'':<6} {truncate(result['error'], 90)}")
+
+
+def print_summary(results: list[Result]) -> None:
+    """Print the overall pass rate and a per-category breakdown."""
+    passed = [r for r in results if r["status"] == "PASS"]
+    errored = [r for r in results if r["status"] == "ERROR"]
+
+    print()
+    rate = len(passed) / len(results) * 100 if results else 0.0
+    print(f"Pass rate: {len(passed)}/{len(results)} ({rate:.0f}%)")
+    if errored:
+        print(f"({len(errored)} task(s) errored — counted as not passing)")
+
+    print()
+    print("By category:")
+    seen: dict[str, list[Result]] = {}
+    for result in results:
+        seen.setdefault(result["category"], []).append(result)
+    for category, rows in seen.items():
+        hits = sum(1 for r in rows if r["status"] == "PASS")
+        print(f"  {category:<15} {hits}/{len(rows)}")
+
+
+def write_results(results: list[Result]) -> Path:
+    """Write the full results to a timestamped file in eval/results/.
+
+    Args:
+        results: Every scored task, in run order.
+
+    Returns:
+        The path written, so the caller can report it.
+    """
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y-%m-%d-%H%M%S")
+    path = RESULTS_DIR / f"baseline-{stamp}.json"
+    path.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
+def main() -> None:
+    """Rebuild the workspace, run every task, then report and save results."""
+    if not TASKS_FILE.exists() or not FIXTURES_DIR.is_dir():
+        print(
+            f"Could not find {TASKS_FILE} and {FIXTURES_DIR}/ relative to the "
+            f"current directory ({Path.cwd()}). This script must be run from "
+            "the repo root, because the agent's sandbox path "
+            "(tools.WORKSPACE_DIR) is the relative path 'workspace/'. Try: "
+            "python eval/run_eval.py",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    tasks = load_tasks(TASKS_FILE)
+    prepare_workspace()
+
+    results: list[Result] = []
+    for i, task in enumerate(tasks, start=1):
+        # One line per task so a multi-minute run isn't silent; the agent's
+        # own output is captured to eval/traces/ and kept off the console.
+        print(f"[{i:>2}/{len(tasks)}] {task['id']} ...", end=" ", flush=True)
+        result = run_task(task)
+        results.append(result)
+        print(result["status"], flush=True)
+        if i < len(tasks):
+            time.sleep(_SLEEP_BETWEEN_TASKS_SECONDS)
+
+    print()
+    print_table(results)
+    print_summary(results)
+
+    path = write_results(results)
+    print()
+    print(f"Results: {path}")
+    print(f"Traces:  {TRACES_DIR}/")
+
+
+if __name__ == "__main__":
+    main()

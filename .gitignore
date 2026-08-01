@@ -6,4 +6,6 @@ __pycache__/
 .mypy_cache/
 workspace/
 traces/
+eval/traces/
+eval/results/
 src/*.egg-info/
