@@ -121,6 +121,7 @@ def run_bash(command: str) -> str:
     if not command or not command.strip():
         return "No command given. Provide a non-empty shell command to run."
 
+    WORKSPACE_DIR.mkdir(parents=True, exist_ok=True)
     try:
         result = subprocess.run(
             command,
@@ -128,6 +129,7 @@ def run_bash(command: str) -> str:
             capture_output=True,
             text=True,
             timeout=_BASH_TIMEOUT_SECONDS,
+            cwd=WORKSPACE_DIR,
         )
     except subprocess.TimeoutExpired:
         return (
