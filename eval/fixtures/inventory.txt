@@ -1,0 +1,3 @@
+Warehouse inventory report
+widgets in stock: 47
+unit price: 12.50

@@ -1,0 +1,5 @@
+Payment log
+Payment: R1500
+Payment: R1,2OO
+Payment: R800
+Note: one entry overdue
