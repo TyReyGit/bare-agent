@@ -1,6 +1,8 @@
+import getpass
 from pathlib import Path
 
 import pytest
+import subprocess
 
 from bare_agent import tools
 
@@ -58,10 +60,66 @@ def test_run_bash_success() -> None:
     assert result.strip() == "hello"
 
 
-def test_run_bash_command_not_found() -> None:
+def test_run_bash_rejects_disallowed_command() -> None:
     result = tools.run_bash("this_command_does_not_exist_xyz")
+    assert "not permitted" in result
+    # The refusal must name the alternatives: the model reads this string and
+    # needs to know what it *can* run, not just that it failed.
+    assert "grep" in result
 
-    assert "Hint" in result
+
+def test_run_bash_blocks_privilege_escalation() -> None:
+    result = tools.run_bash("sudo -l")
+    assert "not permitted" in result
+
+
+def test_run_bash_does_not_interpret_shell_operators() -> None:
+    # Without shell=True, '&&' is a literal argument rather than an operator,
+    # so the second command never runs. Uses 'ls' rather than 'echo': this
+    # system has a cargo-installed coreutils 'echo' on PATH that can block.
+    result = tools.run_bash("ls && whoami")
+    # 'ls' receives '&&' and 'whoami' as filenames; neither exists.
+    assert "whoami" in result
+    assert "No such file" in result or "cannot access" in result
+
+
+def test_run_bash_blocks_find_exec() -> None:
+    # 'find' is allowlisted, but -exec makes it an arbitrary-execution
+    # primitive with no shell involved at all.
+    result = tools.run_bash("find . -maxdepth 0 -exec id -un ;")
+
+    assert "not permitted" in result
+    assert "-exec" in result
+    # The actual security property: 'id -un' never ran, so the caller's
+    # username is nowhere in the output.
+    assert getpass.getuser() not in result
+
+
+def test_run_bash_blocks_find_delete() -> None:
+    result = tools.run_bash("find . -name '*.txt' -delete")
+
+    assert "not permitted" in result
+    assert "-delete" in result
+
+
+def test_run_bash_blocks_sort_compress_program() -> None:
+    result = tools.run_bash("sort --compress-program=id notes.txt")
+
+    assert "not permitted" in result
+    assert "--compress-program" in result
+    assert getpass.getuser() not in result
+
+
+def test_run_bash_allows_read_only_options_that_look_similar(workspace: Path) -> None:
+    # '-o' is banned for sort but is legitimate for grep (--only-matching)
+    # and for find (logical OR); the check must be scoped per command.
+    workspace.mkdir(parents=True, exist_ok=True)
+    (workspace / "notes.txt").write_text("overdue invoice\n", encoding="utf-8")
+
+    result = tools.run_bash("grep -o overdue notes.txt")
+
+    assert result.strip() == "overdue"
+    assert "not permitted" not in result
 
 
 def test_run_bash_nonzero_exit_returns_stderr() -> None:
@@ -70,9 +128,14 @@ def test_run_bash_nonzero_exit_returns_stderr() -> None:
     assert "No such file or directory" in result
 
 
-def test_run_bash_timeout() -> None:
-    result = tools.run_bash("sleep 15")
+def test_run_bash_timeout(monkeypatch: pytest.MonkeyPatch) -> None:
+    # 'sleep' is no longer allowlisted, so trigger the timeout path directly
+    # by making subprocess.run raise what a real timeout would raise.
+    def fake_run(*args: object, **kwargs: object) -> None:
+        raise subprocess.TimeoutExpired(cmd="cat", timeout=1)
 
+    monkeypatch.setattr("bare_agent.tools.subprocess.run", fake_run)
+    result = tools.run_bash("cat notes.txt")
     assert "timed out" in result
 
 

@@ -10,11 +10,42 @@ from __future__ import annotations
 
 import ast
 import operator
+import shlex
 import subprocess
 from pathlib import Path
 from typing import Callable
 
 WORKSPACE_DIR = Path("workspace")
+
+# Allowlist, not denylist: an unknown command is refused rather than permitted.
+# A denylist fails open — shell syntax offers too many ways around it — while
+# this fails closed. These are read-only inspection commands, which is all the
+# agent needs inside a sandboxed workspace.
+_ALLOWED_COMMANDS = frozenset(
+    {"ls", "cat", "grep", "wc", "find", "head", "tail", "sort", "uniq", "echo"}
+)
+
+# Some allowlisted commands take options that turn them into execution or write
+# primitives, which would defeat the allowlist without any shell involved:
+# find's -exec family runs arbitrary programs, its -delete and -fprint* family
+# write files, and sort's --compress-program runs a program while -o overwrites
+# one. Scoped per command because the same spelling is harmless elsewhere —
+# 'grep -o' and find's '-o' (logical OR) are both read-only.
+_BANNED_OPTIONS: dict[str, frozenset[str]] = {
+    "find": frozenset(
+        {
+            "-exec",
+            "-execdir",
+            "-ok",
+            "-okdir",
+            "-delete",
+            "-fprintf",
+            "-fprint",
+            "-fls",
+        }
+    ),
+    "sort": frozenset({"--compress-program", "-o", "--output"}),
+}
 
 _BASH_TIMEOUT_SECONDS = 10
 
@@ -112,20 +143,54 @@ def run_bash(command: str) -> str:
 
     Tool schema notes:
         name: run_bash
-        description: Run a shell command and return its stdout. Times out
-            after 10 seconds.
+        description: Run a read-only inspection command and return its
+                stdout. Allowed: ls, cat, grep, wc, find, head, tail, sort,
+                uniq, echo. No pipes, redirection or chaining. Times out
+                after 10 seconds.
         parameters:
             command (string, required): The command to execute, e.g.
-                "ls -la" or "python script.py".
+                "ls -la" or "grep overdue notes.txt".
     """
     if not command or not command.strip():
         return "No command given. Provide a non-empty shell command to run."
 
     WORKSPACE_DIR.mkdir(parents=True, exist_ok=True)
+
+    try:
+        parts = shlex.split(command)
+    except ValueError as exc:
+        return (
+            f"Could not parse command '{command}': {exc}. Check for unmatched "
+            "quotes."
+        )
+
+    if not parts:
+        return "No command given. Provide a non-empty shell command to run."
+
+    program = parts[0]
+    if program not in _ALLOWED_COMMANDS:
+        allowed = ", ".join(sorted(_ALLOWED_COMMANDS))
+        return (
+            f"Command '{program}' is not permitted. This sandbox allows only "
+            f"read-only inspection commands: {allowed}. Pipes, redirection and "
+            "command chaining are also unavailable — run one command at a time "
+            "and combine the results yourself."
+        )
+
+    banned_option = _banned_option_in(program, parts[1:])
+    if banned_option is not None:
+        return (
+            f"Option '{banned_option}' is not permitted: it lets '{program}' run "
+            f"another program or write files, and this sandbox is inspection-only. "
+            f"Re-run '{program}' without it."
+        )
+
+    # argv form, never shell=True: the allowlist is checked against these exact
+    # tokens, so these must be what actually executes. Handing the raw string to
+    # a shell would let it re-parse operators the allowlist never inspected.
     try:
         result = subprocess.run(
-            command,
-            shell=True,
+            parts,
             capture_output=True,
             text=True,
             timeout=_BASH_TIMEOUT_SECONDS,
@@ -135,6 +200,14 @@ def run_bash(command: str) -> str:
         return (
             f"Command timed out after {_BASH_TIMEOUT_SECONDS} seconds: '{command}'. "
             "Try a faster command, or one that doesn't block waiting for input."
+        )
+    except OSError as exc:
+        # With no shell in the loop, a missing or unrunnable binary raises here
+        # instead of exiting non-zero. This function's contract is to return an
+        # explanatory string rather than raise, so it has to be caught.
+        return (
+            f"Could not run '{program}': {exc}. It may not be installed or not "
+            "on PATH."
         )
 
     if result.returncode == 0:
@@ -155,6 +228,25 @@ def run_bash(command: str) -> str:
 
     message = stderr if stderr else f"Command exited with status {result.returncode}."
     return f"{message}{hint}"
+
+
+def _banned_option_in(program: str, args: list[str]) -> str | None:
+    """Return the first option in `args` that `program` must not be given.
+
+    Returns None when every argument is acceptable. Long options are compared
+    on their name only, so '--compress-program=gzip' and '--compress-program
+    gzip' are both caught.
+    """
+    banned = _BANNED_OPTIONS.get(program)
+    if banned is None:
+        return None
+
+    for arg in args:
+        name = arg.split("=", 1)[0]
+        if name in banned:
+            return name
+
+    return None
 
 
 def calculate(expression: str) -> str:
