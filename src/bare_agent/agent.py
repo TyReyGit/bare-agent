@@ -9,10 +9,11 @@ arguments, and this module decides whether to honour that.
 from __future__ import annotations
 
 import json
+import time
 from typing import Callable
 
 from dotenv import load_dotenv
-from groq import Groq
+from groq import BadRequestError,Groq
 from groq.types.chat import (
     ChatCompletionAssistantMessageParam,
     ChatCompletionMessage,
@@ -27,6 +28,8 @@ load_dotenv()
 
 MODEL = "llama-3.3-70b-versatile"
 MAX_ITERATIONS = 10
+MAX_TOOL_CALL_RETRIES = 3
+_RETRY_BACKOFF_SECONDS = 1.0
 
 SYSTEM_PROMPT = (
     "You are a concise assistant that solves tasks by calling tools. Files "
@@ -100,14 +103,37 @@ _client: Groq | None = None
 
 
 def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
-    """Send the conversation to Groq and return the assistant's reply."""
+    """Send the conversation to Groq and return the assistant's reply.
+
+    Retries a bounded number of times if Groq rejects the request with a
+    'tool_use_failed' error. This happens when the model emits a malformed
+    tool call (a pseudo-XML wrapper instead of structured JSON) rather than
+    a valid one — a sampling issue, not a problem with our request. Any
+    other BadRequestError is a real problem and is raised immediately.
+    """
     global _client
     if _client is None:
         _client = Groq()  # reads GROQ_API_KEY from the environment
-    response = _client.chat.completions.create(
-        model=MODEL, messages=messages, tools=TOOL_SCHEMAS
-    )
-    return response.choices[0].message
+
+    for attempt in range(1, MAX_TOOL_CALL_RETRIES + 1):
+        try:
+            response = _client.chat.completions.create(
+                model=MODEL, messages=messages, tools=TOOL_SCHEMAS
+            )
+            return response.choices[0].message
+        except BadRequestError as exc:
+            if "tool_use_failed" not in str(exc):
+                raise
+            if attempt == MAX_TOOL_CALL_RETRIES:
+                raise
+            wait = _RETRY_BACKOFF_SECONDS * attempt
+            print(
+                f"  retry {attempt}/{MAX_TOOL_CALL_RETRIES}: malformed tool call "
+                f"from model, retrying in {wait}s..."
+            )
+            time.sleep(wait)
+
+    raise RuntimeError("Unreachable: retry loop exited without returning or raising.")
 
 
 def _execute_tool(tool_call: ChatCompletionMessageToolCall) -> str:
