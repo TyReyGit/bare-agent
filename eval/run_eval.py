@@ -42,12 +42,15 @@ _SLEEP_BETWEEN_TASKS_SECONDS = 2
 REFUSE_EXPECTED = "REFUSE_EXPECTED"
 FLAG_BAD_DATA = "FLAG_BAD_DATA"
 
-# Heuristic, not a proof. There is no reliable way to test "did the model
-# admit it doesn't know?" without a second model, so we look for the phrases
-# an honest refusal tends to contain. A model that refuses in wording not
-# listed here scores a false FAIL; one that says "the file does not contain
-# a Q4 figure, but I estimate..." scores a false PASS. Read the trace before
-# trusting a borderline row.
+# Heuristic, and knowingly incomplete. These phrases were extended after a
+# run in which three correct refusals scored as failures purely because the
+# model phrased them differently to this list ("does not list" vs "not
+# listed", "not yet finalised" vs "not specified"). That is the same
+# vocabulary-mismatch failure this project hit in Phase 1, inverted: the
+# matcher encodes the author's wording, not the model's. Substring matching
+# cannot judge intent, so this will keep producing false negatives. Treat a
+# FAIL in the refusal categories as "inspect the answer", not "the agent
+# was wrong".
 REFUSAL_PHRASES: tuple[str, ...] = (
     "not in",
     "not available",
@@ -64,6 +67,14 @@ REFUSAL_PHRASES: tuple[str, ...] = (
     "no such",
     "not present",
     "not specified",
+    "does not list",
+    "doesn't list",
+    "does not exist",
+    "doesn't exist",
+    "not yet finalised",
+    "not yet finalized",
+    "pending",
+    "no phone number",
 )
 
 # Heuristic, same caveat as REFUSAL_PHRASES. These tasks contain a corrupt

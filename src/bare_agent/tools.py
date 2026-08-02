@@ -185,6 +185,16 @@ def run_bash(command: str) -> str:
             f"Re-run '{program}' without it."
         )
 
+    globbed = [arg for arg in parts[1:] if "*" in arg or "?" in arg]
+    if globbed:
+        return (
+            f"Argument '{globbed[0]}' looks like a glob pattern, but this "
+            "sandbox runs commands directly rather than through a shell, so "
+            "'*' and '?' are passed through literally and will not match any "
+            "files. Name files explicitly, or use 'find' or 'grep -r' to "
+            "search recursively instead."
+        )
+
     # argv form, never shell=True: the allowlist is checked against these exact
     # tokens, so these must be what actually executes. Handing the raw string to
     # a shell would let it re-parse operators the allowlist never inspected.

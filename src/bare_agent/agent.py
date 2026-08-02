@@ -32,7 +32,7 @@ load_dotenv()
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GEMINI_MODEL = "gemini-3.6-flash"
 PROVIDER = os.getenv("AGENT_PROVIDER", "groq").lower()
-MAX_ITERATIONS = 10
+MAX_ITERATIONS = 15
 MAX_TOOL_CALL_RETRIES = 8
 _RETRY_BACKOFF_SECONDS = 1.0
 
