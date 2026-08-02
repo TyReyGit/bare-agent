@@ -1,4 +1,4 @@
-"""A bare ReAct loop over the Groq API — no agent framework.
+"""A bare ReAct loop over the Groq or Gemini API — no agent framework.
 
 The loop is deliberately tiny: send the conversation to the model, let it
 either call a tool or answer, run the tool, append the result, repeat. The
@@ -9,11 +9,14 @@ arguments, and this module decides whether to honour that.
 from __future__ import annotations
 
 import json
+import os
 import time
 from typing import Callable
 
 from dotenv import load_dotenv
-from groq import BadRequestError,Groq
+from google import genai
+from google.genai import types as genai_types
+from groq import BadRequestError, Groq
 from groq.types.chat import (
     ChatCompletionAssistantMessageParam,
     ChatCompletionMessage,
@@ -26,7 +29,9 @@ from bare_agent import tools
 
 load_dotenv()
 
-MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "llama-3.3-70b-versatile"
+GEMINI_MODEL = "gemini-flash-latest"
+PROVIDER = os.getenv("AGENT_PROVIDER", "groq").lower()
 MAX_ITERATIONS = 10
 MAX_TOOL_CALL_RETRIES = 8
 _RETRY_BACKOFF_SECONDS = 1.0
@@ -47,6 +52,7 @@ TOOL_FUNCTIONS: dict[str, Callable[..., str]] = {
     "run_bash": tools.run_bash,
     "calculate": tools.calculate,
 }
+
 
 def _schema(
     name: str, description: str, arg: str, arg_description: str
@@ -95,11 +101,121 @@ TOOL_SCHEMAS: list[ChatCompletionToolParam] = [
     ),
 ]
 
+
+def _gemini_tool() -> genai_types.Tool:
+    """Re-express TOOL_SCHEMAS in Gemini's function-declaration format.
+
+    Both providers need the same information — name, description, and a
+    JSON Schema for the arguments — but wrap it differently. Deriving this
+    from TOOL_SCHEMAS rather than writing it out twice means the two
+    providers cannot drift apart.
+    """
+    declarations = [
+        genai_types.FunctionDeclaration(
+            name=schema["function"]["name"],
+            description=schema["function"]["description"],
+            parameters_json_schema=schema["function"]["parameters"],
+        )
+        for schema in TOOL_SCHEMAS
+    ]
+    return genai_types.Tool(function_declarations=declarations)
+
+
+def _tool_name_for_call_id(
+    messages: list[ChatCompletionMessageParam],
+    tool_message: ChatCompletionMessageParam,
+) -> str:
+    """Find the tool name matching a tool result's call id.
+
+    Groq pairs a tool result to its call by id; Gemini pairs it by name.
+    The id is the only link the loop's message format preserves, so the
+    name has to be recovered from the assistant turn that requested it.
+    """
+    call_id = tool_message.get("tool_call_id")
+    for message in messages:
+        if message.get("role") != "assistant":
+            continue
+        tool_calls = message.get("tool_calls")
+        if not isinstance(tool_calls, list):
+            tool_calls = []
+        for call in tool_calls:
+            if call["id"] == call_id:
+                name = call["function"]["name"]
+                return str(name)
+    return "unknown_tool"
+
+
+def _to_gemini_contents(
+    messages: list[ChatCompletionMessageParam],
+) -> tuple[str, list[genai_types.Content]]:
+    """Translate the loop's Groq-shaped messages into Gemini's format.
+
+    Returns the system instruction separately, because Gemini takes it as
+    config rather than as a message. Gemini also has no 'tool' role: a tool
+    result goes back as a function_response part on a 'user' turn, and the
+    assistant's own turn is called 'model'.
+    """
+    system_instruction = ""
+    contents: list[genai_types.Content] = []
+
+    for message in messages:
+        role = message.get("role")
+
+        if role == "system":
+            system_instruction = str(message.get("content") or "")
+            continue
+
+        if role == "user":
+            text = str(message.get("content") or "")
+            contents.append(
+                genai_types.Content(
+                    role="user", parts=[genai_types.Part.from_text(text=text)]
+                )
+            )
+            continue
+
+        if role == "assistant":
+            parts: list[genai_types.Part] = []
+            content = message.get("content")
+            if content:
+                parts.append(genai_types.Part.from_text(text=str(content)))
+            tool_calls = message.get("tool_calls")
+            if not isinstance(tool_calls, list):
+                tool_calls = []
+            for call in tool_calls:
+                function = call["function"]
+                parts.append(
+                    genai_types.Part.from_function_call(
+                        name=function["name"],
+                        args=json.loads(function["arguments"]),
+                    )
+                )
+            if parts:
+                contents.append(genai_types.Content(role="model", parts=parts))
+            continue
+
+        if role == "tool":
+            contents.append(
+                genai_types.Content(
+                    role="user",
+                    parts=[
+                        genai_types.Part.from_function_response(
+                            name=_tool_name_for_call_id(messages, message),
+                            response={"result": str(message.get("content") or "")},
+                        )
+                    ],
+                )
+            )
+
+    return system_instruction, contents
+
+
 # A model is anything that turns a conversation into one assistant message.
 # Injecting this is what lets the tests run without touching the network.
 ModelFn = Callable[[list[ChatCompletionMessageParam]], ChatCompletionMessage]
 
 _client: Groq | None = None
+_gemini_client: genai.Client | None = None
 
 
 def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
@@ -118,7 +234,7 @@ def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompleti
     for attempt in range(1, MAX_TOOL_CALL_RETRIES + 1):
         try:
             response = _client.chat.completions.create(
-                model=MODEL, messages=messages, tools=TOOL_SCHEMAS
+                model=GROQ_MODEL, messages=messages, tools=TOOL_SCHEMAS
             )
             return response.choices[0].message
         except BadRequestError as exc:
@@ -134,6 +250,53 @@ def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompleti
             time.sleep(wait)
 
     raise RuntimeError("Unreachable: retry loop exited without returning or raising.")
+
+
+def _gemini_completion(
+    messages: list[ChatCompletionMessageParam],
+) -> ChatCompletionMessage:
+    """Send the conversation to Gemini and return the reply, Groq-shaped.
+
+    The loop's message format stays Groq-shaped throughout; this function
+    translates in and out at the boundary so run_agent never learns which
+    provider it is talking to. Automatic function calling is disabled: the
+    SDK would otherwise execute the tools itself, bypassing the sandbox in
+    tools.py entirely.
+    """
+    global _gemini_client
+    if _gemini_client is None:
+        _gemini_client = genai.Client()  # reads GOOGLE_API_KEY from the environment
+
+    system_instruction, contents = _to_gemini_contents(messages)
+    response = _gemini_client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=contents,
+        config=genai_types.GenerateContentConfig(
+            system_instruction=system_instruction,
+            tools=[_gemini_tool()],
+            automatic_function_calling=genai_types.AutomaticFunctionCallingConfig(
+                disable=True
+            ),
+        ),
+    )
+
+    tool_calls = [
+        ChatCompletionMessageToolCall(
+            id=f"gemini_call_{index}",
+            type="function",
+            function={  # type: ignore[arg-type]
+                "name": call.name or "",
+                "arguments": json.dumps(dict(call.args or {})),
+            },
+        )
+        for index, call in enumerate(response.function_calls or [])
+    ]
+
+    return ChatCompletionMessage(
+        role="assistant",
+        content=None if tool_calls else (response.text or ""),
+        tool_calls=tool_calls or None,
+    )
 
 
 def _execute_tool(tool_call: ChatCompletionMessageToolCall) -> str:
@@ -197,13 +360,19 @@ def run_agent(
     Args:
         task: The user's request.
         model: Function that turns a conversation into an assistant message.
-            Defaults to a real Groq call; tests pass a fake.
+            Defaults to the provider named by AGENT_PROVIDER (groq or
+            gemini); tests pass a fake.
         max_iterations: Hard cap on model round-trips.
 
     Returns:
         The model's final answer, or a message saying the cap was reached.
     """
-    complete = _groq_completion if model is None else model
+    if model is not None:
+        complete = model
+    elif PROVIDER == "gemini":
+        complete = _gemini_completion
+    else:
+        complete = _groq_completion
     messages: list[ChatCompletionMessageParam] = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": task},
