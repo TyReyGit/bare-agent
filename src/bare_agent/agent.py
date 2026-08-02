@@ -233,6 +233,11 @@ _gemini_client: genai.Client | None = None
 # kept here and reused verbatim, keyed by the call ids minted for it.
 _gemini_turns: dict[str, genai_types.Content] = {}
 _gemini_call_counter = 0
+# Gemini's free tier caps requests per minute, not tokens per day, so calls
+# must be paced rather than merely bounded. 5 RPM means one call every 12
+# seconds; the margin absorbs clock skew and the server's own accounting.
+_GEMINI_MIN_INTERVAL_SECONDS = 13.0
+_gemini_last_call_at = 0.0
 
 
 def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
@@ -280,11 +285,19 @@ def _gemini_completion(
     SDK would otherwise execute the tools itself, bypassing the sandbox in
     tools.py entirely.
     """
-    global _gemini_client, _gemini_call_counter
+    global _gemini_client, _gemini_call_counter, _gemini_last_call_at
     if _gemini_client is None:
         _gemini_client = genai.Client()  # reads GOOGLE_API_KEY from the environment
 
     system_instruction, contents = _to_gemini_contents(messages)
+
+    elapsed = time.monotonic() - _gemini_last_call_at
+    if _gemini_last_call_at and elapsed < _GEMINI_MIN_INTERVAL_SECONDS:
+        wait = _GEMINI_MIN_INTERVAL_SECONDS - elapsed
+        print(f"  pacing: waiting {wait:.1f}s for Gemini's 5 RPM limit...")
+        time.sleep(wait)
+    _gemini_last_call_at = time.monotonic()
+
     response = _gemini_client.models.generate_content(
         model=GEMINI_MODEL,
         contents=contents,
