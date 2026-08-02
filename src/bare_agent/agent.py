@@ -175,13 +175,23 @@ def _to_gemini_contents(
             continue
 
         if role == "assistant":
+            tool_calls = message.get("tool_calls")
+            if not isinstance(tool_calls, list):
+                tool_calls = []
+
+            cached = None
+            for call in tool_calls:
+                cached = _gemini_turns.get(str(call["id"]))
+                if cached is not None:
+                    break
+            if cached is not None:
+                contents.append(cached)
+                continue
+
             parts: list[genai_types.Part] = []
             content = message.get("content")
             if content:
                 parts.append(genai_types.Part.from_text(text=str(content)))
-            tool_calls = message.get("tool_calls")
-            if not isinstance(tool_calls, list):
-                tool_calls = []
             for call in tool_calls:
                 function = call["function"]
                 parts.append(
@@ -216,6 +226,13 @@ ModelFn = Callable[[list[ChatCompletionMessageParam]], ChatCompletionMessage]
 
 _client: Groq | None = None
 _gemini_client: genai.Client | None = None
+
+# Gemini attaches an opaque thought_signature to each functionCall part, and
+# rejects a replayed turn that is missing it. That signature cannot survive
+# the Groq-shaped message format the loop stores, so the original Content is
+# kept here and reused verbatim, keyed by the call ids minted for it.
+_gemini_turns: dict[str, genai_types.Content] = {}
+_gemini_call_counter = 0
 
 
 def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
@@ -263,7 +280,7 @@ def _gemini_completion(
     SDK would otherwise execute the tools itself, bypassing the sandbox in
     tools.py entirely.
     """
-    global _gemini_client
+    global _gemini_client, _gemini_call_counter
     if _gemini_client is None:
         _gemini_client = genai.Client()  # reads GOOGLE_API_KEY from the environment
 
@@ -280,17 +297,25 @@ def _gemini_completion(
         ),
     )
 
-    tool_calls = [
-        ChatCompletionMessageToolCall(
-            id=f"gemini_call_{index}",
-            type="function",
-            function={  # type: ignore[arg-type]
-                "name": call.name or "",
-                "arguments": json.dumps(dict(call.args or {})),
-            },
+    tool_calls = []
+    for call in response.function_calls or []:
+        _gemini_call_counter += 1
+        tool_calls.append(
+            ChatCompletionMessageToolCall(
+                id=f"gemini_call_{_gemini_call_counter}",
+                type="function",
+                function={  # type: ignore[arg-type]
+                    "name": call.name or "",
+                    "arguments": json.dumps(dict(call.args or {})),
+                },
+            )
         )
-        for index, call in enumerate(response.function_calls or [])
-    ]
+
+    if tool_calls and response.candidates:
+        original = response.candidates[0].content
+        if original is not None:
+            for made_call in tool_calls:
+                _gemini_turns[str(made_call.id)] = original
 
     return ChatCompletionMessage(
         role="assistant",
