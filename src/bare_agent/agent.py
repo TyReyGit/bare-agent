@@ -30,7 +30,7 @@ from bare_agent import tools
 load_dotenv()
 
 GROQ_MODEL = "llama-3.3-70b-versatile"
-GEMINI_MODEL = "gemini-flash-latest"
+GEMINI_MODEL = "gemini-3.6-flash"
 PROVIDER = os.getenv("AGENT_PROVIDER", "groq").lower()
 MAX_ITERATIONS = 10
 MAX_TOOL_CALL_RETRIES = 8
@@ -236,7 +236,7 @@ _gemini_call_counter = 0
 # Gemini's free tier caps requests per minute, not tokens per day, so calls
 # must be paced rather than merely bounded. 5 RPM means one call every 12
 # seconds; the margin absorbs clock skew and the server's own accounting.
-_GEMINI_MIN_INTERVAL_SECONDS = 13.0
+_GEMINI_MIN_INTERVAL_SECONDS = 0.5
 _gemini_last_call_at = 0.0
 
 
