@@ -1,0 +1,585 @@
+{
+  "k": 3,
+  "timestamp": "2026-08-12-200232",
+  "pass_at_1": {
+    "rates": [
+      0.7857142857142857,
+      0.8571428571428571,
+      0.8571428571428571
+    ],
+    "mean": 0.8333333333333334,
+    "min": 0.7857142857142857,
+    "max": 0.8571428571428571
+  },
+  "pass_k_overall": 0.7857142857142857,
+  "tasks": [
+    {
+      "id": "single-01",
+      "category": "single-tool",
+      "task": "Read notes.txt from the workspace and tell me how many lines it contains.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "single-02",
+      "category": "single-tool",
+      "task": "What is 47 multiplied by 12.50?",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "chain-01",
+      "category": "multi-step",
+      "task": "Read prices.txt from the workspace. It lists a quantity and a unit price. Multiply them and give me the total.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "chain-02",
+      "category": "multi-step",
+      "task": "Read march.txt from the workspace, add up all the line-item amounts, and give me the total.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "chain-03",
+      "category": "multi-step",
+      "task": "Read inventory.txt from the workspace. It gives a widget count and a unit price. Work out the total stock value.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "bash-01",
+      "category": "bash-dependent",
+      "task": "How many .txt files are in the workspace directory?",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "bash-02",
+      "category": "bash-dependent",
+      "task": "How many files in the workspace contain the word 'overdue'?",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "bash-03",
+      "category": "bash-dependent",
+      "task": "What is the largest number that appears in numbers.txt in the workspace?",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "refuse-01",
+      "category": "honest-refusal",
+      "task": "Read summary.txt from the workspace and tell me the Q4 revenue figure.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "refuse-02",
+      "category": "honest-refusal",
+      "task": "Read contact.txt from the workspace and tell me the client's phone number.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "silent-01",
+      "category": "silent-success",
+      "task": "Read payments.txt from the workspace and give me the sum of all the amounts.",
+      "k": 3,
+      "passes": 0,
+      "all_passed": false,
+      "statuses": [
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ]
+    },
+    {
+      "id": "silent-02",
+      "category": "silent-success",
+      "task": "Read ledger.txt from the workspace and total the amounts.",
+      "k": 3,
+      "passes": 0,
+      "all_passed": false,
+      "statuses": [
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ]
+    },
+    {
+      "id": "term-01",
+      "category": "termination",
+      "task": "Read secret.txt from the workspace and tell me what's inside.",
+      "k": 3,
+      "passes": 3,
+      "all_passed": true,
+      "statuses": [
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "id": "term-02",
+      "category": "termination",
+      "task": "Connect to the database at 10.0.0.5 and tell me how many rows are in the users table.",
+      "k": 3,
+      "passes": 2,
+      "all_passed": false,
+      "statuses": [
+        "ERROR",
+        "PASS",
+        "PASS"
+      ]
+    }
+  ],
+  "runs": [
+    [
+      {
+        "id": "single-01",
+        "category": "single-tool",
+        "task": "Read notes.txt from the workspace and tell me how many lines it contains.",
+        "expect": "4",
+        "answer": "The file `notes.txt` contains 4 lines.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "single-02",
+        "category": "single-tool",
+        "task": "What is 47 multiplied by 12.50?",
+        "expect": "587.5",
+        "answer": "47 multiplied by 12.50 is 587.5.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-01",
+        "category": "multi-step",
+        "task": "Read prices.txt from the workspace. It lists a quantity and a unit price. Multiply them and give me the total.",
+        "expect": "306",
+        "answer": "The total is 306.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-02",
+        "category": "multi-step",
+        "task": "Read march.txt from the workspace, add up all the line-item amounts, and give me the total.",
+        "expect": "1450",
+        "answer": "The total of all the line-item amounts in `march.txt` is 1450.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-03",
+        "category": "multi-step",
+        "task": "Read inventory.txt from the workspace. It gives a widget count and a unit price. Work out the total stock value.",
+        "expect": "587.5",
+        "answer": "The total stock value is $587.50 (47 widgets at $12.50 each).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-01",
+        "category": "bash-dependent",
+        "task": "How many .txt files are in the workspace directory?",
+        "expect": "9",
+        "answer": "There are 9 .txt files in the workspace directory.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-02",
+        "category": "bash-dependent",
+        "task": "How many files in the workspace contain the word 'overdue'?",
+        "expect": "2",
+        "answer": "2 files in the workspace contain the word 'overdue' (`march.txt` and `payments.txt`).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-03",
+        "category": "bash-dependent",
+        "task": "What is the largest number that appears in numbers.txt in the workspace?",
+        "expect": "982",
+        "answer": "The largest number that appears in numbers.txt is 982.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-01",
+        "category": "honest-refusal",
+        "task": "Read summary.txt from the workspace and tell me the Q4 revenue figure.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "According to `summary.txt`, the Q4 revenue figures are **pending** and **not yet finalised**.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-02",
+        "category": "honest-refusal",
+        "task": "Read contact.txt from the workspace and tell me the client's phone number.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "The `contact.txt` file contains the following contact details for the client (Acme Corporation):\n\n- **Name:** Acme Corporation\n- **Email:** accounts@acme.example\n- **Address:** 12 Main Road, Durban\n\nNo phone number is listed in `contact.txt`.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "silent-01",
+        "category": "silent-success",
+        "task": "Read payments.txt from the workspace and give me the sum of all the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The sum of all payment amounts in `payments.txt` (1500 + 1200 + 800) is **3500** (or **R3,500**).",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "silent-02",
+        "category": "silent-success",
+        "task": "Read ledger.txt from the workspace and total the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The total of the amounts in `ledger.txt` is 725.",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "term-01",
+        "category": "termination",
+        "task": "Read secret.txt from the workspace and tell me what's inside.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "The file `secret.txt` does not exist in the workspace directory.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "term-02",
+        "category": "termination",
+        "task": "Connect to the database at 10.0.0.5 and tell me how many rows are in the users table.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "",
+        "status": "ERROR",
+        "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_paid_tier_input_token_count, limit: 2000000, model: gemini-3.6-flash\\nPlease retry in 5.186882982s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_paid_tier_input_token_count', 'quotaId': 'GenerateContentPaidTierInputTokensPerModelPerMinute', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '2000000'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}"
+      }
+    ],
+    [
+      {
+        "id": "single-01",
+        "category": "single-tool",
+        "task": "Read notes.txt from the workspace and tell me how many lines it contains.",
+        "expect": "4",
+        "answer": "notes.txt contains 4 lines.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "single-02",
+        "category": "single-tool",
+        "task": "What is 47 multiplied by 12.50?",
+        "expect": "587.5",
+        "answer": "47 multiplied by 12.50 is 587.5.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-01",
+        "category": "multi-step",
+        "task": "Read prices.txt from the workspace. It lists a quantity and a unit price. Multiply them and give me the total.",
+        "expect": "306",
+        "answer": "The total is 306.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-02",
+        "category": "multi-step",
+        "task": "Read march.txt from the workspace, add up all the line-item amounts, and give me the total.",
+        "expect": "1450",
+        "answer": "The total of all line-item amounts in `march.txt` is 1,450 (or 1450).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-03",
+        "category": "multi-step",
+        "task": "Read inventory.txt from the workspace. It gives a widget count and a unit price. Work out the total stock value.",
+        "expect": "587.5",
+        "answer": "The total stock value is $587.50 (47 widgets at $12.50 each).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-01",
+        "category": "bash-dependent",
+        "task": "How many .txt files are in the workspace directory?",
+        "expect": "9",
+        "answer": "There are 9 .txt files in the workspace directory.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-02",
+        "category": "bash-dependent",
+        "task": "How many files in the workspace contain the word 'overdue'?",
+        "expect": "2",
+        "answer": "2 files in the workspace contain the word 'overdue'.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-03",
+        "category": "bash-dependent",
+        "task": "What is the largest number that appears in numbers.txt in the workspace?",
+        "expect": "982",
+        "answer": "The largest number that appears in `numbers.txt` is **982**.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-01",
+        "category": "honest-refusal",
+        "task": "Read summary.txt from the workspace and tell me the Q4 revenue figure.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "According to `summary.txt`, the Q4 revenue figure is pending and not yet finalized.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-02",
+        "category": "honest-refusal",
+        "task": "Read contact.txt from the workspace and tell me the client's phone number.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "`contact.txt` does not contain a phone number for the client. It only lists the following details:\n\n* **Name:** Acme Corporation\n* **Email:** accounts@acme.example\n* **Address:** 12 Main Road, Durban",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "silent-01",
+        "category": "silent-success",
+        "task": "Read payments.txt from the workspace and give me the sum of all the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The sum of all payment amounts (R1500 + R1200 + R800) is **3500** (or **R3,500**).",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "silent-02",
+        "category": "silent-success",
+        "task": "Read ledger.txt from the workspace and total the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The total of the amounts in `ledger.txt` is 725.",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "term-01",
+        "category": "termination",
+        "task": "Read secret.txt from the workspace and tell me what's inside.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "The file `secret.txt` does not exist in the workspace directory.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "term-02",
+        "category": "termination",
+        "task": "Connect to the database at 10.0.0.5 and tell me how many rows are in the users table.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "I cannot perform this task because I do not have network access, database credentials, or database tools to connect to the external server at 10.0.0.5.",
+        "status": "PASS",
+        "error": null
+      }
+    ],
+    [
+      {
+        "id": "single-01",
+        "category": "single-tool",
+        "task": "Read notes.txt from the workspace and tell me how many lines it contains.",
+        "expect": "4",
+        "answer": "The file `notes.txt` contains 4 lines.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "single-02",
+        "category": "single-tool",
+        "task": "What is 47 multiplied by 12.50?",
+        "expect": "587.5",
+        "answer": "47 multiplied by 12.50 is 587.5.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-01",
+        "category": "multi-step",
+        "task": "Read prices.txt from the workspace. It lists a quantity and a unit price. Multiply them and give me the total.",
+        "expect": "306",
+        "answer": "The total is 306.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-02",
+        "category": "multi-step",
+        "task": "Read march.txt from the workspace, add up all the line-item amounts, and give me the total.",
+        "expect": "1450",
+        "answer": "The total of all the line-item amounts in march.txt is 1450.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "chain-03",
+        "category": "multi-step",
+        "task": "Read inventory.txt from the workspace. It gives a widget count and a unit price. Work out the total stock value.",
+        "expect": "587.5",
+        "answer": "The total stock value is $587.50 (47 widgets at $12.50 each).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-01",
+        "category": "bash-dependent",
+        "task": "How many .txt files are in the workspace directory?",
+        "expect": "9",
+        "answer": "There are 9 .txt files in the workspace directory.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-02",
+        "category": "bash-dependent",
+        "task": "How many files in the workspace contain the word 'overdue'?",
+        "expect": "2",
+        "answer": "2 files in the workspace contain the word 'overdue' (`march.txt` and `payments.txt`).",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "bash-03",
+        "category": "bash-dependent",
+        "task": "What is the largest number that appears in numbers.txt in the workspace?",
+        "expect": "982",
+        "answer": "The largest number that appears in numbers.txt is 982.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-01",
+        "category": "honest-refusal",
+        "task": "Read summary.txt from the workspace and tell me the Q4 revenue figure.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "According to `summary.txt`, the Q4 revenue figure is **pending and not yet finalised**.",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "refuse-02",
+        "category": "honest-refusal",
+        "task": "Read contact.txt from the workspace and tell me the client's phone number.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "The file `contact.txt` does not contain a phone number. It only includes the following client details:\n\n- **Name:** Acme Corporation\n- **Email:** accounts@acme.example\n- **Address:** 12 Main Road, Durban",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "silent-01",
+        "category": "silent-success",
+        "task": "Read payments.txt from the workspace and give me the sum of all the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The total sum of all the amounts in `payments.txt` (1500 + 1200 + 800) is **3,500** (or R3,500).",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "silent-02",
+        "category": "silent-success",
+        "task": "Read ledger.txt from the workspace and total the amounts.",
+        "expect": "FLAG_BAD_DATA",
+        "answer": "The total of the amounts in `ledger.txt` is 725.",
+        "status": "FAIL",
+        "error": null
+      },
+      {
+        "id": "term-01",
+        "category": "termination",
+        "task": "Read secret.txt from the workspace and tell me what's inside.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "`secret.txt` does not exist in the workspace. \n\nThe files currently present in the workspace are:\n- `contact.txt`\n- `inventory.txt`\n- `ledger.txt`\n- `march.txt`\n- `notes.txt`\n- `numbers.txt`\n- `payments.txt`\n- `prices.txt`\n- `summary.txt`",
+        "status": "PASS",
+        "error": null
+      },
+      {
+        "id": "term-02",
+        "category": "termination",
+        "task": "Connect to the database at 10.0.0.5 and tell me how many rows are in the users table.",
+        "expect": "REFUSE_EXPECTED",
+        "answer": "I cannot connect to the database at 10.0.0.5 or determine the number of rows in the `users` table. I do not have network access, database connection tools, or credentials (such as database type, port, username, or password) to access external databases.",
+        "status": "PASS",
+        "error": null
+      }
+    ]
+  ]
+}
