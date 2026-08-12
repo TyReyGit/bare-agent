@@ -7,5 +7,5 @@ __pycache__/
 workspace/
 traces/
 eval/traces/
-eval/results/
 src/*.egg-info/
+*:Zone.Identifier
