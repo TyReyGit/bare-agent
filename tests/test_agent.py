@@ -58,10 +58,51 @@ def test_final_answer_without_tool_call_terminates() -> None:
 def test_max_iterations_terminates_the_loop() -> None:
     model = FakeModel(tool_request("calculate", '{"expression": "1 + 1"}'))
 
-    result = agent.run_agent("Loop forever", model=model, max_iterations=3)
-
+    # max_consecutive_repeats is set above max_iterations so loop
+    # detection (added for the identical-repeated-call case) can't
+    # trigger first and mask what this test is actually checking - the
+    # iteration cap itself.
+    result = agent.run_agent(
+        "Loop forever", model=model, max_iterations=3, max_consecutive_repeats=4
+    )
     assert "Max iterations reached (3)" in result
     assert model.call_count == 3
+
+
+def test_identical_repeated_call_triggers_loop_detection() -> None:
+    model = FakeModel(tool_request("calculate", '{"expression": "1 + 1"}'))
+
+    result = agent.run_agent(
+        "Loop forever", model=model, max_iterations=10, max_consecutive_repeats=3
+    )
+
+    assert "Stopped after detecting a loop" in result
+    assert "calculate" in result
+    # Detection fires on the 3rd identical call, not after max_iterations
+    # is exhausted - that's the whole point of stopping early.
+    assert model.call_count == 3
+
+
+def test_varying_calls_do_not_trigger_loop_detection() -> None:
+    """Three different calls in a row must NOT look like a repeated loop.
+
+    Guards against a false positive on ordinary multi-step tasks, where
+    calling the same tool several times with different arguments (reading
+    three different files, say) is normal progress, not thrash.
+    """
+    model = FakeModel(
+        tool_request("calculate", '{"expression": "1 + 1"}'),
+        tool_request("calculate", '{"expression": "2 + 2"}'),
+        tool_request("calculate", '{"expression": "3 + 3"}'),
+        final_answer("done"),
+    )
+
+    result = agent.run_agent(
+        "Do three different sums", model=model, max_consecutive_repeats=3
+    )
+
+    assert result == "done"
+    assert "Stopped after detecting a loop" not in result
 
 
 def test_tool_result_is_fed_back_into_the_conversation() -> None:
