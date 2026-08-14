@@ -36,6 +36,15 @@ MAX_ITERATIONS = 15
 MAX_TOOL_CALL_RETRIES = 8
 _RETRY_BACKOFF_SECONDS = 1.0
 
+# Loop-detection: how many consecutive identical (same tool, same
+# arguments) calls trigger an early stop. This catches the narrow case of
+# the model retrying one exact failing call. It does NOT catch the
+# broader thrash pattern already seen once in practice - 14 iterations
+# reading every file in the workspace with no repeated call - because
+# that failure has no identical signature to detect against. Known gap,
+# not fixed by this version.
+MAX_CONSECUTIVE_REPEATS = 3
+
 SYSTEM_PROMPT = (
     "You are a concise assistant that solves tasks by calling tools. Files "
     "live in a sandboxed workspace/ directory; read them with read_file using "
@@ -387,11 +396,29 @@ def _truncate(text: str, limit: int = 300) -> str:
     return collapsed if len(collapsed) <= limit else collapsed[:limit] + "..."
 
 
+def _call_signature(call: ChatCompletionMessageToolCall) -> tuple[str, str]:
+    """A (name, canonical-arguments) pair identifying what a call actually did.
+
+    Arguments are re-serialised with sorted keys so two calls that are
+    identical in substance but arrived with keys in a different order
+    still compare equal - the model's JSON key order isn't guaranteed
+    stable. Malformed JSON falls back to the raw string, which still
+    compares correctly for exact repeats.
+    """
+    try:
+        parsed = json.loads(call.function.arguments)
+        args = json.dumps(parsed, sort_keys=True)
+    except json.JSONDecodeError:
+        args = call.function.arguments
+    return (call.function.name, args)
+
+
 def run_agent(
     task: str,
     *,
     model: ModelFn | None = None,
     max_iterations: int = MAX_ITERATIONS,
+    max_consecutive_repeats: int = MAX_CONSECUTIVE_REPEATS,
 ) -> str:
     """Run the ReAct loop until the model answers or the budget runs out.
 
@@ -401,6 +428,11 @@ def run_agent(
             Defaults to the provider named by AGENT_PROVIDER (groq or
             gemini); tests pass a fake.
         max_iterations: Hard cap on model round-trips.
+        max_consecutive_repeats: Stop early if the same tool is called with
+            identical arguments this many times in a row. Catches the
+            narrow case of the model retrying one exact failing call; does
+            not catch broader thrash across different calls with no
+            repeated signature.
 
     Returns:
         The model's final answer, or a message saying the cap was reached.
@@ -415,6 +447,8 @@ def run_agent(
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": task},
     ]
+
+    recent_calls: list[tuple[str, str]] = []
 
     for iteration in range(1, max_iterations + 1):
         print(f"\n=== iteration {iteration}/{max_iterations} ===")
@@ -434,6 +468,23 @@ def run_agent(
             messages.append(
                 {"role": "tool", "tool_call_id": call.id, "content": result}
             )
+            signature = _call_signature(call)
+            recent_calls.append(signature)
+            if (
+                len(recent_calls) >= max_consecutive_repeats
+                and len(set(recent_calls[-max_consecutive_repeats:])) == 1
+            ):
+                print(
+                    f"  loop detected: {call.function.name} called "
+                    f"{max_consecutive_repeats}x in a row with identical "
+                    "arguments"
+                )
+                return (
+                    f"Stopped after detecting a loop: {call.function.name} "
+                    f"was called {max_consecutive_repeats} times in a row "
+                    "with identical arguments, with no progress toward an "
+                    "answer."
+                )
 
     return (
         f"Max iterations reached ({max_iterations}) without a final answer. "
