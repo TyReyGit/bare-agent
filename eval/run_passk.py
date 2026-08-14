@@ -31,6 +31,19 @@ treat Gemini-on-paid-tier as the practical choice for pass^k work — not as
 a proven "Gemini is more reliable" claim. Only one provider has a valid
 pass^k number so far.
 
+Scoring notes, added 14 August 2026: a task's `all_passed` (the strict
+pass^k signal) still requires PASS on every run — an ERROR is never
+counted as a pass, because a failed API call tells us nothing about
+whether the agent would have gotten it right. But ERROR and FAIL are now
+tracked separately per task, and a task that missed pass^k with only
+ERRORs among its non-passing runs (no FAIL) is flagged `error_limited`:
+its misses are known to be infrastructure noise, not demonstrated
+reasoning failures, and reading it as reasoning instability would be a
+mistake. This distinction exists because the first live pass^k run
+(12 Aug, Gemini) had exactly this shape on term-02: 2 PASS, 1 ERROR
+(429), 0 FAIL — scored as "not all passed" with no way to tell that
+apart from a task with a genuine wrong answer, until now.
+
 Run from the repo root:
     AGENT_PROVIDER=gemini python eval/run_passk.py -k 3   # smoke-tested, works
     python eval/run_passk.py -k 3                          # defaults to groq
@@ -81,14 +94,24 @@ SLEEP_BETWEEN_RUNS_SECONDS = 15
 
 
 class TaskPassK(TypedDict):
-    """One task's record across all k runs."""
+    """One task's record across all k runs.
+
+    passes + fails + errors always sums to k. all_passed is the strict
+    pass^k signal (PASS on every run). error_limited applies only when
+    all_passed is False: it's True when every non-passing run was an
+    ERROR and none was a FAIL — meaning nothing observed demonstrates the
+    agent reasoning incorrectly, only that the infrastructure didn't hold.
+    """
 
     id: str
     category: str
     task: str
     k: int
     passes: int
+    fails: int
+    errors: int
     all_passed: bool
+    error_limited: bool
     statuses: list[str]
 
 
@@ -146,6 +169,10 @@ def aggregate(tasks: list[Task], runs: list[list[Result]]) -> list[TaskPassK]:
     for i, task in enumerate(tasks):
         statuses = [run[i]["status"] for run in runs]
         passes = sum(1 for s in statuses if s == "PASS")
+        fails = sum(1 for s in statuses if s == "FAIL")
+        errors = sum(1 for s in statuses if s == "ERROR")
+        all_passed = passes == len(runs)
+        error_limited = (not all_passed) and fails == 0 and errors > 0
         records.append(
             {
                 "id": task["id"],
@@ -153,7 +180,10 @@ def aggregate(tasks: list[Task], runs: list[list[Result]]) -> list[TaskPassK]:
                 "task": task["task"],
                 "k": len(runs),
                 "passes": passes,
-                "all_passed": passes == len(runs),
+                "fails": fails,
+                "errors": errors,
+                "all_passed": all_passed,
+                "error_limited": error_limited,
                 "statuses": statuses,
             }
         )
@@ -169,19 +199,32 @@ def print_passk_summary(records: list[TaskPassK], run_rates: list[float]) -> Non
     print()
     print(f"pass^{k} — a task counts only if it passed on ALL {k} runs")
     id_width, cat_width = 10, 15
-    header = f"{'ID':<{id_width}} {'CATEGORY':<{cat_width}} {'PASSES':<8} ALL PASSED"
+    header = (
+        f"{'ID':<{id_width}} {'CATEGORY':<{cat_width}} {'PASSES':<8} "
+        f"{'ALL PASSED':<12} NOTE"
+    )
     print(header)
     print("-" * len(header))
     for r in records:
         pass_str = f"{r['passes']}/{r['k']}"
         mark = "YES" if r["all_passed"] else "no"
+        note = ""
+        if not r["all_passed"]:
+            note = "infra-limited (no FAIL, only ERROR)" if r["error_limited"] else ""
         print(
             f"{truncate(r['id'], id_width):<{id_width}} "
             f"{truncate(r['category'], cat_width):<{cat_width}} "
-            f"{pass_str:<8} {mark}"
+            f"{pass_str:<8} {mark:<12} {note}"
         )
 
     overall_hits = sum(1 for r in records if r["all_passed"])
+    error_limited_misses = sum(
+        1 for r in records if not r["all_passed"] and r["error_limited"]
+    )
+    reasoning_misses = sum(
+        1 for r in records if not r["all_passed"] and not r["error_limited"]
+    )
+
     print()
     print(
         f"pass@1 across {k} runs: mean {sum(run_rates) / len(run_rates) * 100:.0f}% "
@@ -191,6 +234,13 @@ def print_passk_summary(records: list[TaskPassK], run_rates: list[float]) -> Non
         f"pass^{k} overall: {overall_hits}/{len(records)} "
         f"({overall_hits / len(records) * 100:.0f}%)"
     )
+    if error_limited_misses:
+        print(
+            f"  of {len(records) - overall_hits} task(s) that missed pass^{k}: "
+            f"{reasoning_misses} had at least one FAIL (reasoning), "
+            f"{error_limited_misses} were infra-limited only (ERROR, no FAIL) — "
+            "the latter aren't evidence the agent reasoned incorrectly."
+        )
 
     print()
     print(f"pass^{k} by category:")
@@ -230,6 +280,9 @@ def write_passk_results(
             "max": max(run_rates),
         },
         "pass_k_overall": sum(1 for r in records if r["all_passed"]) / len(records),
+        "error_limited_misses": sum(
+            1 for r in records if not r["all_passed"] and r["error_limited"]
+        ),
         "tasks": records,
         "runs": runs,
     }
