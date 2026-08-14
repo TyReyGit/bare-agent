@@ -51,9 +51,15 @@ SYSTEM_PROMPT = (
     "paths relative to that directory. Use calculate for arithmetic rather "
     "than doing it in your head. Call one tool at a time, then use its result "
     "to decide the next step. When you have enough information, reply with "
-    "the final answer as plain text and no tool call."
+    "the final answer as plain text and no tool call. Your tools are "
+    "read_file, run_bash, and calculate - nothing else. If a task needs "
+    "something none of them can do (connecting to a network address, a "
+    "database, an external API, or any system outside this sandbox), say "
+    "so immediately as your final answer. That is a different situation "
+    "from not having searched enough yet: no amount of additional "
+    "read_file or run_bash calls will change what these three tools are "
+    "capable of."
 )
-
 # Maps the tool names the model may emit to the real Python functions.
 # Anything not in this dict is refused in _execute_tool.
 TOOL_FUNCTIONS: dict[str, Callable[..., str]] = {
