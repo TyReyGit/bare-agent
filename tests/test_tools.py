@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 import subprocess
 
-from bare_agent import tools
+from bare_agent import memory, tools
 
 
 @pytest.fixture(autouse=True)
@@ -12,6 +12,16 @@ def workspace(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     ws = tmp_path / "workspace"
     monkeypatch.setattr(tools, "WORKSPACE_DIR", ws)
     return ws
+
+
+@pytest.fixture(autouse=True)
+def isolated_memory_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """save_memory calls straight through to memory.write_derived_memory,
+    so any test that touches it needs its own memory.jsonl - otherwise it
+    writes to the real project file. Separate tmp_path subdirectory from
+    the workspace fixture above so the two never collide.
+    """
+    monkeypatch.setattr(memory, "MEMORY_FILE", tmp_path / "memory-isolated" / "memory.jsonl")
 
 
 def test_read_file_success(workspace: Path) -> None:
@@ -167,3 +177,34 @@ def test_calculate_rejects_division_by_zero() -> None:
     result = tools.calculate("1 / 0")
 
     assert "division by zero" in result
+
+
+def test_save_memory_success() -> None:
+    result = tools.save_memory("tests run via pytest tests/ -v", "output of run_bash")
+
+    assert "unverified" in result
+    assert "tests run via pytest tests/ -v" in result
+
+
+def test_save_memory_rejects_empty_content() -> None:
+    result = tools.save_memory("", "some basis")
+
+    assert "No content given" in result
+
+
+def test_save_memory_rejects_empty_basis() -> None:
+    result = tools.save_memory("some fact", "")
+
+    assert "No basis given" in result
+
+
+def test_save_memory_stores_as_derived_tier() -> None:
+    # Wiring check, not a re-test of memory.py's tier logic (that's
+    # covered thoroughly, including the adversarial case, in
+    # test_memory.py). This just confirms the tool actually reaches
+    # write_derived_memory rather than, say, silently doing nothing.
+    tools.save_memory("an observed fact", "run_bash output")
+
+    entries = memory.load_memory()
+    assert len(entries) == 1
+    assert entries[0].tier == "DERIVED"
