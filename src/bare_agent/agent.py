@@ -45,6 +45,17 @@ _RETRY_BACKOFF_SECONDS = 1.0
 # not fixed by this version.
 MAX_CONSECUTIVE_REPEATS = 3
 
+# Compaction: how many of the most recent ReAct iterations stay verbatim
+# once this many have accumulated. Older iterations fold into one
+# deterministic summary - not sent to the model to summarise, which
+# would add cost, latency, and non-determinism to something meant to be
+# cheap to verify. Default sits above anything the current eval suite
+# naturally produces (longest task now runs 1-4 iterations), so this
+# cannot fire on any existing task - same "safe against the trusted
+# baseline" property MAX_CONSECUTIVE_REPEATS has.
+KEEP_RECENT_EXCHANGES = 5
+_COMPACTED_HEADER = "[Compacted history - a record of earlier tool activity, not something you said:]"
+
 SYSTEM_PROMPT = (
     "You are a concise assistant that solves tasks by calling tools. Files "
     "live in a sandboxed workspace/ directory; read them with read_file using "
@@ -419,12 +430,72 @@ def _call_signature(call: ChatCompletionMessageToolCall) -> tuple[str, str]:
     return (call.function.name, args)
 
 
+def _iteration_start_indices(messages: list[ChatCompletionMessageParam]) -> list[int]:
+    """Indices where each ReAct iteration's turn begins.
+
+    Every iteration begins with exactly one assistant message requesting
+    tool calls, immediately followed by that many tool-role results.
+    Scanning for assistant-role positions after the initial system+user
+    pair recovers the boundaries without tracking them separately as
+    run_agent executes.
+    """
+    return [i for i, m in enumerate(messages) if i >= 2 and m.get("role") == "assistant"]
+
+
+def _compact_if_needed(
+    messages: list[ChatCompletionMessageParam], keep_recent_exchanges: int
+) -> list[ChatCompletionMessageParam]:
+    """Fold everything older than the most recent N iterations into one summary.
+
+    Deterministic truncation, not model summarisation - see
+    KEEP_RECENT_EXCHANGES. Uses role="user", never role="system": a
+    system-role message mid-conversation would silently overwrite the
+    real system instruction on Gemini (see _to_gemini_contents) rather
+    than becoming a turn. Re-compaction merges forward rather than
+    re-summarising an existing summary, so nothing already folded is lost
+    across repeated calls.
+    """
+    starts = _iteration_start_indices(messages)
+    if len(starts) <= keep_recent_exchanges:
+        return messages
+
+    print(f"  compacting: {len(starts) - keep_recent_exchanges} iteration(s) folded into a summary")
+
+    cutoff = starts[-keep_recent_exchanges]
+    old_messages = messages[2:cutoff]
+    recent_messages = messages[cutoff:]
+
+    lines: list[str] = []
+    for message in old_messages:
+        role = message.get("role")
+        content = message.get("content")
+        if role == "user" and isinstance(content, str) and content.startswith(_COMPACTED_HEADER):
+            lines.extend(content.split("\n")[1:])
+        elif role == "assistant":
+            calls = message.get("tool_calls")
+            if isinstance(calls, list):
+                for call in calls:
+                    function = call["function"]
+                    lines.append(
+                        f"- called {function['name']}({_truncate(function['arguments'], 80)})"
+                    )
+        elif role == "tool":
+            lines.append(f"  -> {_truncate(str(content or ''), 120)}")
+
+    compacted: ChatCompletionMessageParam = {
+        "role": "user",
+        "content": _COMPACTED_HEADER + "\n" + "\n".join(lines),
+    }
+    return [*messages[:2], compacted, *recent_messages]
+
+
 def run_agent(
     task: str,
     *,
     model: ModelFn | None = None,
     max_iterations: int = MAX_ITERATIONS,
     max_consecutive_repeats: int = MAX_CONSECUTIVE_REPEATS,
+    keep_recent_exchanges: int = KEEP_RECENT_EXCHANGES,
 ) -> str:
     """Run the ReAct loop until the model answers or the budget runs out.
 
@@ -439,6 +510,12 @@ def run_agent(
             narrow case of the model retrying one exact failing call; does
             not catch broader thrash across different calls with no
             repeated signature.
+        keep_recent_exchanges: Once more than this many ReAct iterations
+            have accumulated, fold everything older into one deterministic
+            summary appended as a user-role message. Never role="system" -
+            see _compact_if_needed's docstring for why. Default sits above
+            what any current eval task produces, so it does not fire on
+            the existing suite.
 
     Returns:
         The model's final answer, or a message saying the cap was reached.
@@ -491,6 +568,7 @@ def run_agent(
                     "with identical arguments, with no progress toward an "
                     "answer."
                 )
+        messages = _compact_if_needed(messages, keep_recent_exchanges)
 
     return (
         f"Max iterations reached ({max_iterations}) without a final answer. "
