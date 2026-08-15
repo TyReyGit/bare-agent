@@ -413,6 +413,28 @@ def _truncate(text: str, limit: int = 300) -> str:
     return collapsed if len(collapsed) <= limit else collapsed[:limit] + "..."
 
 
+def _truncate_middle(text: str, limit: int = 120) -> str:
+    """Shorten text to fit within limit, keeping both the start and the end.
+
+    _truncate() above keeps only the front, which is right for the live
+    console display - the first thing a call did usually matters most
+    there. Compacted summaries are different: tool results routinely end
+    with the one figure that matters (the "39 total" at the end of a
+    wc -l line, for example - a real bug found via a live run on 15 Aug
+    2026, where the old front-only truncation silently dropped it and the
+    model only survived by re-deriving the total itself). Splits the
+    budget evenly between both ends with a short marker showing the cut.
+    """
+    collapsed = " ".join(text.split())
+    if len(collapsed) <= limit:
+        return collapsed
+    marker = " ... "
+    keep = limit - len(marker)
+    head = keep // 2
+    tail = keep - head
+    return collapsed[:head] + marker + collapsed[-tail:]
+
+
 def _call_signature(call: ChatCompletionMessageToolCall) -> tuple[str, str]:
     """A (name, canonical-arguments) pair identifying what a call actually did.
 
@@ -477,11 +499,10 @@ def _compact_if_needed(
                 for call in calls:
                     function = call["function"]
                     lines.append(
-                        f"- called {function['name']}({_truncate(function['arguments'], 80)})"
+                        f"- called {function['name']}({_truncate_middle(function['arguments'], 80)})"
                     )
         elif role == "tool":
-            lines.append(f"  -> {_truncate(str(content or ''), 120)}")
-
+            lines.append(f"  -> {_truncate_middle(str(content or ''), 120)}")
     compacted: ChatCompletionMessageParam = {
         "role": "user",
         "content": _COMPACTED_HEADER + "\n" + "\n".join(lines),
