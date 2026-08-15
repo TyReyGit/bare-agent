@@ -168,6 +168,63 @@ def test_short_task_does_not_trigger_compaction() -> None:
         agent._COMPACTED_HEADER in str(m.get("content", "")) for m in final_call_messages
     )
 
+
+def test_truncate_middle_preserves_a_trailing_total() -> None:
+    """Regression test for a real bug, not a synthetic example.
+
+    Live run, 15 Aug 2026: a wc -l result ending "... 39 total" was 131
+    characters. The old front-only _truncate(text, 120) cut the string at
+    120 chars, silently dropping "39 total" - the one figure that
+    mattered. The model only survived by re-deriving the total itself
+    from the individual counts it still had; a model that trusted the
+    aggregate on the first pass would have gotten nothing.
+    """
+    result = (
+        "4 contact.txt 3 inventory.txt 5 ledger.txt 5 march.txt 4 notes.txt "
+        "6 numbers.txt 5 payments.txt 2 prices.txt 5 summary.txt 39 total"
+    )
+    assert len(result) == 131
+
+    truncated = agent._truncate_middle(result, 120)
+
+    assert "39 total" in truncated
+    assert "4 contact.txt" in truncated
+    assert len(truncated) <= 120
+
+
+def test_compaction_preserves_a_trailing_total_end_to_end() -> None:
+    """Same failure, proven at the level it actually happened - inside
+    _compact_if_needed, not just on the helper in isolation.
+    """
+    long_result = (
+        "4 contact.txt 3 inventory.txt 5 ledger.txt 5 march.txt 4 notes.txt "
+        "6 numbers.txt 5 payments.txt 2 prices.txt 5 summary.txt 39 total"
+    )
+    model = FakeModel(
+        tool_request("run_bash", '{"command": "wc -l contact.txt ..."}'),
+        tool_request("calculate", '{"expression": "1 + 1"}'),
+        tool_request("calculate", '{"expression": "2 + 2"}'),
+        tool_request("calculate", '{"expression": "3 + 3"}'),
+        tool_request("calculate", '{"expression": "4 + 4"}'),
+        final_answer("done"),
+    )
+    # Force the tool result content directly rather than going through
+    # _execute_tool, since the point is testing what compaction does with
+    # a specific string, not re-testing tool execution.
+    original_execute = agent._execute_tool
+    agent._execute_tool = lambda call: (
+        long_result if call.function.name == "run_bash" else original_execute(call)
+    )
+    try:
+        result = agent.run_agent("Count lines", model=model, keep_recent_exchanges=2)
+    finally:
+        agent._execute_tool = original_execute
+
+    assert result == "done"
+    compacted = model.seen[-1][2]
+    assert "39 total" in str(compacted["content"])
+
+
 def test_tool_result_is_fed_back_into_the_conversation() -> None:
     model = FakeModel(
         tool_request("calculate", '{"expression": "6 * 7"}'),
