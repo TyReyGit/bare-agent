@@ -15,6 +15,8 @@ import subprocess
 from pathlib import Path
 from typing import Callable
 
+from bare_agent import memory
+
 WORKSPACE_DIR = Path("workspace")
 
 # Allowlist, not denylist: an unknown command is refused rather than permitted.
@@ -332,3 +334,37 @@ def _eval_node(node: ast.AST) -> float:
         f"unsupported syntax: '{type(node).__name__}'. Only numbers and "
         "+ - * / // % ** with parentheses are allowed."
     )
+
+
+def save_memory(content: str, basis: str) -> str:
+    """Persist a fact for future runs of this agent.
+
+    Entries saved through this tool are always stored as unverified and
+    expire automatically - this tool has no argument that produces a
+    verified, permanent entry. That tier only exists for facts a human has
+    separately confirmed outside this loop. Treat this as a note for a
+    future run to sanity-check, not a way to make something permanently
+    true by asserting it.
+
+    Args:
+        content: The fact to remember.
+        basis: What you're grounding this in, so a future reader can judge
+            it - e.g. "output of run_bash: wc -l tests/" or "the user
+            stated this directly in the conversation".
+
+    Returns:
+        A confirmation string including the expiry, or an explanation of
+        what was missing if the call was malformed.
+
+    Tool schema notes:
+        name: save_memory
+        description: Save a fact for future runs of this agent to see.
+            Always stored as unverified with an automatic expiry - this
+            tool cannot create a permanent or verified entry.
+        parameters:
+            content (string, required): The fact to remember, e.g. "tests
+                run via pytest tests/ -v".
+            basis (string, required): What this is grounded in, e.g.
+                "output of run_bash: wc -l tests/".
+    """
+    return memory.write_derived_memory(content, basis)

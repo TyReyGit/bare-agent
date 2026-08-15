@@ -25,7 +25,7 @@ from groq.types.chat import (
     ChatCompletionToolParam,
 )
 
-from bare_agent import tools
+from bare_agent import memory, tools
 
 load_dotenv()
 
@@ -56,6 +56,22 @@ MAX_CONSECUTIVE_REPEATS = 3
 KEEP_RECENT_EXCHANGES = 5
 _COMPACTED_HEADER = "[Compacted history - a record of earlier tool activity, not something you said:]"
 
+# Cross-run memory: entries are loaded from disk once at the start of each
+# run_agent() call and folded into the system prompt as a labelled block -
+# see memory.py for tier rules (VERIFIED vs DERIVED), expiry, and why the
+# model has no code path to producing a VERIFIED entry itself.
+#
+# 15 Aug 2026: the original wording here ("use save_memory to record a
+# fact that would help a future run") did not produce spontaneous use
+# across two live runs that both involved a genuine multi-file search -
+# exactly the situation the tool exists for. This version narrows it to
+# an explicit before-final-answer check with a concrete trigger
+# condition, in the same spirit as the term-02 capability-absence fix:
+# a general "you may use this" statement and a specific "here is when
+# you are expected to" instruction are not the same prompt. Whether this
+# version actually changes behaviour is a live-test question, not an
+# assumption - see the write-up in the repo notes for the result.
+
 SYSTEM_PROMPT = (
     "You are a concise assistant that solves tasks by calling tools. Files "
     "live in a sandboxed workspace/ directory; read them with read_file using "
@@ -63,13 +79,23 @@ SYSTEM_PROMPT = (
     "than doing it in your head. Call one tool at a time, then use its result "
     "to decide the next step. When you have enough information, reply with "
     "the final answer as plain text and no tool call. Your tools are "
-    "read_file, run_bash, and calculate - nothing else. If a task needs "
-    "something none of them can do (connecting to a network address, a "
-    "database, an external API, or any system outside this sandbox), say "
-    "so immediately as your final answer. That is a different situation "
-    "from not having searched enough yet: no amount of additional "
-    "read_file or run_bash calls will change what these three tools are "
-    "capable of."
+    "read_file, run_bash, calculate, and save_memory - nothing else. If a "
+    "task needs something none of them can do (connecting to a network "
+    "address, a database, an external API, or any system outside this "
+    "sandbox), say so immediately as your final answer. That is a different "
+    "situation from not having searched enough yet: no amount of additional "
+    "read_file or run_bash calls will change what these tools are capable of."
+    "\n\n"
+    "Before giving your final answer, check: did you have to search through "
+    "multiple files, or try several wrong guesses, to find something a "
+    "future run of this same task would need again? If so, call save_memory "
+    "now, before your final answer, recording what you found and where. "
+    "Skip it if the task was answerable without any searching or guessing. "
+    "If earlier memory is shown to you below, entries marked VERIFIED were "
+    "confirmed by a person and can be trusted directly. Entries marked "
+    "DERIVED were written by a previous run of this same agent and were "
+    "never checked by a person - treat them as a hint worth sanity-checking "
+    "against the current task, not as a fact to act on unquestioned."
 )
 # Maps the tool names the model may emit to the real Python functions.
 # Anything not in this dict is refused in _execute_tool.
@@ -77,18 +103,24 @@ TOOL_FUNCTIONS: dict[str, Callable[..., str]] = {
     "read_file": tools.read_file,
     "run_bash": tools.run_bash,
     "calculate": tools.calculate,
+    "save_memory": tools.save_memory,
 }
 
 
 def _schema(
-    name: str, description: str, arg: str, arg_description: str
+    name: str, description: str, args: dict[str, str]
 ) -> ChatCompletionToolParam:
-    """Build the tool schema the API expects, for a single-string-argument tool.
+    """Build the tool schema the API expects, for a tool whose arguments are
+    all required strings.
 
     Produces, in JSON terms:
         {"type": "function", "function": {"name": ..., "description": ...,
-         "parameters": {"type": "object", "properties": {arg: {...}},
-                        "required": [arg]}}}
+         "parameters": {"type": "object", "properties": {arg: {...}, ...},
+                        "required": [arg, ...]}}}
+
+    args maps each argument's name to its description. All four current
+    tools (read_file, run_bash, calculate, save_memory) take only required
+    string arguments, so that's the only shape this needs to support.
     """
     return {
         "type": "function",
@@ -97,8 +129,11 @@ def _schema(
             "description": description,
             "parameters": {
                 "type": "object",
-                "properties": {arg: {"type": "string", "description": arg_description}},
-                "required": [arg],
+                "properties": {
+                    arg: {"type": "string", "description": desc}
+                    for arg, desc in args.items()
+                },
+                "required": list(args),
             },
         },
     }
@@ -109,21 +144,32 @@ TOOL_SCHEMAS: list[ChatCompletionToolParam] = [
     _schema(
         "read_file",
         "Read the contents of a file from the workspace directory.",
-        "path",
-        'Relative path to the file within workspace/, e.g. "notes.txt" or "data/input.csv".',
+        {
+            "path": 'Relative path to the file within workspace/, e.g. '
+            '"notes.txt" or "data/input.csv".'
+        },
     ),
     _schema(
         "run_bash",
         "Run a shell command and return its stdout. Times out after 10 seconds.",
-        "command",
-        'The command to execute, e.g. "ls -la" or "python script.py".',
+        {"command": 'The command to execute, e.g. "ls -la" or "python script.py".'},
     ),
     _schema(
         "calculate",
         "Evaluate a basic arithmetic expression (+, -, *, /, //, %, **, "
         "parentheses) and return the numeric result.",
-        "expression",
-        'The arithmetic expression to evaluate, e.g. "(2 + 3) * 4".',
+        {"expression": 'The arithmetic expression to evaluate, e.g. "(2 + 3) * 4".'},
+    ),
+    _schema(
+        "save_memory",
+        "Save a fact for future runs of this agent to see. Always stored as "
+        "unverified with an automatic expiry - this tool cannot create a "
+        "permanent or verified entry.",
+        {
+            "content": 'The fact to remember, e.g. "tests run via pytest tests/ -v".',
+            "basis": 'What this is grounded in, e.g. "output of run_bash: '
+            'wc -l tests/".',
+        },
     ),
 ]
 
@@ -540,6 +586,12 @@ def run_agent(
 
     Returns:
         The model's final answer, or a message saying the cap was reached.
+
+    Before the first iteration, non-expired entries from memory.jsonl are
+    loaded and folded into the system message as a labelled block (see
+    memory.py). This happens once per run, not per iteration - memory
+    written by save_memory during this run is visible to future runs, not
+    retroactively to this one.
     """
     if model is not None:
         complete = model
@@ -547,8 +599,14 @@ def run_agent(
         complete = _gemini_completion
     else:
         complete = _groq_completion
+
+    system_content = SYSTEM_PROMPT
+    memory_block = memory.format_memory_for_prompt(memory.load_memory())
+    if memory_block:
+        system_content = f"{SYSTEM_PROMPT}\n\n{memory_block}"
+
     messages: list[ChatCompletionMessageParam] = [
-        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "system", "content": system_content},
         {"role": "user", "content": task},
     ]
 
