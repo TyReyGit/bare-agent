@@ -105,6 +105,69 @@ def test_varying_calls_do_not_trigger_loop_detection() -> None:
     assert "Stopped after detecting a loop" not in result
 
 
+def test_compaction_folds_old_iterations_and_preserves_a_record() -> None:
+    """FakeModel replays a fixed script regardless of what it's shown, so
+    this can't prove the model still reasons correctly over compacted
+    context - that needs a live model. What IS checkable: compaction
+    fires at the right point, keeps the conversation bounded instead of
+    growing forever, preserves a record of what was folded even when a
+    second compaction re-folds a summary that already exists, and the
+    loop still completes normally.
+    """
+    model = FakeModel(
+        tool_request("calculate", '{"expression": "1 + 1"}'),
+        tool_request("calculate", '{"expression": "2 + 2"}'),
+        tool_request("calculate", '{"expression": "3 + 3"}'),
+        tool_request("calculate", '{"expression": "4 + 4"}'),
+        final_answer("done"),
+    )
+
+    result = agent.run_agent("Do four sums", model=model, keep_recent_exchanges=2)
+
+    assert result == "done"
+
+    final_call_messages = model.seen[-1]
+    # Bounded: system + user + one compacted summary + 2 verbatim
+    # iterations (assistant+tool each) = 7, not the 10 it would be if
+    # every iteration were kept.
+    assert len(final_call_messages) == 7
+
+    compacted = final_call_messages[2]
+    assert compacted["role"] == "user"
+    assert str(compacted["content"]).startswith(agent._COMPACTED_HEADER)
+    # The very first call survives into the SECOND compaction's
+    # merge-forward - proving folding a summary re-uses its contents
+    # rather than silently discarding them.
+    assert "1 + 1" in str(compacted["content"])
+
+    # The two most recent iterations stay verbatim, not summarised.
+    assert final_call_messages[3]["role"] == "assistant"
+    assert final_call_messages[3].get("tool_calls")
+    assert final_call_messages[5]["role"] == "assistant"
+    assert final_call_messages[5].get("tool_calls")
+
+
+def test_short_task_does_not_trigger_compaction() -> None:
+    """A task within the default keep_recent_exchanges=5 window - like
+    every task in the current 14-task eval suite - must never compact.
+    """
+    model = FakeModel(
+        tool_request("calculate", '{"expression": "1 + 1"}'),
+        tool_request("calculate", '{"expression": "2 + 2"}'),
+        tool_request("calculate", '{"expression": "3 + 3"}'),
+        final_answer("done"),
+    )
+
+    result = agent.run_agent("Do three sums", model=model)
+
+    assert result == "done"
+    final_call_messages = model.seen[-1]
+    # No folding: system + user + 3 full iterations (assistant+tool) = 8.
+    assert len(final_call_messages) == 8
+    assert not any(
+        agent._COMPACTED_HEADER in str(m.get("content", "")) for m in final_call_messages
+    )
+
 def test_tool_result_is_fed_back_into_the_conversation() -> None:
     model = FakeModel(
         tool_request("calculate", '{"expression": "6 * 7"}'),
