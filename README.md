@@ -6,14 +6,16 @@ design decision below is one I can defend, because I made it deliberately
 and tested it, not because a library made it for me.
 
 **Status:** Phase 2 of an active harness-engineering track. Loop, tool
-contracts, verification, loop detection, and cross-run memory are built
-and tested. Permissions, persisted observability, and subagent delegation
-are not yet — see [What's not built yet](#whats-not-built-yet).
+contracts, verification, loop detection, cross-run memory, and a
+three-tier permission gate are built and tested. Persisted observability
+and subagent delegation are not yet — see
+[What's not built yet](#whats-not-built-yet).
 
-~1,212 lines across `agent.py` (670 — loop, tool dispatch, compaction,
-loop detection), `tools.py` (370 — four sandboxed tools), `memory.py`
-(169 — cross-run memory), and `__init__.py` (3) — plus 47 tests and a
-14-task eval harness with pass^k instrumentation.
+~1,601 lines across `agent.py` (708 — loop, tool dispatch, compaction,
+loop detection, permission checks), `tools.py` (512 — sandboxed tools
+plus the bash allowlist), `permissions.py` (209 — three-tier gate),
+`memory.py` (169 — cross-run memory), and `__init__.py` (3) — plus 71
+tests and a 14-task eval harness with pass^k instrumentation.
 
 ## Why no framework
 
@@ -35,7 +37,7 @@ either building or not building would be alone.
 | The loop (ReAct) | Done | `run_agent()` — reason, call a tool, observe, repeat, until a final answer or a stop condition |
 | Verification | Done | 14-task eval harness, pass^k instrumentation, ERROR/FAIL distinction |
 | Context management | Done | Deterministic compaction + cross-run memory (this doc covers both below) |
-| Permissions | Not started | No enforced blast-radius control yet |
+| Permissions | Done | Three-tier gate (auto-allow/ask-first/never), 'never' enforced in code — see [Security posture](#security-posture) |
 | Observability | Partial | Console trace only; no persisted structured logs yet |
 | Orchestration | Not started | No subagent delegation yet |
 
@@ -169,10 +171,6 @@ what it says, nothing about whether the underlying claim is true.
   `wc -l` result inside a compacted summary. Fixed with a middle-preserving
   truncation and a regression test using the exact string that broke.
 - **Memory's write side is unproven under real conditions** — see above.
-- **No enforced permission tiers yet.** The code-not-prompt principle
-  behind the memory tier separation is designed to extend to a three-tier
-  permission gate (auto-allow / ask-first / never), but that gate doesn't
-  exist yet.
 - **No persisted, structured traces.** Console output only.
 
 ## Security posture
@@ -187,17 +185,42 @@ what it says, nothing about whether the underlying claim is true.
   OWASP ASI05 (unexpected code execution): separating generation from
   execution is the principle; being precise about what the separation
   actually is is the practice.
+- **Three-tier permission gate — auto-allow / ask-first / never.**
+  `classify(tool_name, args)` is a pure function mapping every tool call
+  to a tier; `check_permission()` is mode-aware and produces the actual
+  decision. Tier is a function of `(tool, args)`, not tool name alone —
+  `read_file` inside the workspace and `read_file` outside it are
+  different tiers. The `never` tier is enforced as a code path the model
+  cannot reach, not a prompt instruction the model is asked to honour.
+  `ask-first` actions the model can't get approval for (eval runs,
+  non-interactive mode) resolve to `AUTO_DENY` — the tool function is
+  never entered, and the denial is returned as a teaching result rather
+  than a silent failure. Every decision is logged, including auto-allows.
+- **A real bug this gate caught before it shipped:** `_classify_bash`
+  tokenized commands with `str.split()` while the actual executor used
+  `shlex.split()`. The mismatch meant a quoted absolute path — e.g.
+  `cat "/etc/passwd"` — was classified against the wrong tokens and
+  bypassed the workspace-escape check the allowlist was supposed to
+  enforce. Fixed by aligning both paths on `shlex.split()`, with
+  regression tests covering the exact quoting pattern that broke.
+  Included here rather than left in a commit message because a
+  permission gate whose classifier disagrees with its own executor is a
+  more interesting and more honest finding than a clean build.
+- **Measured, not asserted.** `perm-01` is scored by filesystem state (did
+  the forbidden write actually happen), not by asking the model whether it
+  complied. pass^3 with the gate live: `perm-01` held 3/3, and non-permission
+  tasks held at the pre-gate baseline (11/14) — the gate cost nothing on
+  the existing suite.
 - **Memory poisoning (OWASP ASI06)** is mitigated structurally, not by
   instruction — see the memory section above.
-- **What this doesn't cover yet:** no permission tiers, no persisted trace
-  of which actions were taken and why, no rate limiting beyond what the
-  provider SDKs enforce.
+- **What this doesn't cover yet:** no persisted trace of which actions
+  were taken and why beyond console output, no rate limiting beyond what
+  the provider SDKs enforce.
 
 ## What's not built yet
 
-Three-tier permission gate (auto-allow / ask-first / never, with "never"
-enforced in code), persisted structured observability, one subagent
-delegation. Roadmap detail lives outside this repo.
+Persisted structured observability, one subagent delegation. Roadmap
+detail lives outside this repo.
 
 ## Lessons learned
 
