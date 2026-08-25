@@ -25,7 +25,7 @@ from groq.types.chat import (
     ChatCompletionToolParam,
 )
 
-from bare_agent import memory, tools
+from bare_agent import memory, permissions, tools
 
 load_dotenv()
 
@@ -409,11 +409,28 @@ def _gemini_completion(
     )
 
 
-def _execute_tool(tool_call: ChatCompletionMessageToolCall) -> str:
+def _execute_tool(
+    tool_call: ChatCompletionMessageToolCall, mode: permissions.Mode
+) -> str:
     """Run one requested tool, returning the model-visible result string.
 
     Every failure becomes a returned string rather than an exception: the
     model reads this text and gets a chance to correct itself next turn.
+
+    Every call passes through permissions.check_permission() first,
+    including calls that will simply come back AUTO_ALLOW - read_file and
+    calculate are not special-cased around the gate, because a gate only
+    consulted for calls that already look risky has a blind spot exactly
+    where the risk analysis turns out to be wrong. A NEVER-tier call never
+    reaches the underlying tool function at all: that is what makes NEVER a
+    code-level constraint rather than a prompt preference (see
+    permissions.py's own module docstring for the same argument).
+
+    An approved ASK_FIRST run_bash call is dispatched to
+    tools.run_bash_approved, not tools.run_bash - the model-facing run_bash
+    refuses mutating commands unconditionally regardless of what any gate
+    decides (see tools.py), so approval has to route to the separate
+    privileged executor to have any effect at all.
     """
     name = tool_call.function.name
     function = TOOL_FUNCTIONS.get(name)
@@ -426,6 +443,18 @@ def _execute_tool(tool_call: ChatCompletionMessageToolCall) -> str:
         return f"Arguments for '{name}' were not valid JSON: {exc}."
     if not isinstance(arguments, dict):
         return f"Arguments for '{name}' must be a JSON object, got {type(arguments).__name__}."
+
+    decision = permissions.check_permission(name, arguments, mode)
+    print(f"  permission {decision.tier.value}: {decision.reason}")
+
+    if not decision.allowed:
+        return decision.reason
+
+    if name == "run_bash" and decision.tier is permissions.Tier.ASK_FIRST:
+        try:
+            return tools.run_bash_approved(**arguments)
+        except TypeError as exc:
+            return f"Invalid arguments for '{name}': {exc}."
 
     try:
         return function(**arguments)
@@ -563,6 +592,7 @@ def run_agent(
     max_iterations: int = MAX_ITERATIONS,
     max_consecutive_repeats: int = MAX_CONSECUTIVE_REPEATS,
     keep_recent_exchanges: int = KEEP_RECENT_EXCHANGES,
+    mode: permissions.Mode = permissions.Mode.INTERACTIVE,
 ) -> str:
     """Run the ReAct loop until the model answers or the budget runs out.
 
@@ -583,6 +613,14 @@ def run_agent(
             see _compact_if_needed's docstring for why. Default sits above
             what any current eval task produces, so it does not fire on
             the existing suite.
+        mode: Which permissions.Mode governs ASK_FIRST tool calls.
+            INTERACTIVE (the default) prompts at the terminal and waits for
+            a yes/no - correct when a human is actually present, as in the
+            __main__ block below. AUTO_DENY denies every ASK_FIRST call
+            without prompting - correct for unattended eval runs, which
+            have no human available to ask, and which must not silently
+            grant themselves consequential actions just because nobody is
+            watching.
 
     Returns:
         The model's final answer, or a message saying the cap was reached.
@@ -625,7 +663,7 @@ def run_agent(
         messages.append(_as_assistant_param(message, tool_calls))
         for call in tool_calls:
             print(f"  call   {call.function.name}({_truncate(call.function.arguments)})")
-            result = _execute_tool(call)
+            result = _execute_tool(call, mode)
             print(f"  result {_truncate(result)}")
             messages.append(
                 {"role": "tool", "tool_call_id": call.id, "content": result}
