@@ -212,8 +212,8 @@ def test_compaction_preserves_a_trailing_total_end_to_end() -> None:
     # _execute_tool, since the point is testing what compaction does with
     # a specific string, not re-testing tool execution.
     original_execute = agent._execute_tool
-    agent._execute_tool = lambda call: (
-        long_result if call.function.name == "run_bash" else original_execute(call)
+    agent._execute_tool = lambda call, mode: (
+        long_result if call.function.name == "run_bash" else original_execute(call, mode)
     )
     try:
         result = agent.run_agent("Count lines", model=model, keep_recent_exchanges=2)
@@ -271,6 +271,8 @@ def test_wrong_argument_name_is_reported_back_to_the_model() -> None:
 
 
 def test_execute_tool_runs_the_real_function() -> None:
-    result = agent._execute_tool(make_tool_call("calculate", '{"expression": "(2+3)*4"}'))
-
+    result = agent._execute_tool(
+        make_tool_call("calculate", '{"expression": "(2+3)*4"}'),
+        agent.permissions.Mode.INTERACTIVE,
+    )
     assert result == "20"
