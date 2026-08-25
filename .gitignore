@@ -10,3 +10,4 @@ eval/traces/
 src/*.egg-info/
 *:Zone.Identifier
 memory.jsonl
+*.bak*
