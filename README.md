@@ -46,7 +46,7 @@ either building or not building would be alone.
 ```bash
 python -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt   # or however your deps are pinned
+pip install -e .   # deps are declared in pyproject.toml
 ```
 
 Create a `.env` file:
