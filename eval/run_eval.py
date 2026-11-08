@@ -27,12 +27,18 @@ The agent narrates its ReAct loop to stdout. That narration is captured per
 task into eval/traces/{id}.log so the console shows only the results table;
 full results, including every answer, land in eval/results/.
 
+--provider and --model are required (no defaults), so a result file can
+never be ambiguous about what produced it. Every result entry records
+provider, model and the number of provider-specific retries (e.g. Groq's
+malformed-tool-call retry) made for that task.
+
 Run from the repo root (tools.WORKSPACE_DIR is the relative path workspace/):
-    python eval/run_eval.py
+    python eval/run_eval.py --provider gemini --model gemini-3.6-flash
 """
 
 from __future__ import annotations
 
+import argparse
 import contextlib
 import io
 import json
@@ -42,9 +48,10 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import TypedDict, cast
+from typing import NoReturn, TypedDict, cast
 
 from bare_agent import permissions, tools
+from bare_agent import agent
 from bare_agent.agent import run_agent
 
 EVAL_DIR = Path("eval")
@@ -153,6 +160,9 @@ class Result(TypedDict):
     answer: str
     status: str
     error: str | None
+    provider: str
+    model: str
+    retries: int
 
 
 def load_tasks(path: Path) -> list[Task]:
@@ -280,10 +290,17 @@ def run_task(
     buffer = io.StringIO()
     answer = ""
     error: str | None = None
+    config = agent.active_config()
+    agent.reset_retry_count()
 
     try:
         with contextlib.redirect_stdout(buffer):
             answer = run_agent(task["task"], mode=mode)
+    except agent.FatalProviderError as exc:
+        # Retrying the next task cannot succeed (bad key, no credit): keep
+        # this task's trace, then let the caller abort the whole run.
+        write_trace(task["id"], buffer.getvalue(), f"{type(exc).__name__}: {exc}")
+        raise
     except Exception as exc:
         error = f"{type(exc).__name__}: {exc}"
 
@@ -304,6 +321,9 @@ def run_task(
         "answer": answer,
         "status": status,
         "error": error,
+        "provider": config.provider,
+        "model": config.model,
+        "retries": agent.get_retry_count(),
     }
 
 
@@ -371,8 +391,54 @@ def write_results(results: list[Result]) -> Path:
     return path
 
 
+def add_provider_args(parser: argparse.ArgumentParser) -> None:
+    """Add the REQUIRED --provider/--model flags shared by both runners."""
+    parser.add_argument(
+        "--provider",
+        required=True,
+        choices=agent.PROVIDERS,
+        help="Model provider. Required: there is deliberately no default.",
+    )
+    parser.add_argument(
+        "--model",
+        required=True,
+        help="Exact model slug for that provider (e.g. gemini-3.6-flash). "
+        "Required: there is deliberately no default.",
+    )
+
+
+def apply_provider_args(args: argparse.Namespace) -> agent.ProviderConfig:
+    """Configure the agent from parsed flags; exit with the message if invalid."""
+    if not args.model.strip():
+        print("--model must be a non-empty exact model slug.", file=sys.stderr)
+        raise SystemExit(2)
+    try:
+        return agent.configure(args.provider, args.model)
+    except agent.ProviderError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2) from None
+
+
+def abort_run(exc: agent.FatalProviderError) -> NoReturn:
+    """Stop an eval run on a fatal provider error; no results file is written."""
+    print(
+        f"\nAborting run: {exc}\nNo results file was written; the failing "
+        "task's trace is in eval/traces/.",
+        file=sys.stderr,
+    )
+    raise SystemExit(1)
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments (provider and model are required)."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_provider_args(parser)
+    return parser.parse_args()
+
+
 def main() -> None:
     """Rebuild the workspace, run every task, then report and save results."""
+    config = apply_provider_args(parse_args())
     if not TASKS_FILE.exists() or not FIXTURES_DIR.is_dir():
         print(
             f"Could not find {TASKS_FILE} and {FIXTURES_DIR}/ relative to the "
@@ -384,6 +450,7 @@ def main() -> None:
         )
         sys.exit(1)
 
+    print(f"Provider: {config.provider}  Model: {config.model}")
     tasks = load_tasks(TASKS_FILE)
     prepare_workspace()
 
@@ -392,7 +459,10 @@ def main() -> None:
         # One line per task so a multi-minute run isn't silent; the agent's
         # own output is captured to eval/traces/ and kept off the console.
         print(f"[{i:>2}/{len(tasks)}] {task['id']} ...", end=" ", flush=True)
-        result = run_task(task)
+        try:
+            result = run_task(task)
+        except agent.FatalProviderError as exc:
+            abort_run(exc)
         results.append(result)
         print(result["status"], flush=True)
         if i < len(tasks):

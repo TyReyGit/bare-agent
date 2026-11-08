@@ -9,12 +9,14 @@ requires-python = ">=3.11"
 dependencies = [
     "google-genai",
     "groq",
+    "openai>=3,<4",
     "python-dotenv",
 ]
 [project.optional-dependencies]
 dev = [
     "pytest",
     "mypy",
+    "httpx2<3",
 ]
 
 [tool.setuptools.packages.find]

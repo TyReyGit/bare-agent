@@ -1,4 +1,4 @@
-"""A bare ReAct loop over the Groq or Gemini API — no agent framework.
+"""A bare ReAct loop over the Groq, Gemini or OpenRouter API — no agent framework.
 
 The loop is deliberately tiny: send the conversation to the model, let it
 either call a tool or answer, run the tool, append the result, repeat. The
@@ -11,8 +11,10 @@ from __future__ import annotations
 import json
 import os
 import time
-from typing import Callable
+from dataclasses import dataclass
+from typing import Any, Callable
 
+import openai
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types as genai_types
@@ -31,7 +33,98 @@ load_dotenv()
 
 GROQ_MODEL = "llama-3.3-70b-versatile"
 GEMINI_MODEL = "gemini-3.6-flash"
-PROVIDER = os.getenv("AGENT_PROVIDER", "groq").lower()
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+OPENROUTER_KEY_ENV = "OPENROUTER_API_KEY"
+PROVIDERS = ("groq", "gemini", "openrouter")
+DEFAULT_PROVIDER = "groq"
+# OpenRouter deliberately has no default model: it fronts hundreds, and a
+# silent default would let two runs be confused. The caller must name one.
+DEFAULT_MODELS: dict[str, str | None] = {
+    "groq": GROQ_MODEL,
+    "gemini": GEMINI_MODEL,
+    "openrouter": None,
+}
+
+class ProviderError(RuntimeError):
+    """A provider problem the user can act on (bad config, key, credit, quota).
+
+    Its message is written to be shown as-is, and never contains key values.
+    """
+
+
+class FatalProviderError(ProviderError):
+    """A ProviderError that retrying the next task cannot fix (bad key, no credit).
+
+    Eval runners abort the whole run on this instead of recording an ERROR
+    for every remaining task.
+    """
+
+
+@dataclass(frozen=True)
+class ProviderConfig:
+    """Which provider and exact model slug a run is using."""
+
+    provider: str
+    model: str
+
+
+def resolve_provider(
+    provider: str | None = None, model: str | None = None
+) -> ProviderConfig:
+    """Pick provider and model: explicit argument, then env var, then default.
+
+    Environment variables are AGENT_PROVIDER and AGENT_MODEL. The default
+    provider is groq (with its default model); gemini has a default model
+    too; openrouter has none and requires one to be named. Model slugs are
+    passed through exactly as given - never rewritten or substituted.
+
+    Raises:
+        ProviderError: Unknown provider, or openrouter with no model.
+    """
+    name = (provider or os.getenv("AGENT_PROVIDER") or DEFAULT_PROVIDER).lower()
+    if name not in PROVIDERS:
+        raise ProviderError(
+            f"Unknown provider {name!r}. Choose one of: {', '.join(PROVIDERS)}."
+        )
+    chosen = model or os.getenv("AGENT_MODEL") or DEFAULT_MODELS[name]
+    if not chosen:
+        raise ProviderError(
+            f"Provider {name!r} has no default model. Pass --model or set "
+            "AGENT_MODEL to an exact model slug."
+        )
+    return ProviderConfig(name, chosen)
+
+
+_config: ProviderConfig | None = None
+
+
+def configure(provider: str | None = None, model: str | None = None) -> ProviderConfig:
+    """Fix the provider and model for subsequent run_agent() calls."""
+    global _config
+    _config = resolve_provider(provider, model)
+    return _config
+
+
+def active_config() -> ProviderConfig:
+    """The configured provider/model, resolving from env/defaults if unset."""
+    return _config if _config is not None else resolve_provider()
+
+
+# Count of provider-specific retries (currently Groq's malformed-tool-call
+# retry) since the last reset, so eval results can show them per task.
+_retry_count = 0
+
+
+def reset_retry_count() -> None:
+    """Zero the retry counter; call before each task."""
+    global _retry_count
+    _retry_count = 0
+
+
+def get_retry_count() -> int:
+    """Retries made since the last reset_retry_count()."""
+    return _retry_count
+
 MAX_ITERATIONS = 15
 MAX_TOOL_CALL_RETRIES = 8
 _RETRY_BACKOFF_SECONDS = 1.0
@@ -298,6 +391,7 @@ ModelFn = Callable[[list[ChatCompletionMessageParam]], ChatCompletionMessage]
 
 _client: Groq | None = None
 _gemini_client: genai.Client | None = None
+_openrouter_client: openai.OpenAI | None = None
 
 # Gemini attaches an opaque thought_signature to each functionCall part, and
 # rejects a replayed turn that is missing it. That signature cannot survive
@@ -312,30 +406,95 @@ _GEMINI_MIN_INTERVAL_SECONDS = 0.5
 _gemini_last_call_at = 0.0
 
 
-def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
-    """Send the conversation to Groq and return the assistant's reply.
+_RATE_LIMIT_BACKOFFS = (2.0, 5.0)
 
-    Retries a bounded number of times if Groq rejects the request with a
-    'tool_use_failed' error. This happens when the model emits a malformed
-    tool call (a pseudo-XML wrapper instead of structured JSON) rather than
-    a valid one — a sampling issue, not a problem with our request. Any
-    other BadRequestError is a real problem and is raised immediately.
+
+def _is_rate_limited(exc: Exception) -> bool:
+    """True for an HTTP 429 from any SDK (groq/openai: status_code, genai: code)."""
+    return 429 in (getattr(exc, "status_code", None), getattr(exc, "code", None))
+
+
+def _send_with_429_retry(send: Callable[[], Any]) -> Any:
+    """Call send(), retrying HTTP 429 up to twice (2s then 5s backoff).
+
+    Each retry counts in the per-task retry counter. Anything other than a
+    429 - including 401/402 - is raised at once, and a 429 that outlasts the
+    retries is re-raised unchanged for the caller to report.
     """
-    global _client
-    if _client is None:
-        _client = Groq()  # reads GROQ_API_KEY from the environment
+    global _retry_count
+    for attempt, wait in enumerate(_RATE_LIMIT_BACKOFFS, start=1):
+        try:
+            return send()
+        except Exception as exc:
+            if not _is_rate_limited(exc):
+                raise
+            _retry_count += 1
+            print(
+                f"  retry {attempt}/{len(_RATE_LIMIT_BACKOFFS)}: HTTP 429 "
+                f"(rate limited), waiting {wait:.0f}s..."
+            )
+            time.sleep(wait)
+    return send()
 
+
+def _normalise_message(message: Any) -> ChatCompletionMessage:
+    """Return a groq-typed assistant message from any OpenAI-shaped one.
+
+    The loop stores Groq-shaped messages. Groq's own reply already is one and
+    passes through untouched; an openai-SDK reply is rebuilt field by field.
+    """
+    if isinstance(message, ChatCompletionMessage):
+        return message
+    calls = [
+        ChatCompletionMessageToolCall(
+            id=call.id,
+            type="function",
+            function={  # type: ignore[arg-type]
+                "name": call.function.name,
+                "arguments": call.function.arguments,
+            },
+        )
+        for call in (message.tool_calls or [])
+        if call.type == "function"
+    ]
+    return ChatCompletionMessage(
+        role="assistant", content=message.content, tool_calls=calls or None
+    )
+
+
+def _openai_compat_completion(
+    create: Callable[..., Any],
+    model: str,
+    messages: list[ChatCompletionMessageParam],
+    *,
+    retry_tool_use_failed: bool,
+) -> ChatCompletionMessage:
+    """Send the conversation to an OpenAI-compatible endpoint (Groq, OpenRouter).
+
+    Args:
+        create: The client's chat.completions.create.
+        model: Exact model slug to send.
+        messages: The conversation.
+        retry_tool_use_failed: Groq only. Retry a bounded number of times if
+            Groq rejects the request with 'tool_use_failed' - the model
+            emitted a malformed tool call (a pseudo-XML wrapper instead of
+            structured JSON), a sampling issue and not a problem with our
+            request. Any other BadRequestError is real and raised at once.
+            Off for OpenRouter, whose errors are not retried here.
+    """
+    global _retry_count
     for attempt in range(1, MAX_TOOL_CALL_RETRIES + 1):
         try:
-            response = _client.chat.completions.create(
-                model=GROQ_MODEL, messages=messages, tools=TOOL_SCHEMAS
+            response = _send_with_429_retry(
+                lambda: create(model=model, messages=messages, tools=TOOL_SCHEMAS)
             )
-            return response.choices[0].message
+            return _normalise_message(response.choices[0].message)
         except BadRequestError as exc:
-            if "tool_use_failed" not in str(exc):
+            if not retry_tool_use_failed or "tool_use_failed" not in str(exc):
                 raise
             if attempt == MAX_TOOL_CALL_RETRIES:
                 raise
+            _retry_count += 1
             wait = _RETRY_BACKOFF_SECONDS * attempt
             print(
                 f"  retry {attempt}/{MAX_TOOL_CALL_RETRIES}: malformed tool call "
@@ -344,6 +503,77 @@ def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompleti
             time.sleep(wait)
 
     raise RuntimeError("Unreachable: retry loop exited without returning or raising.")
+
+
+def _groq_completion(messages: list[ChatCompletionMessageParam]) -> ChatCompletionMessage:
+    """Send the conversation to Groq and return the assistant's reply."""
+    global _client
+    if _client is None:
+        _client = Groq()  # reads GROQ_API_KEY from the environment
+    return _openai_compat_completion(
+        _client.chat.completions.create,
+        active_config().model,
+        messages,
+        retry_tool_use_failed=True,
+    )
+
+
+def _openrouter_error(exc: openai.APIStatusError, model: str) -> ProviderError | None:
+    """Map an OpenRouter 401/402/429 to an actionable message, else None.
+
+    401 and 402 are fatal (the next call will fail identically); 429 is not.
+    """
+    code = exc.status_code
+    if code == 401:
+        return FatalProviderError(
+            f"OpenRouter returned 401 (unauthorized). Check that {OPENROUTER_KEY_ENV} "
+            "is set, correct and not revoked."
+        )
+    if code == 402:
+        return FatalProviderError(
+            f"OpenRouter returned 402 (payment required) for {model!r}. Check your "
+            "OpenRouter credit balance - it is exhausted or too low for this model."
+        )
+    if code == 429:
+        return ProviderError(
+            f"OpenRouter returned 429 (rate limited) for {model!r}. Check your "
+            "rate limit (or the model's upstream limit), wait, and retry."
+        )
+    return None
+
+
+def _openrouter_completion(
+    messages: list[ChatCompletionMessageParam],
+) -> ChatCompletionMessage:
+    """Send the conversation to OpenRouter via the openai SDK.
+
+    401/402/429 become a ProviderError saying what to check. The SDK's own
+    silent retries are disabled (max_retries=0) so a 429 surfaces as such
+    instead of being hidden inside the client.
+    """
+    global _openrouter_client
+    if _openrouter_client is None:
+        key = os.getenv(OPENROUTER_KEY_ENV)
+        if not key:
+            raise FatalProviderError(
+                f"{OPENROUTER_KEY_ENV} is not set. Add it to .env."
+            )
+        _openrouter_client = openai.OpenAI(
+            base_url=OPENROUTER_BASE_URL, api_key=key, max_retries=0
+        )
+    model = active_config().model
+    try:
+        return _openai_compat_completion(
+            _openrouter_client.chat.completions.create,
+            model,
+            messages,
+            retry_tool_use_failed=False,
+        )
+    except openai.APIStatusError as exc:
+        friendly = _openrouter_error(exc, model)
+        if friendly is None:
+            raise
+        raise friendly from None
 
 
 def _gemini_completion(
@@ -370,16 +600,19 @@ def _gemini_completion(
         time.sleep(wait)
     _gemini_last_call_at = time.monotonic()
 
-    response = _gemini_client.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=contents,
-        config=genai_types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            tools=[_gemini_tool()],
-            automatic_function_calling=genai_types.AutomaticFunctionCallingConfig(
-                disable=True
+    client = _gemini_client
+    response = _send_with_429_retry(
+        lambda: client.models.generate_content(
+            model=active_config().model,
+            contents=contents,
+            config=genai_types.GenerateContentConfig(
+                system_instruction=system_instruction,
+                tools=[_gemini_tool()],
+                automatic_function_calling=genai_types.AutomaticFunctionCallingConfig(
+                    disable=True
+                ),
             ),
-        ),
+        )
     )
 
     tool_calls = []
@@ -599,8 +832,9 @@ def run_agent(
     Args:
         task: The user's request.
         model: Function that turns a conversation into an assistant message.
-            Defaults to the provider named by AGENT_PROVIDER (groq or
-            gemini); tests pass a fake.
+            Defaults to the provider selected by configure() or
+            AGENT_PROVIDER/AGENT_MODEL (groq, gemini or openrouter); tests
+            pass a fake.
         max_iterations: Hard cap on model round-trips.
         max_consecutive_repeats: Stop early if the same tool is called with
             identical arguments this many times in a row. Catches the
@@ -633,10 +867,11 @@ def run_agent(
     """
     if model is not None:
         complete = model
-    elif PROVIDER == "gemini":
-        complete = _gemini_completion
     else:
-        complete = _groq_completion
+        complete = {
+            "gemini": _gemini_completion,
+            "openrouter": _openrouter_completion,
+        }.get(active_config().provider, _groq_completion)
 
     system_content = SYSTEM_PROMPT
     memory_block = memory.format_memory_for_prompt(memory.load_memory())
@@ -694,15 +929,29 @@ def run_agent(
 
 
 if __name__ == "__main__":
+    import argparse
+
+    _parser = argparse.ArgumentParser(description="Run the demo task.")
+    _parser.add_argument("--provider", choices=PROVIDERS, help="default: groq")
+    _parser.add_argument("--model", help="exact model slug")
+    _args = _parser.parse_args()
+    try:
+        configure(_args.provider, _args.model)
+    except ProviderError as _exc:
+        raise SystemExit(str(_exc)) from None
+
     tools.WORKSPACE_DIR.mkdir(parents=True, exist_ok=True)
     (tools.WORKSPACE_DIR / "inventory.txt").write_text(
         "Warehouse inventory report\nwidgets in stock: 47\nunit price: 12.50\n",
         encoding="utf-8",
     )
 
-    final = run_agent(
-        "Read inventory.txt from the workspace. It lists how many widgets are "
-        "in stock and their unit price. Work out the total value of the widget "
-        "stock, and tell me the number."
-    )
+    try:
+        final = run_agent(
+            "Read inventory.txt from the workspace. It lists how many widgets are "
+            "in stock and their unit price. Work out the total value of the widget "
+            "stock, and tell me the number."
+        )
+    except ProviderError as _exc:
+        raise SystemExit(str(_exc)) from None
     print(f"\n{'=' * 40}\n{final}")

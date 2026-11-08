@@ -58,6 +58,22 @@ than relying on the default — it does not persist across sessions:
 AGENT_PROVIDER=groq python -m bare_agent.agent
 ```
 
+### Providers and models
+
+Three providers: `groq` (default), `gemini`, and `openrouter` (via the
+`openai` SDK; needs `OPENROUTER_API_KEY`). Select with flags or env vars
+(`AGENT_PROVIDER`, `AGENT_MODEL`); flags win. OpenRouter has no default
+model — name an exact slug. The eval runners **require** both flags and
+record `provider`, `model` and a per-task `retries` count in every result:
+
+```bash
+python -m bare_agent.agent --provider openrouter --model anthropic/claude-haiku-5.5
+python eval/run_passk.py -k 3 --provider gemini --model gemini-3.6-flash
+```
+
+A 401/402/429 from OpenRouter is reported as a one-line message saying what
+to check (key, credit, rate limit) rather than a traceback.
+
 Run the tests:
 ```bash
 python -m pytest -v

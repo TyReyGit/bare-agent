@@ -45,8 +45,11 @@ mistake. This distinction exists because the first live pass^k run
 apart from a task with a genuine wrong answer, until now.
 
 Run from the repo root:
-    AGENT_PROVIDER=gemini python eval/run_passk.py -k 3   # smoke-tested, works
-    python eval/run_passk.py -k 3                          # defaults to groq
+    python eval/run_passk.py -k 3 --provider gemini --model gemini-3.6-flash
+    python eval/run_passk.py -k 3 --provider openrouter --model <exact-slug>
+
+--provider and --model are required (no defaults); both are recorded in the
+results file, and each run's per-task entries carry them plus a retry count.
 """
 
 from __future__ import annotations
@@ -59,7 +62,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import TypedDict
 
-from bare_agent.agent import PROVIDER
+from bare_agent import agent
 from run_eval import (
     FIXTURES_DIR,
     RESULTS_DIR,
@@ -67,6 +70,9 @@ from run_eval import (
     TRACES_DIR,
     Result,
     Task,
+    abort_run,
+    add_provider_args,
+    apply_provider_args,
     load_tasks,
     prepare_workspace,
     print_summary,
@@ -141,7 +147,10 @@ def run_one_pass(tasks: list[Task], run_index: int, total_runs: int) -> list[Res
             end=" ",
             flush=True,
         )
-        result = run_task(task)
+        try:
+            result = run_task(task)
+        except agent.FatalProviderError as exc:
+            abort_run(exc)
         results.append(result)
         print(result["status"], flush=True)
 
@@ -253,7 +262,12 @@ def print_passk_summary(records: list[TaskPassK], run_rates: list[float]) -> Non
 
 
 def write_passk_results(
-    k: int, runs: list[list[Result]], records: list[TaskPassK], run_rates: list[float]
+    k: int,
+    runs: list[list[Result]],
+    records: list[TaskPassK],
+    run_rates: list[float],
+    provider: str,
+    model: str,
 ) -> Path:
     """Write every pass's raw results plus the pass^k aggregate to eval/results/.
 
@@ -262,6 +276,8 @@ def write_passk_results(
         runs: Each pass's full Result list, in run order.
         records: The pass^k record for each task.
         run_rates: Each pass's own pass@1 rate, same order as runs.
+        provider: Provider name, recorded in the file.
+        model: Exact model slug, recorded in the file.
 
     Returns:
         The path written.
@@ -271,7 +287,8 @@ def write_passk_results(
     path = RESULTS_DIR / f"passk-{k}-{stamp}.json"
     payload = {
         "k": k,
-        "provider": PROVIDER,
+        "provider": provider,
+        "model": model,
         "timestamp": stamp,
         "pass_at_1": {
             "rates": run_rates,
@@ -302,6 +319,7 @@ def parse_args() -> argparse.Namespace:
         "smoke test of the mechanism); use 5 for the number that goes in "
         "the README.",
     )
+    add_provider_args(parser)
     return parser.parse_args()
 
 
@@ -316,6 +334,7 @@ def main() -> None:
         raise SystemExit(1)
 
     args = parse_args()
+    config = apply_provider_args(args)
     if args.runs < 2:
         print(
             "k must be at least 2 — pass^1 is just pass@1. "
@@ -326,7 +345,7 @@ def main() -> None:
     tasks = load_tasks(TASKS_FILE)
     runs: list[list[Result]] = []
 
-    print(f"Provider: {PROVIDER}")
+    print(f"Provider: {config.provider}  Model: {config.model}")
 
     for n in range(1, args.runs + 1):
         print(f"\n=== pass {n}/{args.runs} ===")
@@ -337,7 +356,7 @@ def main() -> None:
         if n < args.runs:
             print(
                 f"\nPausing {SLEEP_BETWEEN_RUNS_SECONDS}s before the next "
-                f"pass (provider: {PROVIDER}; this pause is sized for "
+                f"pass (provider: {config.provider}; this pause is sized for "
                 "Groq's per-minute limit and may be more conservative "
                 "than other providers need)..."
             )
@@ -349,7 +368,9 @@ def main() -> None:
     records = aggregate(tasks, runs)
     print_passk_summary(records, run_rates)
 
-    path = write_passk_results(args.runs, runs, records, run_rates)
+    path = write_passk_results(
+        args.runs, runs, records, run_rates, config.provider, config.model
+    )
     print()
     print(f"Results: {path}")
     print(f"Traces:  {TRACES_DIR}/run-1/ .. run-{args.runs}/")
