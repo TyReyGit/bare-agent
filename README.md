@@ -46,8 +46,18 @@ either building or not building would be alone.
 ```bash
 python -m venv venv
 source venv/bin/activate
+
+# Reproducible install (exact pinned versions)
+pip install -r requirements-lock.txt
+pip install -e . --no-deps
+
+# Or, latest versions within the pyproject.toml ranges (not lock-tested)
 pip install -e .   # deps are declared in pyproject.toml
 ```
+
+Note: the lock was generated with `pip freeze` from the environment that
+passed the 8 Nov 2026 live smoke test. It pins exact versions but does not
+include hashes, and runtime and dev dependencies are in one file.
 
 Create a `.env` file:
 
