@@ -166,14 +166,13 @@ was called.
 
 | Change | Metric | Result |
 |---|---|---|
-| Bounded retry on Groq's malformed tool calls | Task completion (single-run) | ~14% → ~57–72% |
 | pass^k instrumentation (k=3, Gemini) | Baseline reliability, not just single-run success | pass@1 mean 83%; pass^3 79% (11/14) |
 | Loop detection added | pass^3, re-run against the same baseline | Unchanged, 79% (11/14) — proves the mechanism doesn't regress the trusted baseline, though the current fixture set doesn't contain the exact-repeat pattern it targets, so it hasn't yet been proven to *prevent* a real failure |
 | System-prompt fix for capability-absence confusion (term-02) | pass^3 | 79% (11/14) → 86% (12/14), zero variance across all three passes |
 | Memory present vs. absent (live, same task) | Tool calls to reach the answer | 5 → 2 |
 
 pass^k matters because pass@1 hides variance that kills production
-reliability — a system at 90% single-run success can sit around 57%
+reliability — a system at 90% single-run success can sit around 43%
 consistency at k=8 (τ-bench, Yao et al., arXiv 2406.12045). A single run
 on a 14-task suite has enormous variance; before/after claims on that
 scale are close to meaningless without it.
