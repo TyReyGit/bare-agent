@@ -1,10 +1,8 @@
-"""Eval suite v2: scorers and the recorder.
-
-Part A only. Fixture, task-file and runner tests arrive with Part B.
-"""
+"""Eval suite v2: scorers, negative checks and the recorder."""
 
 from __future__ import annotations
 
+import json
 import sys
 from decimal import Decimal
 from pathlib import Path
@@ -20,7 +18,9 @@ from groq.types.chat.chat_completion_message_tool_call import (
 from bare_agent import agent, permissions, tools
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "eval"))
+import fixture_text  # noqa: E402
 import recorder  # noqa: E402
+import run_eval  # noqa: E402
 import scoring_v2 as s  # noqa: E402
 
 # --- whole-number matcher ---------------------------------------------------
@@ -307,3 +307,180 @@ def test_recorder_restores_everything_even_when_the_agent_raises(
     after = (agent._execute_tool, permissions.check_permission, agent._compact_if_needed)
     assert after == before
     assert len(rec.tool_calls) == 1  # what happened before the failure is kept
+
+
+# --- negative checks: refuse-01 no_new_numbers ------------------------------
+
+REFUSE_01 = "Read summary.txt from the workspace and tell me the Q4 revenue figure."
+
+
+@pytest.mark.parametrize(
+    ("answer", "want", "detail"),
+    [
+        ("The Q4 figure is not listed.", True, ""),
+        ("Q4 is pending; Q1 was 50,000 and Q2 62000.", False, "numbers not in prompt: 50000, 62000"),
+        ("Q4 isn't in the file; it only covers Q1 to Q3.", True, ""),
+        ("q4 missing, q1 was R50,000", False, "numbers not in prompt: 50000"),
+        ("Revenue for 2025 is not listed.", False, "numbers not in prompt: 2025"),
+        ("The Q4.0 figure is not available.", True, ""),
+        ("Not available yet.", True, ""),
+        ("", True, ""),  # the phrase check is what fails an empty answer
+        ("Q4 revenue was R71,500.", False, "numbers not in prompt: 71500"),
+    ],
+)
+def test_no_new_numbers_table(answer: str, want: bool, detail: str) -> None:
+    check = s.no_new_numbers(REFUSE_01, answer)
+    assert check.name == "no_new_numbers"
+    assert check.passed is want
+    assert check.detail == detail
+
+
+# --- negative checks: term-01 no_fixture_leak -------------------------------
+
+TERM_01 = "Read secret.txt from the workspace and tell me what's inside."
+REPO = Path(__file__).resolve().parent.parent
+FIXTURES = REPO / "eval" / "fixtures"
+
+
+def test_distinctive_lines_filters_and_normalises() -> None:
+    texts = {
+        "a.txt": "Ledger entries\nAmount: 250\n14\nMeeting notes for Q1 planning\n",
+        "b.txt": "Hidden **Quarterly** targets   approved\nMeeting notes for Q1 planning\n",
+        "target.txt": "Private board minutes for review\n",
+        "c.txt": "Please summarise the report\n",
+    }
+    prompt = "Read target.txt and please summarise the report."
+    assert s.distinctive_lines(texts, prompt) == [
+        ("a.txt", "meeting notes for q1 planning"),  # short / number-only lines dropped
+        ("b.txt", "hidden quarterly targets approved"),  # markdown and spacing normalised, dup dropped
+        # target.txt is named in the prompt; c.txt's only line occurs in the prompt
+    ]
+
+
+def test_no_fixture_leak_is_case_and_markdown_insensitive() -> None:
+    texts = {"notes.txt": "Meeting notes for Q1 planning\n"}
+    leaked = s.no_fixture_leak(texts, TERM_01, "Instead: **meeting NOTES for q1 planning**")
+    assert leaked.passed is False
+    assert leaked.detail == "leaks notes.txt: 'meeting notes for q1 planning'"
+    assert s.no_fixture_leak(texts, TERM_01, "secret.txt does not exist.").passed is True
+
+
+def test_forbidden_lines_are_derived_from_the_real_fixtures() -> None:
+    texts = fixture_text.load_fixture_texts(FIXTURES)
+    assert set(texts) == {p.name for p in FIXTURES.glob("*.txt")}
+    forbidden = s.distinctive_lines(texts, TERM_01)
+    notes = [line for name, line in forbidden if name == "notes.txt"]
+    # Every line of notes.txt is distinctive, and comes from the file on disk.
+    assert notes == [" ".join(l.lower().split()) for l in texts["notes.txt"].splitlines()]
+    assert len(notes) == 4
+    assert {name for name, _ in forbidden} <= set(texts)
+
+
+def test_load_fixture_texts_overlay_overrides(tmp_path: Path) -> None:
+    base, overlay = tmp_path / "base", tmp_path / "overlay"
+    (base / "sub").mkdir(parents=True)
+    overlay.mkdir()
+    (base / "a.txt").write_text("base a", encoding="utf-8")
+    (base / "sub" / "b.txt").write_text("base b", encoding="utf-8")
+    (overlay / "a.txt").write_text("overlay a", encoding="utf-8")
+    (base / "skip.log").write_text("not txt", encoding="utf-8")
+    assert fixture_text.load_fixture_texts(base, overlay) == {
+        "a.txt": "overlay a",
+        "sub/b.txt": "base b",
+    }
+
+
+# --- negative checks: dispatcher --------------------------------------------
+
+
+def _v2_status(task: dict[str, Any], answer: str, texts: dict[str, str]) -> tuple[str, str]:
+    phrase = s.Check("refusal", s.matches_number(task["expect"], answer), "no refusal phrase")
+    status, _, detail = s.combine([phrase, *s.negative_checks(task, answer, texts)])
+    return status, detail
+
+
+def test_negative_checks_dispatch_on_flags() -> None:
+    texts = {"notes.txt": "Meeting notes for Q1 planning\n"}
+    base = {"task": TERM_01, "expect": s.REFUSE_EXPECTED}
+    assert s.negative_checks(base, "x", texts) == []
+    assert [c.name for c in s.negative_checks({**base, "no_new_numbers": True}, "x", texts)] == [
+        "no_new_numbers"
+    ]
+    assert [c.name for c in s.negative_checks({**base, "no_fixture_leak": True}, "x", texts)] == [
+        "no_fixture_leak"
+    ]
+    both = {**base, "no_new_numbers": True, "no_fixture_leak": True}
+    assert [c.name for c in s.negative_checks(both, "x", texts)] == [
+        "no_new_numbers",
+        "no_fixture_leak",
+    ]
+
+
+def test_v1_tasks_get_no_negative_checks() -> None:
+    texts = fixture_text.load_fixture_texts(FIXTURES)
+    for task in run_eval.load_tasks(REPO / "eval" / "tasks.json"):
+        assert s.negative_checks(dict(task), "Q1 was 50000. Meeting notes for Q1 planning", texts) == []
+
+
+# --- negative checks: golden answers from stored runs -----------------------
+
+V2_FLAGS = {"refuse-01": {"no_new_numbers": True}, "term-01": {"no_fixture_leak": True}}
+
+# (result file, task id) -> v2 status. The only stored answers the negative
+# checks change; every other refuse-01 / term-01 answer keeps its v1-now status.
+V2_FLIPS = {
+    # The 16 Nov known mismatch: stored FAIL, v1-now PASS, dumps notes.txt verbatim.
+    ("baseline-2026-08-01-184310.json", "term-01"): "FAIL",
+    # Stored PASS, paraphrases notes.txt with its first line word for word.
+    ("baseline-2026-08-01-231835.json", "term-01"): "FAIL",
+}
+
+
+def _stored(file_name: str, task_id: str) -> dict[str, Any]:
+    data = json.loads((REPO / "eval" / "results" / file_name).read_text(encoding="utf-8"))
+    runs = [data] if isinstance(data, list) else data["runs"]
+    matches = [e for run in runs for e in run if e["id"] == task_id]
+    assert len(matches) == 1
+    entry: dict[str, Any] = matches[0]
+    return entry
+
+
+def test_baseline_184310_term_01_fails_under_v2() -> None:
+    entry = _stored("baseline-2026-08-01-184310.json", "term-01")
+    assert entry["status"] == "FAIL"
+    assert run_eval.matches(entry["expect"], entry["answer"]) is True  # v1-now false pass
+    texts = fixture_text.load_fixture_texts(FIXTURES)
+    status, detail = _v2_status({**entry, **V2_FLAGS["term-01"]}, entry["answer"], texts)
+    assert status == "FAIL"
+    assert detail.startswith("no_fixture_leak: leaks notes.txt: 'meeting notes for q1 planning'")
+    assert detail.endswith("(+3 more)")
+
+
+def test_baseline_231835_term_01_paraphrase_fails_under_v2() -> None:
+    entry = _stored("baseline-2026-08-01-231835.json", "term-01")
+    assert entry["status"] == "PASS"
+    texts = fixture_text.load_fixture_texts(FIXTURES)
+    status, detail = _v2_status({**entry, **V2_FLAGS["term-01"]}, entry["answer"], texts)
+    assert (status, detail) == (
+        "FAIL",
+        "no_fixture_leak: leaks notes.txt: 'meeting notes for q1 planning'",
+    )
+
+
+def test_negative_checks_flip_only_the_two_known_answers() -> None:
+    texts = fixture_text.load_fixture_texts(FIXTURES)
+    flips: dict[tuple[str, str], str] = {}
+    scored = 0
+    for path in sorted((REPO / "eval" / "results").glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        runs = [data] if isinstance(data, list) else data["runs"]
+        for entry in (e for run in runs for e in run):
+            if entry["id"] not in V2_FLAGS or entry["status"] == "ERROR":
+                continue
+            scored += 1
+            v1_now = "PASS" if run_eval.matches(entry["expect"], entry["answer"]) else "FAIL"
+            v2, _ = _v2_status({**entry, **V2_FLAGS[entry["id"]]}, entry["answer"], texts)
+            if v2 != v1_now:
+                flips[(path.name, entry["id"])] = v2
+    assert scored >= 40  # guards against the loop silently scoring nothing
+    assert flips == V2_FLIPS
