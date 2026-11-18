@@ -1,0 +1,5 @@
+Card-capture incident trace, October
+First case to look up in app.log: wren
+Each billing.reconcile record for a case names the next case to look up (next=...).
+Keep following the chain until a record says next=none.
+The incident total is the sum of the amount on every record in the chain.

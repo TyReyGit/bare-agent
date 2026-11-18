@@ -1,0 +1,2000 @@
+2026-10-14T06:00:00Z INFO  billing.reconcile  case=hornbill client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=lark amount=R282
+2026-10-14T06:00:26Z INFO  billing.reconcile  case=stork client="Meridian Physiotherapy" action="manual adjustment after the booking was moved" next=none amount=R1,664
+2026-10-14T06:00:34Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=571
+2026-10-14T06:00:55Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T06:01:12Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:01:34Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:01:43Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:02:07Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:02:23Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:02:36Z INFO  billing.reconcile  case=gull client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=prinia amount=R1,878
+2026-10-14T06:02:54Z INFO  bookings.api  GET /bookings/upcoming 200 in 121ms
+2026-10-14T06:03:13Z INFO  billing.reconcile  case=darter client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=none amount=R357
+2026-10-14T06:03:32Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:03:50Z INFO  crew.app  technician checked in on site
+2026-10-14T06:04:02Z INFO  bookings.api  GET /bookings/upcoming 200 in 63ms
+2026-10-14T06:04:24Z INFO  crew.app  technician checked in on site
+2026-10-14T06:04:37Z INFO  billing.reconcile  case=pipit client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=bittern amount=R281
+2026-10-14T06:04:52Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:05:12Z INFO  crew.app  technician checked in on site
+2026-10-14T06:05:30Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:05:48Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:06:00Z INFO  billing.reconcile  case=sunbird client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=bulbul amount=R2,026
+2026-10-14T06:06:23Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:06:37Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:06:50Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T06:07:12Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T06:07:28Z INFO  crew.app  technician checked in on site
+2026-10-14T06:07:39Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:07:57Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=105
+2026-10-14T06:08:22Z INFO  billing.reconcile  case=martin client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=coucal amount=R1,581
+2026-10-14T06:08:32Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:08:54Z INFO  billing.reconcile  case=warbler client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=pipit amount=R630
+2026-10-14T06:09:05Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:09:29Z INFO  billing.reconcile  case=prinia client="Seabreeze Guest Lodge" action="refund issued after duplicate card capture" next=coucal amount=R2,203
+2026-10-14T06:09:42Z INFO  bookings.api  GET /bookings/upcoming 200 in 713ms
+2026-10-14T06:10:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:10:20Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:10:38Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:10:52Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T06:11:10Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=29
+2026-10-14T06:11:27Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:11:42Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:11:55Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:12:18Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:12:35Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:12:46Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:13:08Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:13:26Z INFO  bookings.api  GET /bookings/upcoming 200 in 743ms
+2026-10-14T06:13:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=155
+2026-10-14T06:14:00Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:14:17Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:14:35Z INFO  billing.reconcile  case=sparrow client="Birch Street Bookshop" action="partial refund agreed with the client" next=martin amount=R837
+2026-10-14T06:14:47Z INFO  billing.reconcile  case=ibis client="Meridian Physiotherapy" action="charge reversed by the card processor" next=tern amount=R1,102
+2026-10-14T06:15:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:15:25Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T06:15:37Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T06:15:59Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:16:11Z INFO  billing.reconcile  case=bishop client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=oriole amount=R2,163
+2026-10-14T06:16:34Z INFO  bookings.api  GET /bookings/upcoming 200 in 574ms
+2026-10-14T06:16:46Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=791
+2026-10-14T06:17:08Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=779
+2026-10-14T06:17:24Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T06:17:37Z INFO  crew.app  technician checked in on site
+2026-10-14T06:17:58Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T06:18:12Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T06:18:27Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:18:43Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:19:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:19:18Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:19:34Z INFO  crew.app  technician checked in on site
+2026-10-14T06:19:52Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T06:20:13Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:20:24Z INFO  crew.app  technician checked in on site
+2026-10-14T06:20:47Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:20:59Z INFO  billing.reconcile  case=stork client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=martin amount=R783
+2026-10-14T06:21:19Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:21:38Z INFO  billing.reconcile  case=cisticola client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=boubou amount=R1,183
+2026-10-14T06:21:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:22:10Z INFO  bookings.api  GET /bookings/upcoming 200 in 821ms
+2026-10-14T06:22:24Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T06:22:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:23:01Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=540
+2026-10-14T06:23:15Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:23:34Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:23:52Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:24:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=16
+2026-10-14T06:24:30Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T06:24:42Z INFO  bookings.api  GET /bookings/upcoming 200 in 675ms
+2026-10-14T06:25:03Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:25:16Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:25:36Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=858
+2026-10-14T06:25:47Z INFO  billing.reconcile  case=gannet client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=drongo amount=R1,600
+2026-10-14T06:26:12Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:26:25Z INFO  billing.reconcile  case=sunbird client="Harbourview Guesthouse" action="charge reversed by the card processor" next=shrike amount=R1,531
+2026-10-14T06:26:43Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:26:55Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:27:14Z INFO  billing.reconcile  case=barbet client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=swift amount=R863
+2026-10-14T06:27:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=94
+2026-10-14T06:27:47Z INFO  billing.reconcile  case=tchagra client="Juniper Physiotherapy Rooms" action="charge reversed by the card processor" next=starling amount=R993
+2026-10-14T06:28:04Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:28:29Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:28:39Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:28:54Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T06:29:19Z INFO  billing.reconcile  case=prinia client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=cisticola amount=R981
+2026-10-14T06:29:29Z INFO  billing.reconcile  case=weaver client="Rowan Hall Community Centre" action="partial refund agreed with the client" next=none amount=R2,327
+2026-10-14T06:29:45Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:30:09Z INFO  crew.app  technician checked in on site
+2026-10-14T06:30:27Z INFO  bookings.api  GET /bookings/upcoming 200 in 676ms
+2026-10-14T06:30:37Z INFO  crew.app  technician checked in on site
+2026-10-14T06:30:57Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T06:31:17Z INFO  bookings.api  GET /bookings/upcoming 200 in 491ms
+2026-10-14T06:31:27Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T06:31:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:32:03Z INFO  billing.reconcile  case=thrush client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=warbler amount=R931
+2026-10-14T06:32:25Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T06:32:42Z INFO  bookings.api  GET /bookings/upcoming 200 in 563ms
+2026-10-14T06:32:56Z INFO  crew.app  technician checked in on site
+2026-10-14T06:33:16Z INFO  billing.reconcile  case=cisticola client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=none amount=R903
+2026-10-14T06:33:27Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:33:47Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:34:04Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:34:24Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:34:41Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:34:57Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:35:13Z INFO  bookings.api  GET /bookings/upcoming 200 in 201ms
+2026-10-14T06:35:29Z INFO  bookings.api  GET /bookings/upcoming 200 in 403ms
+2026-10-14T06:35:51Z INFO  billing.reconcile  case=drongo client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=none amount=R251
+2026-10-14T06:36:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:36:22Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T06:36:39Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:36:58Z INFO  bookings.api  GET /bookings/upcoming 200 in 51ms
+2026-10-14T06:37:14Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:37:31Z INFO  billing.reconcile  case=batis client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=weaver amount=R1,194
+2026-10-14T06:37:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:38:02Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:38:17Z INFO  billing.reconcile  case=cisticola client="Willow Bend Hair Studio" action="charge reversed by the card processor" next=warbler amount=R1,883
+2026-10-14T06:38:38Z INFO  billing.reconcile  case=hoopoe client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=crane amount=R413
+2026-10-14T06:38:54Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:39:09Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:39:31Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:39:47Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:40:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T06:40:17Z INFO  crew.app  technician checked in on site
+2026-10-14T06:40:31Z INFO  billing.reconcile  case=drongo client="Willow Bend Hair Studio" action="refund issued after duplicate card capture" next=none amount=R339
+2026-10-14T06:40:54Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T06:41:12Z INFO  bookings.api  GET /bookings/upcoming 200 in 230ms
+2026-10-14T06:41:24Z INFO  bookings.api  GET /bookings/upcoming 200 in 846ms
+2026-10-14T06:41:40Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=2
+2026-10-14T06:41:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=661
+2026-10-14T06:42:15Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T06:42:31Z INFO  billing.reconcile  case=gull client="Cedar Court Accountants" action="partial refund agreed with the client" next=none amount=R1,108
+2026-10-14T06:42:50Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=11
+2026-10-14T06:43:08Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:43:28Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T06:43:44Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:43:58Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:44:15Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:44:29Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:44:49Z INFO  billing.reconcile  case=tern client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=cisticola amount=R1,316
+2026-10-14T06:45:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T06:45:21Z INFO  crew.app  technician checked in on site
+2026-10-14T06:45:40Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=610
+2026-10-14T06:46:00Z INFO  billing.reconcile  case=robin client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=widowbird amount=R286
+2026-10-14T06:46:13Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:46:29Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:46:53Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=320
+2026-10-14T06:47:07Z INFO  crew.app  technician checked in on site
+2026-10-14T06:47:19Z INFO  billing.reconcile  case=swift client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=bittern amount=R889
+2026-10-14T06:47:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:47:54Z INFO  billing.reconcile  case=wagtail client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=hoopoe amount=R1,364
+2026-10-14T06:48:15Z INFO  crew.app  technician checked in on site
+2026-10-14T06:48:30Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:48:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=264
+2026-10-14T06:49:02Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:49:23Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T06:49:40Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:49:53Z INFO  billing.reconcile  case=stork client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=martin amount=R1,068
+2026-10-14T06:50:15Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:50:26Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:50:52Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:51:09Z INFO  billing.reconcile  case=hoopoe client="Cedar Court Accountants" action="partial refund agreed with the client" next=tinker amount=R305
+2026-10-14T06:51:17Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:51:40Z INFO  bookings.api  GET /bookings/upcoming 200 in 272ms
+2026-10-14T06:51:52Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:52:10Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:52:28Z INFO  bookings.api  GET /bookings/upcoming 200 in 799ms
+2026-10-14T06:52:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:53:03Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:53:19Z INFO  billing.reconcile  case=tchagra client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=hoopoe amount=R1,047
+2026-10-14T06:53:41Z INFO  bookings.api  GET /bookings/upcoming 200 in 670ms
+2026-10-14T06:53:50Z INFO  billing.reconcile  case=wagtail client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=none amount=R1,242
+2026-10-14T06:54:10Z INFO  billing.reconcile  case=hoopoe client="Meridian Physiotherapy" action="credit re-applied to the client account" next=none amount=R347
+2026-10-14T06:54:29Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:54:45Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=109
+2026-10-14T06:55:07Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=378
+2026-10-14T06:55:17Z INFO  billing.reconcile  case=gannet client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=starling amount=R1,380
+2026-10-14T06:55:38Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T06:55:50Z INFO  crew.app  technician checked in on site
+2026-10-14T06:56:07Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:56:25Z INFO  bookings.api  GET /bookings/upcoming 200 in 669ms
+2026-10-14T06:56:46Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:57:03Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T06:57:19Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=885
+2026-10-14T06:57:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:57:54Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T06:58:11Z INFO  payments.gateway  card authorisation approved
+2026-10-14T06:58:24Z INFO  billing.reconcile  case=batis client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=bulbul amount=R2,386
+2026-10-14T06:58:48Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T06:59:01Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T06:59:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T06:59:30Z INFO  crew.app  technician checked in on site
+2026-10-14T06:59:56Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:00:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T07:00:30Z INFO  crew.app  technician checked in on site
+2026-10-14T07:00:41Z INFO  billing.reconcile  case=prinia client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=shrike amount=R1,051
+2026-10-14T07:00:58Z INFO  billing.reconcile  case=batis client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=starling amount=R1,636
+2026-10-14T07:01:21Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:01:33Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:01:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:02:12Z INFO  crew.app  technician checked in on site
+2026-10-14T07:02:29Z INFO  crew.app  technician checked in on site
+2026-10-14T07:02:44Z INFO  bookings.api  GET /bookings/upcoming 200 in 132ms
+2026-10-14T07:03:00Z INFO  crew.app  technician checked in on site
+2026-10-14T07:03:11Z INFO  billing.reconcile  case=weaver client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=none amount=R2,135
+2026-10-14T07:03:29Z INFO  billing.reconcile  case=cisticola client="Birch Street Bookshop" action="refund issued after duplicate card capture" next=barbet amount=R311
+2026-10-14T07:03:54Z INFO  bookings.api  GET /bookings/upcoming 200 in 199ms
+2026-10-14T07:04:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:04:20Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:04:38Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:04:55Z INFO  crew.app  technician checked in on site
+2026-10-14T07:05:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T07:05:27Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:05:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:06:02Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=652
+2026-10-14T07:06:25Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:06:39Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:06:56Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:07:14Z INFO  bookings.api  GET /bookings/upcoming 200 in 453ms
+2026-10-14T07:07:28Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=304
+2026-10-14T07:07:47Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:08:00Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T07:08:26Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:08:34Z INFO  billing.reconcile  case=stork client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=bishop amount=R50
+2026-10-14T07:09:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 536ms
+2026-10-14T07:09:16Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:09:27Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:09:44Z INFO  billing.reconcile  case=crane client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=bulbul amount=R632
+2026-10-14T07:10:03Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:10:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:10:40Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T07:10:53Z INFO  billing.reconcile  case=sparrow client="Harbourview Guesthouse" action="partial refund agreed with the client" next=starling amount=R800
+2026-10-14T07:11:10Z INFO  billing.reconcile  case=martin client="Cedar Court Accountants" action="credit re-applied to the client account" next=sparrow amount=R1,732
+2026-10-14T07:11:27Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T07:11:50Z INFO  billing.reconcile  case=gull client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=lark amount=R1,997
+2026-10-14T07:12:06Z INFO  billing.reconcile  case=drongo client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=pipit amount=R965
+2026-10-14T07:12:16Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=127
+2026-10-14T07:12:36Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:12:55Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T07:13:09Z INFO  billing.reconcile  case=cisticola client="Cedar Court Accountants" action="fee waived as a goodwill gesture" next=sparrow amount=R870
+2026-10-14T07:13:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:13:45Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:14:04Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T07:14:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T07:14:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:14:50Z INFO  billing.reconcile  case=robin client="Birch Street Bookshop" action="charge reversed by the card processor" next=oriole amount=R620
+2026-10-14T07:15:05Z INFO  billing.reconcile  case=weaver client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=starling amount=R1,528
+2026-10-14T07:15:25Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T07:15:45Z INFO  billing.reconcile  case=ibis client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=oriole amount=R1,217
+2026-10-14T07:16:03Z INFO  billing.reconcile  case=martin client="Maple Tree Veterinary Clinic" action="partial refund agreed with the client" next=ibis amount=R1,109
+2026-10-14T07:16:13Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:16:35Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:16:51Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=808
+2026-10-14T07:17:04Z INFO  bookings.api  GET /bookings/upcoming 200 in 356ms
+2026-10-14T07:17:21Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:17:47Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:18:03Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=5
+2026-10-14T07:18:19Z INFO  billing.reconcile  case=sunbird client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=warbler amount=R690
+2026-10-14T07:18:33Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T07:18:47Z INFO  bookings.api  GET /bookings/upcoming 200 in 503ms
+2026-10-14T07:19:04Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:19:26Z INFO  bookings.api  GET /bookings/upcoming 200 in 433ms
+2026-10-14T07:19:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:20:02Z INFO  billing.reconcile  case=stork client="Meridian Physiotherapy" action="fee waived as a goodwill gesture" next=pipit amount=R178
+2026-10-14T07:20:16Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T07:20:36Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:20:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:21:05Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:21:21Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T07:21:45Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:21:56Z INFO  bookings.api  GET /bookings/upcoming 200 in 169ms
+2026-10-14T07:22:13Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:22:31Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:22:48Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:23:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:23:26Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:23:37Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:23:58Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:24:12Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:24:28Z INFO  crew.app  technician checked in on site
+2026-10-14T07:24:47Z INFO  bookings.api  GET /bookings/upcoming 200 in 430ms
+2026-10-14T07:25:06Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:25:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:25:42Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:25:51Z INFO  crew.app  technician checked in on site
+2026-10-14T07:26:12Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:26:33Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:26:45Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T07:27:07Z INFO  crew.app  technician checked in on site
+2026-10-14T07:27:22Z INFO  bookings.api  GET /bookings/upcoming 200 in 747ms
+2026-10-14T07:27:38Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:27:56Z INFO  billing.reconcile  case=lark client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=none amount=R1,126
+2026-10-14T07:28:08Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:28:30Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:28:44Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T07:29:00Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:29:23Z INFO  crew.app  technician checked in on site
+2026-10-14T07:29:36Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:29:56Z INFO  billing.reconcile  case=petrel client="Juniper Physiotherapy Rooms" action="charge reversed by the card processor" next=bittern amount=R2,004
+2026-10-14T07:30:13Z INFO  bookings.api  GET /bookings/upcoming 200 in 676ms
+2026-10-14T07:30:25Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:30:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:31:06Z INFO  billing.reconcile  case=sparrow client="Juniper Physiotherapy Rooms" action="charge reversed by the card processor" next=none amount=R455
+2026-10-14T07:31:23Z INFO  billing.reconcile  case=stork client="Maple Tree Veterinary Clinic" action="credit re-applied to the client account" next=sunbird amount=R894
+2026-10-14T07:31:37Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:31:49Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T07:32:08Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:32:29Z INFO  bookings.api  GET /bookings/upcoming 200 in 569ms
+2026-10-14T07:32:43Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:33:04Z INFO  billing.reconcile  case=pipit client="Cedar Court Accountants" action="partial refund agreed with the client" next=bulbul amount=R714
+2026-10-14T07:33:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=165
+2026-10-14T07:33:37Z INFO  crew.app  technician checked in on site
+2026-10-14T07:33:54Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:34:06Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=22
+2026-10-14T07:34:21Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:34:46Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:35:01Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:35:17Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T07:35:33Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:35:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:36:09Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:36:25Z INFO  crew.app  technician checked in on site
+2026-10-14T07:36:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:36:55Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=409
+2026-10-14T07:37:17Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=409
+2026-10-14T07:37:29Z INFO  billing.reconcile  case=hoopoe client="Harbourview Guesthouse" action="manual adjustment after the booking was moved" next=wagtail amount=R2,266
+2026-10-14T07:37:54Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:38:03Z INFO  crew.app  technician checked in on site
+2026-10-14T07:38:20Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=432
+2026-10-14T07:38:36Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:39:01Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:39:10Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:39:27Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T07:39:50Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:40:01Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:40:25Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T07:40:42Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:40:58Z INFO  billing.reconcile  case=oriole client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=swift amount=R1,974
+2026-10-14T07:41:09Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:41:28Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:41:44Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T07:42:07Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:42:17Z INFO  billing.reconcile  case=bishop client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=swift amount=R719
+2026-10-14T07:42:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:42:58Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:43:13Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:43:32Z INFO  crew.app  technician checked in on site
+2026-10-14T07:43:47Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=637
+2026-10-14T07:44:04Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=852
+2026-10-14T07:44:25Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:44:39Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:44:57Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=330
+2026-10-14T07:45:11Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:45:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:45:49Z INFO  crew.app  technician checked in on site
+2026-10-14T07:45:59Z INFO  crew.app  technician checked in on site
+2026-10-14T07:46:18Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T07:46:32Z INFO  crew.app  technician checked in on site
+2026-10-14T07:46:53Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=811
+2026-10-14T07:47:13Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T07:47:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:47:48Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T07:48:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 186ms
+2026-10-14T07:48:19Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:48:33Z INFO  crew.app  technician checked in on site
+2026-10-14T07:48:53Z INFO  bookings.api  GET /bookings/upcoming 200 in 160ms
+2026-10-14T07:49:14Z INFO  billing.reconcile  case=petrel client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=prinia amount=R878
+2026-10-14T07:49:31Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:49:43Z INFO  crew.app  technician checked in on site
+2026-10-14T07:50:05Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:50:18Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:50:30Z INFO  billing.reconcile  case=batis client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=none amount=R302
+2026-10-14T07:50:56Z INFO  bookings.api  GET /bookings/upcoming 200 in 724ms
+2026-10-14T07:51:08Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:51:29Z INFO  crew.app  technician checked in on site
+2026-10-14T07:51:43Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:51:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=567
+2026-10-14T07:52:12Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T07:52:29Z INFO  billing.reconcile  case=cormorant client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=none amount=R1,847
+2026-10-14T07:52:47Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:53:04Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:53:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=480
+2026-10-14T07:53:37Z INFO  billing.reconcile  case=stork client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=none amount=R612
+2026-10-14T07:54:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:54:12Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:54:35Z INFO  billing.reconcile  case=coucal client="Harbourview Guesthouse" action="credit re-applied to the client account" next=bulbul amount=R1,888
+2026-10-14T07:54:53Z INFO  crew.app  technician checked in on site
+2026-10-14T07:55:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T07:55:23Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T07:55:40Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:55:54Z INFO  billing.reconcile  case=cisticola client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=thrush amount=R1,995
+2026-10-14T07:56:14Z INFO  billing.reconcile  case=hoopoe client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=coucal amount=R1,015
+2026-10-14T07:56:28Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T07:56:48Z INFO  billing.reconcile  case=robin client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=none amount=R614
+2026-10-14T07:57:08Z INFO  billing.reconcile  case=prinia client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=tern amount=R1,715
+2026-10-14T07:57:21Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:57:43Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T07:57:53Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T07:58:13Z INFO  billing.reconcile  case=weaver client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=bishop amount=R1,301
+2026-10-14T07:58:29Z INFO  billing.reconcile  case=prinia client="Harbourview Guesthouse" action="manual adjustment after the booking was moved" next=none amount=R1,463
+2026-10-14T07:58:48Z INFO  crew.app  technician checked in on site
+2026-10-14T07:59:06Z INFO  crew.app  technician checked in on site
+2026-10-14T07:59:20Z INFO  payments.gateway  card authorisation approved
+2026-10-14T07:59:39Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=365
+2026-10-14T07:59:58Z INFO  bookings.api  GET /bookings/upcoming 200 in 124ms
+2026-10-14T08:00:11Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:00:34Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=299
+2026-10-14T08:00:49Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=544
+2026-10-14T08:01:01Z INFO  billing.reconcile  case=swift client="Birch Street Bookshop" action="refund issued after duplicate card capture" next=stork amount=R1,317
+2026-10-14T08:01:20Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=20
+2026-10-14T08:01:36Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:01:57Z INFO  crew.app  technician checked in on site
+2026-10-14T08:02:08Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=280
+2026-10-14T08:02:31Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T08:02:42Z INFO  billing.reconcile  case=tinker client="Cedar Court Accountants" action="credit re-applied to the client account" next=weaver amount=R643
+2026-10-14T08:03:07Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:03:21Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:03:40Z INFO  billing.reconcile  case=thrush client="Cedar Court Accountants" action="charge reversed by the card processor" next=coucal amount=R1,824
+2026-10-14T08:03:58Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:04:14Z INFO  billing.reconcile  case=prinia client="Maple Tree Veterinary Clinic" action="credit re-applied to the client account" next=none amount=R1,769
+2026-10-14T08:04:23Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:04:45Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:05:00Z INFO  billing.reconcile  case=tinker client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=pipit amount=R1,128
+2026-10-14T08:05:23Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:05:40Z INFO  billing.reconcile  case=oriole client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=prinia amount=R1,217
+2026-10-14T08:05:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:06:14Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:06:29Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:06:47Z INFO  billing.reconcile  case=tern client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=hornbill amount=R399
+2026-10-14T08:07:04Z INFO  crew.app  technician checked in on site
+2026-10-14T08:07:16Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:07:37Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:07:54Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=249
+2026-10-14T08:08:07Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T08:08:27Z INFO  billing.reconcile  case=bittern client="Cedar Court Accountants" action="charge reversed by the card processor" next=none amount=R2,320
+2026-10-14T08:08:43Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:08:59Z INFO  billing.reconcile  case=robin client="Meridian Physiotherapy" action="charge reversed by the card processor" next=shrike amount=R1,842
+2026-10-14T08:09:12Z INFO  crew.app  technician checked in on site
+2026-10-14T08:09:37Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:09:51Z INFO  billing.reconcile  case=hoopoe client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=bishop amount=R429
+2026-10-14T08:10:10Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:10:20Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:10:44Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:10:58Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:11:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:11:32Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T08:11:51Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=806
+2026-10-14T08:12:08Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:12:21Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:12:37Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:12:56Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T08:13:10Z INFO  billing.reconcile  case=boubou client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=warbler amount=R2,245
+2026-10-14T08:13:36Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T08:13:50Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:14:06Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=693
+2026-10-14T08:14:26Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:14:41Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:14:58Z INFO  crew.app  technician checked in on site
+2026-10-14T08:15:18Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:15:28Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:15:51Z INFO  billing.reconcile  case=tern client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=none amount=R680
+2026-10-14T08:16:08Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T08:16:20Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=646
+2026-10-14T08:16:43Z INFO  billing.reconcile  case=boubou client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=starling amount=R1,296
+2026-10-14T08:16:59Z INFO  billing.reconcile  case=gull client="Meridian Physiotherapy" action="refund issued after duplicate card capture" next=none amount=R160
+2026-10-14T08:17:11Z INFO  billing.reconcile  case=batis client="Seabreeze Guest Lodge" action="manual adjustment after the booking was moved" next=boubou amount=R628
+2026-10-14T08:17:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:17:44Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:18:00Z INFO  billing.reconcile  case=prinia client="Meridian Physiotherapy" action="partial refund agreed with the client" next=none amount=R294
+2026-10-14T08:18:16Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:18:36Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:18:51Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:19:10Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:19:27Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:19:48Z INFO  billing.reconcile  case=crane client="Meridian Physiotherapy" action="credit re-applied to the client account" next=stork amount=R1,329
+2026-10-14T08:19:58Z INFO  crew.app  technician checked in on site
+2026-10-14T08:20:24Z INFO  crew.app  technician checked in on site
+2026-10-14T08:20:38Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:20:53Z INFO  crew.app  technician checked in on site
+2026-10-14T08:21:07Z INFO  billing.reconcile  case=bittern client="Juniper Physiotherapy Rooms" action="partial refund agreed with the client" next=barbet amount=R2,340
+2026-10-14T08:21:28Z INFO  billing.reconcile  case=apalis client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=barbet amount=R1,769
+2026-10-14T08:21:45Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:22:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:22:14Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:22:32Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T08:22:56Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:23:10Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:23:25Z INFO  crew.app  technician checked in on site
+2026-10-14T08:23:42Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:24:05Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:24:16Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T08:24:31Z INFO  bookings.api  GET /bookings/upcoming 200 in 556ms
+2026-10-14T08:24:53Z INFO  billing.reconcile  case=boubou client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=bulbul amount=R392
+2026-10-14T08:25:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T08:25:22Z INFO  billing.reconcile  case=coucal client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=cisticola amount=R1,314
+2026-10-14T08:25:39Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:25:59Z INFO  crew.app  technician checked in on site
+2026-10-14T08:26:16Z INFO  billing.reconcile  case=coucal client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=none amount=R1,934
+2026-10-14T08:26:32Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:26:48Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:27:03Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:27:23Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:27:45Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:28:03Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T08:28:20Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=115
+2026-10-14T08:28:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:28:48Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=811
+2026-10-14T08:29:05Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:29:25Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:29:39Z INFO  bookings.api  GET /bookings/upcoming 200 in 358ms
+2026-10-14T08:30:00Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T08:30:18Z INFO  billing.reconcile  case=ibis client="Birch Street Bookshop" action="partial refund agreed with the client" next=drongo amount=R815
+2026-10-14T08:30:27Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T08:30:52Z INFO  billing.reconcile  case=crane client="Harbourview Guesthouse" action="credit re-applied to the client account" next=apalis amount=R1,505
+2026-10-14T08:31:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:31:20Z INFO  billing.reconcile  case=warbler client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=wagtail amount=R2,151
+2026-10-14T08:31:42Z INFO  billing.reconcile  case=bittern client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=gull amount=R2,347
+2026-10-14T08:31:55Z INFO  bookings.api  GET /bookings/upcoming 200 in 562ms
+2026-10-14T08:32:11Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:32:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 707ms
+2026-10-14T08:32:43Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T08:33:04Z INFO  bookings.api  GET /bookings/upcoming 200 in 719ms
+2026-10-14T08:33:24Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:33:41Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:33:52Z INFO  billing.reconcile  case=pipit client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=warbler amount=R2,348
+2026-10-14T08:34:12Z INFO  billing.reconcile  case=warbler client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=drongo amount=R74
+2026-10-14T08:34:30Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:34:46Z INFO  bookings.api  GET /bookings/upcoming 200 in 142ms
+2026-10-14T08:34:59Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:35:18Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T08:35:34Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:35:55Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:36:12Z INFO  billing.reconcile  case=coucal client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=gannet amount=R2,361
+2026-10-14T08:36:30Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T08:36:48Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:36:59Z INFO  billing.reconcile  case=stork client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=shrike amount=R203
+2026-10-14T08:37:22Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:37:32Z INFO  billing.reconcile  case=bishop client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=cisticola amount=R266
+2026-10-14T08:37:57Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:38:06Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:38:29Z INFO  crew.app  technician checked in on site
+2026-10-14T08:38:45Z INFO  crew.app  technician checked in on site
+2026-10-14T08:39:02Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:39:20Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:39:36Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:39:54Z INFO  crew.app  technician checked in on site
+2026-10-14T08:40:09Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T08:40:25Z INFO  crew.app  technician checked in on site
+2026-10-14T08:40:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:41:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T08:41:19Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T08:41:38Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:41:48Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:42:07Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T08:42:22Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:42:44Z INFO  crew.app  technician checked in on site
+2026-10-14T08:43:03Z INFO  bookings.api  GET /bookings/upcoming 200 in 642ms
+2026-10-14T08:43:13Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T08:43:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 141ms
+2026-10-14T08:43:55Z INFO  billing.reconcile  case=crane client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=thrush amount=R912
+2026-10-14T08:44:10Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:44:29Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T08:44:42Z INFO  billing.reconcile  case=darter client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=none amount=R1,567
+2026-10-14T08:45:02Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:45:11Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:45:36Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:45:48Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T08:46:02Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:46:19Z INFO  bookings.api  GET /bookings/upcoming 200 in 820ms
+2026-10-14T08:46:38Z INFO  billing.reconcile  case=tern client="Meridian Physiotherapy" action="charge reversed by the card processor" next=none amount=R2,245
+2026-10-14T08:46:57Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=26
+2026-10-14T08:47:12Z INFO  crew.app  technician checked in on site
+2026-10-14T08:47:27Z INFO  billing.reconcile  case=bishop client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=widowbird amount=R1,877
+2026-10-14T08:47:50Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:48:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T08:48:27Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T08:48:42Z INFO  crew.app  technician checked in on site
+2026-10-14T08:48:57Z INFO  billing.reconcile  case=tchagra client="Harbourview Guesthouse" action="credit re-applied to the client account" next=wagtail amount=R1,921
+2026-10-14T08:49:18Z INFO  billing.reconcile  case=bulbul client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=petrel amount=R1,113
+2026-10-14T08:49:31Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T08:49:43Z INFO  bookings.api  GET /bookings/upcoming 200 in 894ms
+2026-10-14T08:50:06Z INFO  bookings.api  GET /bookings/upcoming 200 in 372ms
+2026-10-14T08:50:20Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:50:38Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:50:59Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T08:51:14Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:51:32Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T08:51:47Z INFO  billing.reconcile  case=ibis client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=none amount=R1,864
+2026-10-14T08:52:05Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:52:17Z INFO  billing.reconcile  case=gull client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=gannet amount=R1,434
+2026-10-14T08:52:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:52:52Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:53:13Z INFO  bookings.api  GET /bookings/upcoming 200 in 859ms
+2026-10-14T08:53:29Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:53:41Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:54:01Z INFO  billing.reconcile  case=flycatcher client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=none amount=R447
+2026-10-14T08:54:18Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=133
+2026-10-14T08:54:32Z INFO  billing.reconcile  case=boubou client="Harbourview Guesthouse" action="credit re-applied to the client account" next=darter amount=R1,148
+2026-10-14T08:54:57Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=656
+2026-10-14T08:55:06Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:55:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:55:46Z INFO  bookings.api  GET /bookings/upcoming 200 in 642ms
+2026-10-14T08:56:02Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:56:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=325
+2026-10-14T08:56:36Z INFO  billing.reconcile  case=bishop client="Harbourview Guesthouse" action="credit re-applied to the client account" next=darter amount=R902
+2026-10-14T08:56:50Z INFO  bookings.api  GET /bookings/upcoming 200 in 367ms
+2026-10-14T08:57:11Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:57:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T08:57:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:57:56Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T08:58:20Z INFO  payments.gateway  card authorisation approved
+2026-10-14T08:58:34Z INFO  billing.reconcile  case=sparrow client="Maple Tree Veterinary Clinic" action="credit re-applied to the client account" next=batis amount=R974
+2026-10-14T08:58:53Z INFO  bookings.api  GET /bookings/upcoming 200 in 29ms
+2026-10-14T08:59:06Z INFO  billing.reconcile  case=apalis client="Birch Street Bookshop" action="charge reversed by the card processor" next=cisticola amount=R1,537
+2026-10-14T08:59:23Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T08:59:43Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T08:59:58Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:00:19Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=111
+2026-10-14T09:00:30Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:00:46Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:01:06Z INFO  billing.reconcile  case=robin client="Cedar Court Accountants" action="credit re-applied to the client account" next=gannet amount=R1,491
+2026-10-14T09:01:23Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:01:41Z INFO  crew.app  technician checked in on site
+2026-10-14T09:01:56Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:02:15Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:02:31Z INFO  billing.reconcile  case=bishop client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=none amount=R253
+2026-10-14T09:02:48Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:03:04Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:03:20Z INFO  billing.reconcile  case=sparrow client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=none amount=R1,480
+2026-10-14T09:03:37Z INFO  crew.app  technician checked in on site
+2026-10-14T09:03:54Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:04:19Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=39
+2026-10-14T09:04:35Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:04:44Z INFO  billing.reconcile  case=cormorant client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=none amount=R596
+2026-10-14T09:05:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:05:20Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T09:05:43Z INFO  crew.app  technician checked in on site
+2026-10-14T09:05:55Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T09:06:13Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=271
+2026-10-14T09:06:27Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T09:06:49Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:07:05Z INFO  crew.app  technician checked in on site
+2026-10-14T09:07:25Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:07:40Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T09:07:53Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:08:08Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T09:08:31Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T09:08:43Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=734
+2026-10-14T09:09:05Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:09:24Z INFO  crew.app  technician checked in on site
+2026-10-14T09:09:40Z INFO  crew.app  technician checked in on site
+2026-10-14T09:09:59Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:10:12Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:10:33Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:10:44Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:11:03Z INFO  crew.app  technician checked in on site
+2026-10-14T09:11:17Z INFO  billing.reconcile  case=prinia client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=coucal amount=R1,538
+2026-10-14T09:11:35Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:11:51Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=330
+2026-10-14T09:12:11Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:12:25Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:12:45Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T09:13:04Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:13:21Z INFO  crew.app  technician checked in on site
+2026-10-14T09:13:33Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:13:53Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:14:13Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:14:30Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:14:48Z INFO  billing.reconcile  case=apalis client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=none amount=R1,127
+2026-10-14T09:15:03Z INFO  billing.reconcile  case=warbler client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=swift amount=R1,562
+2026-10-14T09:15:13Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:15:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:15:51Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:16:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T09:16:26Z INFO  billing.reconcile  case=ibis client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=none amount=R1,594
+2026-10-14T09:16:44Z INFO  crew.app  technician checked in on site
+2026-10-14T09:16:56Z INFO  crew.app  technician checked in on site
+2026-10-14T09:17:18Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:17:35Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T09:17:49Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:18:07Z INFO  billing.reconcile  case=avocet client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=none amount=R1,164
+2026-10-14T09:18:26Z INFO  bookings.api  GET /bookings/upcoming 200 in 93ms
+2026-10-14T09:18:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=105
+2026-10-14T09:18:55Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T09:19:11Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:19:35Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T09:19:54Z INFO  billing.reconcile  case=hornbill client="Birch Street Bookshop" action="charge reversed by the card processor" next=none amount=R1,409
+2026-10-14T09:20:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=191
+2026-10-14T09:20:23Z INFO  bookings.api  GET /bookings/upcoming 200 in 321ms
+2026-10-14T09:20:40Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:21:01Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=315
+2026-10-14T09:21:13Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:21:31Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:21:52Z INFO  crew.app  technician checked in on site
+2026-10-14T09:22:10Z INFO  billing.reconcile  case=darter client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=hoopoe amount=R249
+2026-10-14T09:22:23Z INFO  billing.reconcile  case=lark client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=none amount=R1,160
+2026-10-14T09:22:38Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:23:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:23:12Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=185
+2026-10-14T09:23:27Z INFO  billing.reconcile  case=lark client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=widowbird amount=R2,338
+2026-10-14T09:23:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:24:08Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:24:25Z INFO  billing.reconcile  case=martin client="Harbourview Guesthouse" action="partial refund agreed with the client" next=hoopoe amount=R956
+2026-10-14T09:24:38Z INFO  crew.app  technician checked in on site
+2026-10-14T09:24:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:25:15Z INFO  billing.reconcile  case=wren client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=heron amount=R415
+2026-10-14T09:25:34Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T09:25:46Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:26:01Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T09:26:21Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:26:34Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:26:56Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:27:12Z INFO  billing.reconcile  case=ibis client="Juniper Physiotherapy Rooms" action="partial refund agreed with the client" next=prinia amount=R1,465
+2026-10-14T09:27:24Z INFO  crew.app  technician checked in on site
+2026-10-14T09:27:48Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:28:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T09:28:19Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:28:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 2ms
+2026-10-14T09:28:52Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:29:11Z INFO  crew.app  technician checked in on site
+2026-10-14T09:29:28Z INFO  billing.reconcile  case=gull client="Willow Bend Hair Studio" action="refund issued after duplicate card capture" next=lark amount=R2,299
+2026-10-14T09:29:41Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:29:57Z INFO  billing.reconcile  case=cisticola client="Birch Street Bookshop" action="partial refund agreed with the client" next=tchagra amount=R1,485
+2026-10-14T09:30:15Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:30:32Z INFO  crew.app  technician checked in on site
+2026-10-14T09:30:52Z INFO  billing.reconcile  case=crane client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=oriole amount=R2,256
+2026-10-14T09:31:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T09:31:30Z INFO  billing.reconcile  case=gannet client="Juniper Physiotherapy Rooms" action="partial refund agreed with the client" next=none amount=R2,314
+2026-10-14T09:31:42Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T09:32:04Z INFO  bookings.api  GET /bookings/upcoming 200 in 16ms
+2026-10-14T09:32:13Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:32:31Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:32:47Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:33:08Z INFO  bookings.api  GET /bookings/upcoming 200 in 87ms
+2026-10-14T09:33:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:33:38Z INFO  bookings.api  GET /bookings/upcoming 200 in 614ms
+2026-10-14T09:33:56Z INFO  billing.reconcile  case=bishop client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=none amount=R1,931
+2026-10-14T09:34:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=326
+2026-10-14T09:34:35Z INFO  billing.reconcile  case=crane client="Birch Street Bookshop" action="credit re-applied to the client account" next=bulbul amount=R1,450
+2026-10-14T09:34:48Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:35:04Z INFO  crew.app  technician checked in on site
+2026-10-14T09:35:28Z INFO  bookings.api  GET /bookings/upcoming 200 in 770ms
+2026-10-14T09:35:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=867
+2026-10-14T09:36:00Z INFO  billing.reconcile  case=bittern client="Willow Bend Hair Studio" action="fee waived as a goodwill gesture" next=tchagra amount=R2,072
+2026-10-14T09:36:13Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:36:37Z INFO  billing.reconcile  case=barbet client="Meridian Physiotherapy" action="manual adjustment after the booking was moved" next=cisticola amount=R514
+2026-10-14T09:36:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:37:05Z INFO  crew.app  technician checked in on site
+2026-10-14T09:37:26Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=402
+2026-10-14T09:37:41Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:37:58Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:38:10Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:38:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:38:46Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:39:07Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:39:23Z INFO  billing.reconcile  case=petrel client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=sunbird amount=R2,244
+2026-10-14T09:39:38Z INFO  billing.reconcile  case=starling client="Birch Street Bookshop" action="partial refund agreed with the client" next=none amount=R1,151
+2026-10-14T09:39:57Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:40:14Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:40:33Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T09:40:46Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:41:00Z INFO  billing.reconcile  case=sunbird client="Willow Bend Hair Studio" action="manual adjustment after the booking was moved" next=none amount=R1,067
+2026-10-14T09:41:22Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T09:41:40Z INFO  billing.reconcile  case=gannet client="Meridian Physiotherapy" action="charge reversed by the card processor" next=hornbill amount=R1,859
+2026-10-14T09:41:55Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:42:16Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=671
+2026-10-14T09:42:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=59
+2026-10-14T09:42:50Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:43:01Z INFO  crew.app  technician checked in on site
+2026-10-14T09:43:23Z INFO  billing.reconcile  case=petrel client="Meridian Physiotherapy" action="manual adjustment after the booking was moved" next=bulbul amount=R231
+2026-10-14T09:43:39Z INFO  billing.reconcile  case=tchagra client="Cedar Court Accountants" action="charge reversed by the card processor" next=petrel amount=R2,269
+2026-10-14T09:43:50Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:44:13Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:44:29Z INFO  billing.reconcile  case=boubou client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=none amount=R612
+2026-10-14T09:44:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=167
+2026-10-14T09:45:06Z INFO  billing.reconcile  case=gull client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=thrush amount=R806
+2026-10-14T09:45:19Z INFO  crew.app  technician checked in on site
+2026-10-14T09:45:37Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:45:54Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:46:10Z INFO  billing.reconcile  case=bishop client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=flycatcher amount=R694
+2026-10-14T09:46:28Z INFO  billing.reconcile  case=petrel client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=apalis amount=R1,726
+2026-10-14T09:46:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:47:05Z INFO  bookings.api  GET /bookings/upcoming 200 in 266ms
+2026-10-14T09:47:14Z INFO  billing.reconcile  case=boubou client="Maple Tree Veterinary Clinic" action="charge reversed by the card processor" next=gull amount=R1,036
+2026-10-14T09:47:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 772ms
+2026-10-14T09:47:54Z INFO  billing.reconcile  case=egret client="Alder Lane Dental Practice" action="charge reversed by the card processor" next=avocet amount=R318
+2026-10-14T09:48:07Z INFO  bookings.api  GET /bookings/upcoming 200 in 794ms
+2026-10-14T09:48:28Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:48:46Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:48:58Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T09:49:15Z INFO  bookings.api  GET /bookings/upcoming 200 in 424ms
+2026-10-14T09:49:38Z INFO  billing.reconcile  case=boubou client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=crane amount=R2,389
+2026-10-14T09:49:51Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:50:07Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:50:25Z INFO  billing.reconcile  case=barbet client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=none amount=R2,125
+2026-10-14T09:50:42Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T09:51:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 369ms
+2026-10-14T09:51:20Z INFO  billing.reconcile  case=cormorant client="Birch Street Bookshop" action="partial refund agreed with the client" next=ibis amount=R1,166
+2026-10-14T09:51:37Z INFO  billing.reconcile  case=flycatcher client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=tchagra amount=R2,243
+2026-10-14T09:51:53Z INFO  billing.reconcile  case=stork client="Maple Tree Veterinary Clinic" action="charge reversed by the card processor" next=tern amount=R2,213
+2026-10-14T09:52:12Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T09:52:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T09:52:40Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=831
+2026-10-14T09:52:58Z INFO  bookings.api  GET /bookings/upcoming 200 in 646ms
+2026-10-14T09:53:12Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:53:37Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=824
+2026-10-14T09:53:53Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:54:11Z INFO  billing.reconcile  case=pipit client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=bishop amount=R817
+2026-10-14T09:54:20Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:54:37Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T09:54:56Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T09:55:13Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T09:55:36Z INFO  bookings.api  GET /bookings/upcoming 200 in 363ms
+2026-10-14T09:55:50Z INFO  billing.reconcile  case=apalis client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=gannet amount=R1,333
+2026-10-14T09:56:06Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=758
+2026-10-14T09:56:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=824
+2026-10-14T09:56:36Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:56:59Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:57:16Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T09:57:34Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T09:57:48Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=198
+2026-10-14T09:58:08Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T09:58:19Z INFO  billing.reconcile  case=oriole client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=ibis amount=R153
+2026-10-14T09:58:34Z INFO  bookings.api  GET /bookings/upcoming 200 in 475ms
+2026-10-14T09:58:54Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T09:59:13Z INFO  crew.app  technician checked in on site
+2026-10-14T09:59:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T09:59:43Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:00:06Z INFO  crew.app  technician checked in on site
+2026-10-14T10:00:25Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=883
+2026-10-14T10:00:35Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:00:57Z INFO  bookings.api  GET /bookings/upcoming 200 in 510ms
+2026-10-14T10:01:13Z INFO  billing.reconcile  case=crane client="Meridian Physiotherapy" action="fee waived as a goodwill gesture" next=stork amount=R958
+2026-10-14T10:01:24Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T10:01:41Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:01:58Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:02:15Z INFO  billing.reconcile  case=robin client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=wagtail amount=R435
+2026-10-14T10:02:34Z INFO  billing.reconcile  case=prinia client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=shrike amount=R2,128
+2026-10-14T10:02:55Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=74
+2026-10-14T10:03:14Z INFO  bookings.api  GET /bookings/upcoming 200 in 515ms
+2026-10-14T10:03:32Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:03:48Z INFO  crew.app  technician checked in on site
+2026-10-14T10:04:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=192
+2026-10-14T10:04:21Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:04:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 560ms
+2026-10-14T10:04:53Z INFO  bookings.api  GET /bookings/upcoming 200 in 748ms
+2026-10-14T10:05:06Z INFO  billing.reconcile  case=petrel client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=gull amount=R2,063
+2026-10-14T10:05:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:05:39Z INFO  billing.reconcile  case=starling client="Meridian Physiotherapy" action="credit re-applied to the client account" next=oriole amount=R2,170
+2026-10-14T10:06:02Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:06:16Z INFO  bookings.api  GET /bookings/upcoming 200 in 23ms
+2026-10-14T10:06:30Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:06:47Z INFO  billing.reconcile  case=tern client="Birch Street Bookshop" action="charge reversed by the card processor" next=flycatcher amount=R1,270
+2026-10-14T10:07:09Z INFO  billing.reconcile  case=barbet client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=martin amount=R1,978
+2026-10-14T10:07:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:07:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=349
+2026-10-14T10:08:03Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:08:17Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:08:29Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:08:51Z INFO  billing.reconcile  case=oriole client="Seabreeze Guest Lodge" action="refund issued after duplicate card capture" next=pipit amount=R2,245
+2026-10-14T10:09:06Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:09:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=732
+2026-10-14T10:09:43Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:10:03Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:10:14Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=94
+2026-10-14T10:10:32Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:10:54Z INFO  billing.reconcile  case=tinker client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=gull amount=R99
+2026-10-14T10:11:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:11:26Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T10:11:43Z INFO  billing.reconcile  case=martin client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=gannet amount=R749
+2026-10-14T10:12:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 882ms
+2026-10-14T10:12:15Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:12:30Z INFO  billing.reconcile  case=ibis client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=bittern amount=R80
+2026-10-14T10:12:47Z INFO  billing.reconcile  case=swift client="Meridian Physiotherapy" action="charge reversed by the card processor" next=shrike amount=R1,117
+2026-10-14T10:13:03Z INFO  billing.reconcile  case=wagtail client="Harbourview Guesthouse" action="partial refund agreed with the client" next=none amount=R1,080
+2026-10-14T10:13:19Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T10:13:39Z INFO  billing.reconcile  case=weaver client="Birch Street Bookshop" action="credit re-applied to the client account" next=bittern amount=R1,552
+2026-10-14T10:13:56Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:14:12Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:14:26Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:14:48Z INFO  crew.app  technician checked in on site
+2026-10-14T10:15:00Z INFO  billing.reconcile  case=barbet client="Harbourview Guesthouse" action="partial refund agreed with the client" next=coucal amount=R1,835
+2026-10-14T10:15:24Z INFO  billing.reconcile  case=pipit client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=batis amount=R522
+2026-10-14T10:15:41Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:15:58Z INFO  billing.reconcile  case=hoopoe client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=lark amount=R1,019
+2026-10-14T10:16:13Z INFO  bookings.api  GET /bookings/upcoming 200 in 522ms
+2026-10-14T10:16:32Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:16:43Z INFO  billing.reconcile  case=drongo client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=prinia amount=R2,130
+2026-10-14T10:17:04Z INFO  bookings.api  GET /bookings/upcoming 200 in 489ms
+2026-10-14T10:17:23Z INFO  crew.app  technician checked in on site
+2026-10-14T10:17:34Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:17:54Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:18:14Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:18:32Z INFO  crew.app  technician checked in on site
+2026-10-14T10:18:49Z INFO  crew.app  technician checked in on site
+2026-10-14T10:19:00Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:19:15Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:19:35Z INFO  billing.reconcile  case=pipit client="Harbourview Guesthouse" action="charge reversed by the card processor" next=swift amount=R1,838
+2026-10-14T10:19:51Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:20:15Z INFO  bookings.api  GET /bookings/upcoming 200 in 412ms
+2026-10-14T10:20:25Z INFO  billing.reconcile  case=wagtail client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=stork amount=R2,055
+2026-10-14T10:20:43Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:21:00Z INFO  crew.app  technician checked in on site
+2026-10-14T10:21:19Z INFO  billing.reconcile  case=sunbird client="Harbourview Guesthouse" action="manual adjustment after the booking was moved" next=darter amount=R1,571
+2026-10-14T10:21:33Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=159
+2026-10-14T10:21:52Z INFO  crew.app  technician checked in on site
+2026-10-14T10:22:11Z INFO  billing.reconcile  case=crane client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=batis amount=R601
+2026-10-14T10:22:30Z INFO  billing.reconcile  case=cormorant client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=thrush amount=R368
+2026-10-14T10:22:48Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:22:59Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:23:14Z INFO  billing.reconcile  case=martin client="Alder Lane Dental Practice" action="charge reversed by the card processor" next=none amount=R757
+2026-10-14T10:23:32Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T10:23:55Z INFO  crew.app  technician checked in on site
+2026-10-14T10:24:12Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:24:24Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:24:44Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:25:01Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:25:12Z INFO  crew.app  technician checked in on site
+2026-10-14T10:25:29Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:25:53Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T10:26:06Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:26:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:26:42Z INFO  billing.reconcile  case=stork client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=none amount=R2,128
+2026-10-14T10:26:56Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:27:18Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:27:33Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:27:52Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:28:03Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:28:22Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:28:41Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:28:55Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:29:10Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=610
+2026-10-14T10:29:33Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:29:44Z INFO  bookings.api  GET /bookings/upcoming 200 in 713ms
+2026-10-14T10:30:01Z INFO  billing.reconcile  case=sunbird client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=none amount=R138
+2026-10-14T10:30:19Z INFO  billing.reconcile  case=swift client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=hoopoe amount=R2,179
+2026-10-14T10:30:40Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:30:56Z INFO  bookings.api  GET /bookings/upcoming 200 in 271ms
+2026-10-14T10:31:13Z INFO  billing.reconcile  case=bishop client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=thrush amount=R1,386
+2026-10-14T10:31:31Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:31:51Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:32:06Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=235
+2026-10-14T10:32:18Z INFO  bookings.api  GET /bookings/upcoming 200 in 68ms
+2026-10-14T10:32:36Z INFO  crew.app  technician checked in on site
+2026-10-14T10:32:54Z INFO  crew.app  technician checked in on site
+2026-10-14T10:33:10Z INFO  billing.reconcile  case=tchagra client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=ibis amount=R1,098
+2026-10-14T10:33:33Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:33:42Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=227
+2026-10-14T10:34:03Z INFO  crew.app  technician checked in on site
+2026-10-14T10:34:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:34:35Z INFO  billing.reconcile  case=stork client="Juniper Physiotherapy Rooms" action="partial refund agreed with the client" next=pipit amount=R1,332
+2026-10-14T10:34:58Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=794
+2026-10-14T10:35:12Z INFO  billing.reconcile  case=thrush client="Birch Street Bookshop" action="credit re-applied to the client account" next=cormorant amount=R1,044
+2026-10-14T10:35:31Z INFO  billing.reconcile  case=cormorant client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=oriole amount=R1,991
+2026-10-14T10:35:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 109ms
+2026-10-14T10:36:07Z INFO  crew.app  technician checked in on site
+2026-10-14T10:36:23Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:36:38Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:36:54Z INFO  bookings.api  GET /bookings/upcoming 200 in 788ms
+2026-10-14T10:37:07Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:37:31Z INFO  billing.reconcile  case=pipit client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=bishop amount=R1,435
+2026-10-14T10:37:46Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:37:57Z INFO  billing.reconcile  case=heron client="Harbourview Guesthouse" action="charge reversed by the card processor" next=plover amount=R1,280
+2026-10-14T10:38:16Z INFO  bookings.api  GET /bookings/upcoming 200 in 324ms
+2026-10-14T10:38:39Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:38:50Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:39:10Z INFO  billing.reconcile  case=crane client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=none amount=R1,103
+2026-10-14T10:39:28Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:39:46Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T10:39:59Z INFO  crew.app  technician checked in on site
+2026-10-14T10:40:18Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=262
+2026-10-14T10:40:37Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:40:52Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:41:10Z INFO  billing.reconcile  case=sparrow client="Harbourview Guesthouse" action="charge reversed by the card processor" next=stork amount=R201
+2026-10-14T10:41:21Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:41:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:42:00Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:42:12Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:42:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=746
+2026-10-14T10:42:48Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:43:09Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:43:28Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=354
+2026-10-14T10:43:42Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:43:54Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T10:44:18Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T10:44:33Z INFO  bookings.api  GET /bookings/upcoming 200 in 122ms
+2026-10-14T10:44:45Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=233
+2026-10-14T10:45:03Z INFO  crew.app  technician checked in on site
+2026-10-14T10:45:22Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:45:42Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:45:58Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:46:19Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:46:28Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:46:47Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:47:10Z INFO  billing.reconcile  case=tchagra client="Birch Street Bookshop" action="partial refund agreed with the client" next=boubou amount=R418
+2026-10-14T10:47:20Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T10:47:36Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:47:55Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:48:10Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T10:48:31Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:48:51Z INFO  billing.reconcile  case=bulbul client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=none amount=R790
+2026-10-14T10:49:00Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T10:49:26Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=213
+2026-10-14T10:49:34Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:49:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:50:08Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:50:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:50:49Z INFO  billing.reconcile  case=sparrow client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=none amount=R1,010
+2026-10-14T10:51:07Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T10:51:19Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T10:51:40Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T10:51:58Z INFO  billing.reconcile  case=sparrow client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=none amount=R1,740
+2026-10-14T10:52:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:52:32Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T10:52:43Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:53:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T10:53:17Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:53:36Z INFO  crew.app  technician checked in on site
+2026-10-14T10:53:58Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:54:09Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T10:54:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:54:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T10:55:02Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:55:21Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:55:31Z INFO  crew.app  technician checked in on site
+2026-10-14T10:55:54Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T10:56:13Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=703
+2026-10-14T10:56:27Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:56:48Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T10:57:04Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:57:15Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=632
+2026-10-14T10:57:37Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T10:57:47Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T10:58:11Z INFO  billing.reconcile  case=gannet client="Meridian Physiotherapy" action="charge reversed by the card processor" next=barbet amount=R108
+2026-10-14T10:58:26Z INFO  bookings.api  GET /bookings/upcoming 200 in 372ms
+2026-10-14T10:58:38Z INFO  billing.reconcile  case=finch client="Juniper Physiotherapy Rooms" action="charge reversed by the card processor" next=egret amount=R733
+2026-10-14T10:58:59Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T10:59:12Z INFO  billing.reconcile  case=ibis client="Birch Street Bookshop" action="credit re-applied to the client account" next=thrush amount=R1,314
+2026-10-14T10:59:32Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T10:59:47Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T11:00:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T11:00:26Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:00:41Z INFO  billing.reconcile  case=thrush client="Harbourview Guesthouse" action="charge reversed by the card processor" next=shrike amount=R730
+2026-10-14T11:00:55Z INFO  bookings.api  GET /bookings/upcoming 200 in 186ms
+2026-10-14T11:01:20Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:01:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:01:48Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=690
+2026-10-14T11:02:04Z INFO  billing.reconcile  case=bulbul client="Harbourview Guesthouse" action="partial refund agreed with the client" next=bittern amount=R2,211
+2026-10-14T11:02:28Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=802
+2026-10-14T11:02:44Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:03:00Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:03:16Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:03:35Z INFO  crew.app  technician checked in on site
+2026-10-14T11:03:46Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=513
+2026-10-14T11:04:01Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:04:27Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:04:44Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:04:58Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T11:05:09Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:05:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:05:51Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:06:07Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=153
+2026-10-14T11:06:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:06:40Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=90
+2026-10-14T11:06:53Z INFO  billing.reconcile  case=petrel client="Rowan Hall Community Centre" action="partial refund agreed with the client" next=oriole amount=R1,091
+2026-10-14T11:07:09Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:07:32Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:07:46Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:08:07Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:08:20Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:08:34Z INFO  billing.reconcile  case=bulbul client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=tern amount=R577
+2026-10-14T11:08:55Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:09:11Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=456
+2026-10-14T11:09:24Z INFO  billing.reconcile  case=starling client="Willow Bend Hair Studio" action="fee waived as a goodwill gesture" next=ibis amount=R369
+2026-10-14T11:09:45Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:09:59Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T11:10:17Z INFO  billing.reconcile  case=stork client="Cedar Court Accountants" action="charge reversed by the card processor" next=none amount=R1,103
+2026-10-14T11:10:32Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:10:55Z INFO  crew.app  technician checked in on site
+2026-10-14T11:11:12Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:11:29Z INFO  crew.app  technician checked in on site
+2026-10-14T11:11:43Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:12:05Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:12:21Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:12:32Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:12:53Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:13:07Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:13:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:13:44Z INFO  bookings.api  GET /bookings/upcoming 200 in 292ms
+2026-10-14T11:14:01Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:14:21Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:14:39Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:14:56Z INFO  billing.reconcile  case=sparrow client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=ibis amount=R2,118
+2026-10-14T11:15:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:15:25Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T11:15:38Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:16:00Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=528
+2026-10-14T11:16:17Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:16:29Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:16:47Z INFO  bookings.api  GET /bookings/upcoming 200 in 274ms
+2026-10-14T11:17:11Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:17:21Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:17:45Z INFO  billing.reconcile  case=coucal client="Harbourview Guesthouse" action="partial refund agreed with the client" next=none amount=R2,216
+2026-10-14T11:18:00Z INFO  billing.reconcile  case=coucal client="Maple Tree Veterinary Clinic" action="charge reversed by the card processor" next=batis amount=R2,266
+2026-10-14T11:18:13Z INFO  billing.reconcile  case=bulbul client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=oriole amount=R1,306
+2026-10-14T11:18:36Z INFO  bookings.api  GET /bookings/upcoming 200 in 574ms
+2026-10-14T11:18:51Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=745
+2026-10-14T11:19:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:19:22Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:19:43Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:19:53Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=464
+2026-10-14T11:20:13Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:20:28Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:20:49Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:21:02Z INFO  crew.app  technician checked in on site
+2026-10-14T11:21:20Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:21:41Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:21:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:22:13Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:22:34Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T11:22:45Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T11:23:07Z INFO  billing.reconcile  case=pipit client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=sparrow amount=R852
+2026-10-14T11:23:23Z INFO  billing.reconcile  case=tern client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=coucal amount=R1,392
+2026-10-14T11:23:37Z INFO  billing.reconcile  case=hornbill client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=drongo amount=R272
+2026-10-14T11:23:59Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:24:14Z INFO  crew.app  technician checked in on site
+2026-10-14T11:24:26Z INFO  crew.app  technician checked in on site
+2026-10-14T11:24:46Z INFO  billing.reconcile  case=tchagra client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=wagtail amount=R1,831
+2026-10-14T11:25:01Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=715
+2026-10-14T11:25:25Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=809
+2026-10-14T11:25:34Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T11:25:59Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:26:12Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:26:31Z INFO  billing.reconcile  case=weaver client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=swift amount=R676
+2026-10-14T11:26:45Z INFO  bookings.api  GET /bookings/upcoming 200 in 828ms
+2026-10-14T11:26:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=157
+2026-10-14T11:27:20Z INFO  billing.reconcile  case=gull client="Seabreeze Guest Lodge" action="manual adjustment after the booking was moved" next=tchagra amount=R1,850
+2026-10-14T11:27:41Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:27:56Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:28:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T11:28:31Z INFO  billing.reconcile  case=robin client="Meridian Physiotherapy" action="credit re-applied to the client account" next=hornbill amount=R218
+2026-10-14T11:28:48Z INFO  bookings.api  GET /bookings/upcoming 200 in 789ms
+2026-10-14T11:29:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T11:29:22Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:29:31Z INFO  crew.app  technician checked in on site
+2026-10-14T11:29:55Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:30:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T11:30:28Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:30:39Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=350
+2026-10-14T11:31:02Z INFO  billing.reconcile  case=widowbird client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=none amount=R1,434
+2026-10-14T11:31:18Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:31:35Z INFO  crew.app  technician checked in on site
+2026-10-14T11:31:52Z INFO  crew.app  technician checked in on site
+2026-10-14T11:32:06Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:32:26Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:32:40Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:32:57Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:33:13Z INFO  crew.app  technician checked in on site
+2026-10-14T11:33:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=402
+2026-10-14T11:33:48Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=754
+2026-10-14T11:34:04Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:34:29Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T11:34:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:34:57Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:35:16Z INFO  billing.reconcile  case=boubou client="Meridian Physiotherapy" action="refund issued after duplicate card capture" next=cormorant amount=R2,129
+2026-10-14T11:35:35Z INFO  billing.reconcile  case=ibis client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=flycatcher amount=R103
+2026-10-14T11:35:48Z INFO  billing.reconcile  case=tinker client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=crane amount=R1,406
+2026-10-14T11:36:11Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=533
+2026-10-14T11:36:23Z INFO  crew.app  technician checked in on site
+2026-10-14T11:36:36Z INFO  crew.app  technician checked in on site
+2026-10-14T11:37:02Z INFO  billing.reconcile  case=widowbird client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=wagtail amount=R468
+2026-10-14T11:37:14Z INFO  crew.app  technician checked in on site
+2026-10-14T11:37:31Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:37:45Z INFO  billing.reconcile  case=swift client="Rowan Hall Community Centre" action="partial refund agreed with the client" next=sunbird amount=R2,119
+2026-10-14T11:38:08Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:38:20Z INFO  billing.reconcile  case=prinia client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=warbler amount=R898
+2026-10-14T11:38:38Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:39:01Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:39:10Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:39:31Z INFO  billing.reconcile  case=plover client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=kestrel amount=R96
+2026-10-14T11:39:48Z INFO  billing.reconcile  case=oriole client="Harbourview Guesthouse" action="charge reversed by the card processor" next=darter amount=R950
+2026-10-14T11:40:06Z INFO  billing.reconcile  case=hoopoe client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=apalis amount=R993
+2026-10-14T11:40:19Z INFO  crew.app  technician checked in on site
+2026-10-14T11:40:34Z INFO  billing.reconcile  case=stork client="Harbourview Guesthouse" action="partial refund agreed with the client" next=cormorant amount=R2,275
+2026-10-14T11:40:58Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T11:41:10Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:41:27Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:41:47Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T11:42:08Z INFO  billing.reconcile  case=petrel client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=gull amount=R2,380
+2026-10-14T11:42:19Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:42:38Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T11:42:51Z INFO  billing.reconcile  case=bishop client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=starling amount=R644
+2026-10-14T11:43:11Z INFO  bookings.api  GET /bookings/upcoming 200 in 182ms
+2026-10-14T11:43:24Z INFO  billing.reconcile  case=stork client="Willow Bend Hair Studio" action="manual adjustment after the booking was moved" next=flycatcher amount=R1,017
+2026-10-14T11:43:43Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:44:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 74ms
+2026-10-14T11:44:24Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=164
+2026-10-14T11:44:36Z INFO  bookings.api  GET /bookings/upcoming 200 in 891ms
+2026-10-14T11:44:56Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:45:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:45:31Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:45:46Z INFO  crew.app  technician checked in on site
+2026-10-14T11:46:00Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T11:46:22Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:46:34Z INFO  billing.reconcile  case=flycatcher client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=coucal amount=R2,025
+2026-10-14T11:46:48Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:47:07Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:47:24Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:47:42Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T11:48:01Z INFO  bookings.api  GET /bookings/upcoming 200 in 271ms
+2026-10-14T11:48:18Z INFO  crew.app  technician checked in on site
+2026-10-14T11:48:39Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T11:48:47Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:49:12Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:49:23Z INFO  bookings.api  GET /bookings/upcoming 200 in 806ms
+2026-10-14T11:49:45Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:49:57Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T11:50:15Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:50:31Z INFO  billing.reconcile  case=boubou client="Meridian Physiotherapy" action="manual adjustment after the booking was moved" next=hoopoe amount=R831
+2026-10-14T11:50:53Z INFO  crew.app  technician checked in on site
+2026-10-14T11:51:03Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T11:51:29Z INFO  billing.reconcile  case=drongo client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=none amount=R974
+2026-10-14T11:51:46Z INFO  billing.reconcile  case=bittern client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=coucal amount=R685
+2026-10-14T11:51:58Z INFO  billing.reconcile  case=batis client="Meridian Physiotherapy" action="refund issued after duplicate card capture" next=martin amount=R848
+2026-10-14T11:52:14Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:52:32Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:52:52Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T11:53:03Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=118
+2026-10-14T11:53:20Z INFO  crew.app  technician checked in on site
+2026-10-14T11:53:39Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=321
+2026-10-14T11:53:59Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T11:54:14Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:54:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T11:54:51Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:55:04Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T11:55:27Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T11:55:36Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:55:56Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:56:16Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:56:28Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=674
+2026-10-14T11:56:43Z INFO  payments.gateway  card authorisation approved
+2026-10-14T11:57:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T11:57:21Z INFO  billing.reconcile  case=tern client="Birch Street Bookshop" action="refund issued after duplicate card capture" next=gull amount=R415
+2026-10-14T11:57:35Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:57:53Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T11:58:09Z INFO  billing.reconcile  case=pipit client="Willow Bend Hair Studio" action="partial refund agreed with the client" next=gull amount=R477
+2026-10-14T11:58:31Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:58:49Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T11:59:07Z INFO  bookings.api  GET /bookings/upcoming 200 in 601ms
+2026-10-14T11:59:23Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T11:59:39Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T11:59:59Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:00:10Z INFO  billing.reconcile  case=robin client="Meridian Physiotherapy" action="partial refund agreed with the client" next=hornbill amount=R1,280
+2026-10-14T12:00:33Z INFO  bookings.api  GET /bookings/upcoming 200 in 105ms
+2026-10-14T12:00:47Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=831
+2026-10-14T12:01:03Z INFO  billing.reconcile  case=wagtail client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=swift amount=R951
+2026-10-14T12:01:16Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T12:01:40Z INFO  billing.reconcile  case=tern client="Meridian Physiotherapy" action="credit re-applied to the client account" next=hornbill amount=R1,321
+2026-10-14T12:01:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 557ms
+2026-10-14T12:02:10Z INFO  bookings.api  GET /bookings/upcoming 200 in 103ms
+2026-10-14T12:02:24Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T12:02:47Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:03:01Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:03:18Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T12:03:39Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T12:03:53Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T12:04:10Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T12:04:31Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:04:48Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:05:04Z INFO  billing.reconcile  case=gannet client="Meridian Physiotherapy" action="credit re-applied to the client account" next=sunbird amount=R1,675
+2026-10-14T12:05:20Z INFO  billing.reconcile  case=martin client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=gull amount=R1,988
+2026-10-14T12:05:38Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=196
+2026-10-14T12:05:53Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T12:06:08Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:06:27Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:06:46Z INFO  bookings.api  GET /bookings/upcoming 200 in 247ms
+2026-10-14T12:07:03Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:07:19Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:07:31Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:07:48Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T12:08:08Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T12:08:28Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:08:41Z INFO  billing.reconcile  case=ibis client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=none amount=R1,596
+2026-10-14T12:09:01Z INFO  billing.reconcile  case=barbet client="Cedar Court Accountants" action="partial refund agreed with the client" next=sparrow amount=R1,076
+2026-10-14T12:09:14Z INFO  billing.reconcile  case=martin client="Meridian Physiotherapy" action="fee waived as a goodwill gesture" next=pipit amount=R2,104
+2026-10-14T12:09:29Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:09:50Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=864
+2026-10-14T12:10:11Z INFO  billing.reconcile  case=tchagra client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=warbler amount=R2,250
+2026-10-14T12:10:26Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:10:37Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:11:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T12:11:19Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=513
+2026-10-14T12:11:35Z INFO  billing.reconcile  case=darter client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=gannet amount=R1,162
+2026-10-14T12:11:50Z INFO  crew.app  technician checked in on site
+2026-10-14T12:12:08Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:12:20Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T12:12:38Z INFO  billing.reconcile  case=warbler client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=darter amount=R1,865
+2026-10-14T12:12:59Z INFO  billing.reconcile  case=kestrel client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=finch amount=R2,050
+2026-10-14T12:13:11Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=179
+2026-10-14T12:13:27Z INFO  billing.reconcile  case=robin client="Seabreeze Guest Lodge" action="refund issued after duplicate card capture" next=wagtail amount=R1,734
+2026-10-14T12:13:46Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=601
+2026-10-14T12:14:03Z INFO  crew.app  technician checked in on site
+2026-10-14T12:14:17Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T12:14:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:14:56Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=97
+2026-10-14T12:15:14Z INFO  crew.app  technician checked in on site
+2026-10-14T12:15:30Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:15:47Z INFO  billing.reconcile  case=barbet client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=gannet amount=R2,261
+2026-10-14T12:16:07Z INFO  crew.app  technician checked in on site
+2026-10-14T12:16:17Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:16:42Z INFO  billing.reconcile  case=widowbird client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=none amount=R1,765
+2026-10-14T12:16:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=846
+2026-10-14T12:17:10Z INFO  crew.app  technician checked in on site
+2026-10-14T12:17:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:17:46Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T12:18:04Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:18:21Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T12:18:34Z INFO  crew.app  technician checked in on site
+2026-10-14T12:18:49Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=152
+2026-10-14T12:19:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T12:19:27Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:19:48Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:19:59Z INFO  bookings.api  GET /bookings/upcoming 200 in 254ms
+2026-10-14T12:20:22Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:20:33Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:20:56Z INFO  crew.app  technician checked in on site
+2026-10-14T12:21:07Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=407
+2026-10-14T12:21:23Z INFO  bookings.api  GET /bookings/upcoming 200 in 160ms
+2026-10-14T12:21:41Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T12:22:05Z INFO  crew.app  technician checked in on site
+2026-10-14T12:22:20Z INFO  bookings.api  GET /bookings/upcoming 200 in 222ms
+2026-10-14T12:22:34Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=56
+2026-10-14T12:22:48Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:23:12Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:23:23Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:23:47Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:23:57Z INFO  billing.reconcile  case=coucal client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=bulbul amount=R539
+2026-10-14T12:24:15Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=314
+2026-10-14T12:24:30Z INFO  crew.app  technician checked in on site
+2026-10-14T12:24:48Z INFO  bookings.api  GET /bookings/upcoming 200 in 358ms
+2026-10-14T12:25:05Z INFO  billing.reconcile  case=lark client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=sparrow amount=R554
+2026-10-14T12:25:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=895
+2026-10-14T12:25:44Z INFO  billing.reconcile  case=tinker client="Meridian Physiotherapy" action="partial refund agreed with the client" next=darter amount=R1,460
+2026-10-14T12:26:01Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:26:12Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:26:31Z INFO  crew.app  technician checked in on site
+2026-10-14T12:26:52Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:27:09Z INFO  billing.reconcile  case=flycatcher client="Juniper Physiotherapy Rooms" action="partial refund agreed with the client" next=drongo amount=R462
+2026-10-14T12:27:22Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:27:39Z INFO  crew.app  technician checked in on site
+2026-10-14T12:27:59Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T12:28:16Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:28:29Z INFO  crew.app  technician checked in on site
+2026-10-14T12:28:48Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:29:10Z INFO  billing.reconcile  case=gannet client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=none amount=R142
+2026-10-14T12:29:22Z INFO  crew.app  technician checked in on site
+2026-10-14T12:29:41Z INFO  crew.app  technician checked in on site
+2026-10-14T12:29:53Z INFO  billing.reconcile  case=stork client="Rowan Hall Community Centre" action="charge reversed by the card processor" next=gull amount=R1,901
+2026-10-14T12:30:15Z INFO  bookings.api  GET /bookings/upcoming 200 in 232ms
+2026-10-14T12:30:30Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:30:49Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:31:03Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:31:23Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:31:41Z INFO  billing.reconcile  case=warbler client="Harbourview Guesthouse" action="credit re-applied to the client account" next=boubou amount=R270
+2026-10-14T12:31:56Z INFO  bookings.api  GET /bookings/upcoming 200 in 221ms
+2026-10-14T12:32:15Z INFO  crew.app  technician checked in on site
+2026-10-14T12:32:33Z INFO  billing.reconcile  case=lark client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=sunbird amount=R665
+2026-10-14T12:32:50Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:33:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:33:16Z INFO  billing.reconcile  case=cormorant client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=none amount=R1,183
+2026-10-14T12:33:38Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T12:33:57Z INFO  crew.app  technician checked in on site
+2026-10-14T12:34:09Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:34:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:34:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 569ms
+2026-10-14T12:35:04Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:35:22Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:35:36Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:35:53Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:36:15Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:36:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=604
+2026-10-14T12:36:46Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:37:03Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T12:37:21Z INFO  crew.app  technician checked in on site
+2026-10-14T12:37:36Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=712
+2026-10-14T12:37:52Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:38:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T12:38:29Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T12:38:44Z INFO  billing.reconcile  case=tern client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=none amount=R641
+2026-10-14T12:38:58Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:39:22Z INFO  billing.reconcile  case=martin client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=gull amount=R1,146
+2026-10-14T12:39:37Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:39:52Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=228
+2026-10-14T12:40:07Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T12:40:25Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=748
+2026-10-14T12:40:42Z INFO  billing.reconcile  case=petrel client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=weaver amount=R1,544
+2026-10-14T12:41:00Z INFO  billing.reconcile  case=sunbird client="Meridian Physiotherapy" action="partial refund agreed with the client" next=drongo amount=R2,083
+2026-10-14T12:41:16Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T12:41:34Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:41:54Z INFO  crew.app  technician checked in on site
+2026-10-14T12:42:06Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:42:23Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T12:42:45Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T12:42:59Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:43:14Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T12:43:35Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:43:49Z INFO  crew.app  technician checked in on site
+2026-10-14T12:44:10Z INFO  bookings.api  GET /bookings/upcoming 200 in 530ms
+2026-10-14T12:44:21Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:44:45Z INFO  crew.app  technician checked in on site
+2026-10-14T12:44:58Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T12:45:10Z INFO  crew.app  technician checked in on site
+2026-10-14T12:45:35Z INFO  bookings.api  GET /bookings/upcoming 200 in 706ms
+2026-10-14T12:45:47Z INFO  bookings.api  GET /bookings/upcoming 200 in 346ms
+2026-10-14T12:46:02Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T12:46:23Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:46:35Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:46:59Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:47:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:47:31Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T12:47:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=621
+2026-10-14T12:48:00Z INFO  crew.app  technician checked in on site
+2026-10-14T12:48:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=421
+2026-10-14T12:48:38Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:48:54Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T12:49:08Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:49:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=446
+2026-10-14T12:49:42Z INFO  bookings.api  GET /bookings/upcoming 200 in 511ms
+2026-10-14T12:49:59Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:50:18Z INFO  billing.reconcile  case=cisticola client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=none amount=R1,760
+2026-10-14T12:50:37Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T12:50:55Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T12:51:09Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T12:51:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:51:41Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=95
+2026-10-14T12:52:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T12:52:19Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T12:52:41Z INFO  crew.app  technician checked in on site
+2026-10-14T12:52:54Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T12:53:07Z INFO  crew.app  technician checked in on site
+2026-10-14T12:53:28Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T12:53:42Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=672
+2026-10-14T12:54:06Z INFO  billing.reconcile  case=boubou client="Birch Street Bookshop" action="charge reversed by the card processor" next=hornbill amount=R1,784
+2026-10-14T12:54:20Z INFO  billing.reconcile  case=crane client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=batis amount=R643
+2026-10-14T12:54:37Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T12:54:55Z INFO  billing.reconcile  case=oriole client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=tinker amount=R531
+2026-10-14T12:55:10Z INFO  billing.reconcile  case=boubou client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=sparrow amount=R1,211
+2026-10-14T12:55:29Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=241
+2026-10-14T12:55:46Z INFO  crew.app  technician checked in on site
+2026-10-14T12:55:57Z INFO  payments.gateway  card authorisation approved
+2026-10-14T12:56:22Z INFO  crew.app  technician checked in on site
+2026-10-14T12:56:36Z INFO  bookings.api  GET /bookings/upcoming 200 in 742ms
+2026-10-14T12:56:56Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:57:13Z INFO  billing.reconcile  case=hornbill client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=crane amount=R977
+2026-10-14T12:57:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:57:45Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:58:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 336ms
+2026-10-14T12:58:12Z INFO  billing.reconcile  case=hornbill client="Seabreeze Guest Lodge" action="charge reversed by the card processor" next=bishop amount=R178
+2026-10-14T12:58:36Z INFO  billing.reconcile  case=batis client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=ibis amount=R649
+2026-10-14T12:58:54Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:59:10Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T12:59:27Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T12:59:40Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T12:59:56Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:00:17Z INFO  billing.reconcile  case=coucal client="Juniper Physiotherapy Rooms" action="credit re-applied to the client account" next=thrush amount=R2,191
+2026-10-14T13:00:33Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:00:47Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:01:10Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T13:01:24Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:01:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:01:54Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T13:02:19Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:02:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=715
+2026-10-14T13:02:45Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=169
+2026-10-14T13:03:05Z INFO  bookings.api  GET /bookings/upcoming 200 in 842ms
+2026-10-14T13:03:24Z INFO  crew.app  technician checked in on site
+2026-10-14T13:03:42Z INFO  billing.reconcile  case=gull client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=none amount=R1,499
+2026-10-14T13:04:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 765ms
+2026-10-14T13:04:18Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:04:30Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T13:04:44Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:05:06Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:05:25Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:05:42Z INFO  billing.reconcile  case=crane client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=coucal amount=R2,307
+2026-10-14T13:05:57Z INFO  crew.app  technician checked in on site
+2026-10-14T13:06:13Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=666
+2026-10-14T13:06:27Z INFO  billing.reconcile  case=thrush client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=sunbird amount=R484
+2026-10-14T13:06:50Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:07:07Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:07:23Z INFO  billing.reconcile  case=tinker client="Rowan Hall Community Centre" action="credit re-applied to the client account" next=sunbird amount=R2,298
+2026-10-14T13:07:38Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:07:58Z INFO  crew.app  technician checked in on site
+2026-10-14T13:08:15Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:08:33Z INFO  bookings.api  GET /bookings/upcoming 200 in 156ms
+2026-10-14T13:08:46Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=552
+2026-10-14T13:08:59Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:09:20Z INFO  billing.reconcile  case=petrel client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=oriole amount=R669
+2026-10-14T13:09:39Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=348
+2026-10-14T13:09:54Z INFO  bookings.api  GET /bookings/upcoming 200 in 764ms
+2026-10-14T13:10:06Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T13:10:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:10:42Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:11:00Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:11:22Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T13:11:39Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:11:50Z INFO  crew.app  technician checked in on site
+2026-10-14T13:12:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=231
+2026-10-14T13:12:25Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:12:41Z INFO  billing.reconcile  case=prinia client="Willow Bend Hair Studio" action="charge reversed by the card processor" next=boubou amount=R59
+2026-10-14T13:12:59Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:13:13Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:13:37Z INFO  billing.reconcile  case=widowbird client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=prinia amount=R2,044
+2026-10-14T13:13:55Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:14:11Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:14:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=127
+2026-10-14T13:14:39Z INFO  billing.reconcile  case=tinker client="Willow Bend Hair Studio" action="fee waived as a goodwill gesture" next=cormorant amount=R360
+2026-10-14T13:15:02Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T13:15:16Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T13:15:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 424ms
+2026-10-14T13:15:54Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:16:06Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T13:16:25Z INFO  billing.reconcile  case=petrel client="Seabreeze Guest Lodge" action="partial refund agreed with the client" next=tern amount=R1,271
+2026-10-14T13:16:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:16:56Z INFO  crew.app  technician checked in on site
+2026-10-14T13:17:17Z INFO  billing.reconcile  case=pipit client="Seabreeze Guest Lodge" action="refund issued after duplicate card capture" next=bishop amount=R2,040
+2026-10-14T13:17:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:17:54Z INFO  billing.reconcile  case=sparrow client="Maple Tree Veterinary Clinic" action="partial refund agreed with the client" next=tchagra amount=R500
+2026-10-14T13:18:07Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:18:21Z INFO  billing.reconcile  case=robin client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=none amount=R2,263
+2026-10-14T13:18:41Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:18:58Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:19:15Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=77
+2026-10-14T13:19:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:19:52Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:20:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=355
+2026-10-14T13:20:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:20:35Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T13:20:59Z INFO  billing.reconcile  case=darter client="Juniper Physiotherapy Rooms" action="charge reversed by the card processor" next=lark amount=R441
+2026-10-14T13:21:11Z INFO  crew.app  technician checked in on site
+2026-10-14T13:21:28Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T13:21:51Z INFO  crew.app  technician checked in on site
+2026-10-14T13:22:06Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:22:18Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=556
+2026-10-14T13:22:43Z INFO  billing.reconcile  case=flycatcher client="Rowan Hall Community Centre" action="manual adjustment after the booking was moved" next=darter amount=R1,252
+2026-10-14T13:22:57Z INFO  bookings.api  GET /bookings/upcoming 200 in 845ms
+2026-10-14T13:23:10Z INFO  billing.reconcile  case=flycatcher client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=none amount=R61
+2026-10-14T13:23:25Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:23:42Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T13:24:00Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T13:24:17Z INFO  bookings.api  GET /bookings/upcoming 200 in 450ms
+2026-10-14T13:24:34Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:24:56Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:25:14Z INFO  bookings.api  GET /bookings/upcoming 200 in 696ms
+2026-10-14T13:25:31Z INFO  crew.app  technician checked in on site
+2026-10-14T13:25:44Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:25:59Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:26:21Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:26:39Z INFO  crew.app  technician checked in on site
+2026-10-14T13:26:50Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T13:27:11Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:27:29Z INFO  crew.app  technician checked in on site
+2026-10-14T13:27:42Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:27:58Z INFO  billing.reconcile  case=oriole client="Willow Bend Hair Studio" action="fee waived as a goodwill gesture" next=wagtail amount=R1,959
+2026-10-14T13:28:14Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:28:37Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T13:28:51Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:29:08Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:29:26Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=256
+2026-10-14T13:29:47Z INFO  billing.reconcile  case=gull client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=sparrow amount=R1,639
+2026-10-14T13:30:04Z INFO  crew.app  technician checked in on site
+2026-10-14T13:30:22Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:30:32Z INFO  crew.app  technician checked in on site
+2026-10-14T13:30:51Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:31:08Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:31:22Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=537
+2026-10-14T13:31:39Z INFO  crew.app  technician checked in on site
+2026-10-14T13:31:56Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:32:20Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:32:30Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:32:52Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:33:11Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=85
+2026-10-14T13:33:23Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:33:37Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:33:57Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T13:34:16Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:34:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:34:54Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:35:03Z INFO  billing.reconcile  case=gull client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=apalis amount=R398
+2026-10-14T13:35:28Z INFO  billing.reconcile  case=starling client="Meridian Physiotherapy" action="manual adjustment after the booking was moved" next=none amount=R971
+2026-10-14T13:35:45Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:35:58Z INFO  billing.reconcile  case=darter client="Birch Street Bookshop" action="partial refund agreed with the client" next=none amount=R1,122
+2026-10-14T13:36:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:36:30Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:36:53Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:37:09Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:37:21Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:37:37Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=556
+2026-10-14T13:37:57Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T13:38:13Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:38:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:38:51Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:39:03Z INFO  billing.reconcile  case=wagtail client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=pipit amount=R540
+2026-10-14T13:39:25Z INFO  bookings.api  GET /bookings/upcoming 200 in 6ms
+2026-10-14T13:39:36Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T13:40:00Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:40:11Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:40:27Z INFO  bookings.api  GET /bookings/upcoming 200 in 206ms
+2026-10-14T13:40:48Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:41:08Z INFO  billing.reconcile  case=hornbill client="Rowan Hall Community Centre" action="refund issued after duplicate card capture" next=stork amount=R1,779
+2026-10-14T13:41:24Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:41:35Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:41:57Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:42:09Z INFO  billing.reconcile  case=lark client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=wagtail amount=R399
+2026-10-14T13:42:27Z INFO  billing.reconcile  case=prinia client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=robin amount=R2,358
+2026-10-14T13:42:50Z INFO  bookings.api  GET /bookings/upcoming 200 in 792ms
+2026-10-14T13:43:01Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:43:20Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:43:40Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:43:49Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T13:44:15Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:44:26Z INFO  bookings.api  GET /bookings/upcoming 200 in 502ms
+2026-10-14T13:44:46Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:45:04Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=458
+2026-10-14T13:45:19Z INFO  crew.app  technician checked in on site
+2026-10-14T13:45:35Z INFO  crew.app  technician checked in on site
+2026-10-14T13:45:49Z INFO  crew.app  technician checked in on site
+2026-10-14T13:46:12Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T13:46:31Z INFO  billing.reconcile  case=robin client="Maple Tree Veterinary Clinic" action="charge reversed by the card processor" next=batis amount=R655
+2026-10-14T13:46:44Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:47:03Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=153
+2026-10-14T13:47:16Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T13:47:36Z INFO  billing.reconcile  case=boubou client="Seabreeze Guest Lodge" action="refund issued after duplicate card capture" next=flycatcher amount=R1,005
+2026-10-14T13:47:52Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:48:13Z INFO  billing.reconcile  case=gull client="Willow Bend Hair Studio" action="charge reversed by the card processor" next=coucal amount=R1,579
+2026-10-14T13:48:29Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:48:41Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:48:56Z INFO  crew.app  technician checked in on site
+2026-10-14T13:49:18Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:49:30Z INFO  bookings.api  GET /bookings/upcoming 200 in 366ms
+2026-10-14T13:49:49Z INFO  crew.app  technician checked in on site
+2026-10-14T13:50:05Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:50:23Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:50:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=111
+2026-10-14T13:50:58Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T13:51:15Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:51:32Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:51:54Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:52:09Z INFO  billing.reconcile  case=ibis client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=apalis amount=R1,340
+2026-10-14T13:52:26Z INFO  billing.reconcile  case=barbet client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=gannet amount=R504
+2026-10-14T13:52:38Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:52:55Z INFO  billing.reconcile  case=pipit client="Birch Street Bookshop" action="credit re-applied to the client account" next=cormorant amount=R667
+2026-10-14T13:53:14Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:53:34Z INFO  billing.reconcile  case=swift client="Birch Street Bookshop" action="credit re-applied to the client account" next=none amount=R468
+2026-10-14T13:53:47Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:54:07Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:54:18Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T13:54:36Z INFO  crew.app  technician checked in on site
+2026-10-14T13:54:53Z INFO  bookings.api  GET /bookings/upcoming 200 in 124ms
+2026-10-14T13:55:10Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T13:55:34Z INFO  payments.gateway  card authorisation approved
+2026-10-14T13:55:44Z INFO  crew.app  technician checked in on site
+2026-10-14T13:56:07Z INFO  billing.reconcile  case=ibis client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=weaver amount=R82
+2026-10-14T13:56:17Z INFO  billing.reconcile  case=sunbird client="Cedar Court Accountants" action="refund issued after duplicate card capture" next=gannet amount=R424
+2026-10-14T13:56:39Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T13:56:53Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:57:16Z INFO  billing.reconcile  case=martin client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=stork amount=R477
+2026-10-14T13:57:29Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T13:57:47Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=595
+2026-10-14T13:58:00Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=378
+2026-10-14T13:58:23Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:58:35Z INFO  billing.reconcile  case=cormorant client="Birch Street Bookshop" action="refund issued after duplicate card capture" next=tchagra amount=R2,119
+2026-10-14T13:58:54Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T13:59:08Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T13:59:24Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T13:59:44Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:00:03Z INFO  bookings.api  GET /bookings/upcoming 200 in 601ms
+2026-10-14T14:00:15Z INFO  billing.reconcile  case=gull client="Juniper Physiotherapy Rooms" action="fee waived as a goodwill gesture" next=darter amount=R1,260
+2026-10-14T14:00:34Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T14:00:56Z INFO  bookings.api  GET /bookings/upcoming 200 in 120ms
+2026-10-14T14:01:14Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=310
+2026-10-14T14:01:30Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T14:01:47Z INFO  billing.reconcile  case=bittern client="Harbourview Guesthouse" action="partial refund agreed with the client" next=tern amount=R1,650
+2026-10-14T14:01:57Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T14:02:14Z INFO  crew.app  technician checked in on site
+2026-10-14T14:02:33Z INFO  billing.reconcile  case=robin client="Meridian Physiotherapy" action="refund issued after duplicate card capture" next=coucal amount=R2,089
+2026-10-14T14:02:48Z INFO  billing.reconcile  case=flycatcher client="Meridian Physiotherapy" action="credit re-applied to the client account" next=none amount=R220
+2026-10-14T14:03:10Z INFO  billing.reconcile  case=swift client="Cedar Court Accountants" action="fee waived as a goodwill gesture" next=apalis amount=R398
+2026-10-14T14:03:26Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:03:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:03:57Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:04:22Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:04:32Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=673
+2026-10-14T14:04:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 806ms
+2026-10-14T14:05:12Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:05:26Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:05:40Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:05:58Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:06:20Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:06:34Z INFO  bookings.api  GET /bookings/upcoming 200 in 781ms
+2026-10-14T14:06:53Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:07:04Z INFO  billing.reconcile  case=warbler client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=none amount=R1,794
+2026-10-14T14:07:27Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T14:07:39Z INFO  billing.reconcile  case=wagtail client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=weaver amount=R2,367
+2026-10-14T14:08:02Z INFO  crew.app  technician checked in on site
+2026-10-14T14:08:17Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=692
+2026-10-14T14:08:34Z INFO  billing.reconcile  case=cisticola client="Birch Street Bookshop" action="partial refund agreed with the client" next=lark amount=R1,031
+2026-10-14T14:08:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 667ms
+2026-10-14T14:09:11Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:09:22Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:09:44Z INFO  billing.reconcile  case=boubou client="Seabreeze Guest Lodge" action="manual adjustment after the booking was moved" next=petrel amount=R1,880
+2026-10-14T14:09:54Z INFO  billing.reconcile  case=lark client="Willow Bend Hair Studio" action="fee waived as a goodwill gesture" next=bulbul amount=R1,099
+2026-10-14T14:10:13Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=350
+2026-10-14T14:10:36Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:10:52Z INFO  bookings.api  GET /bookings/upcoming 200 in 368ms
+2026-10-14T14:11:02Z INFO  bookings.api  GET /bookings/upcoming 200 in 475ms
+2026-10-14T14:11:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=738
+2026-10-14T14:11:38Z INFO  billing.reconcile  case=ibis client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=none amount=R1,554
+2026-10-14T14:12:00Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:12:12Z INFO  billing.reconcile  case=batis client="Alder Lane Dental Practice" action="credit re-applied to the client account" next=tchagra amount=R1,530
+2026-10-14T14:12:34Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=200
+2026-10-14T14:12:46Z INFO  billing.reconcile  case=batis client="Birch Street Bookshop" action="credit re-applied to the client account" next=cisticola amount=R1,554
+2026-10-14T14:13:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T14:13:25Z INFO  billing.reconcile  case=darter client="Cedar Court Accountants" action="charge reversed by the card processor" next=lark amount=R2,011
+2026-10-14T14:13:42Z INFO  billing.reconcile  case=thrush client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=pipit amount=R757
+2026-10-14T14:13:56Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:14:16Z INFO  crew.app  technician checked in on site
+2026-10-14T14:14:33Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T14:14:44Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T14:15:05Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=418
+2026-10-14T14:15:16Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T14:15:41Z INFO  crew.app  technician checked in on site
+2026-10-14T14:15:55Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T14:16:07Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:16:32Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:16:41Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:17:04Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T14:17:19Z INFO  crew.app  technician checked in on site
+2026-10-14T14:17:36Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:17:58Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:18:10Z INFO  billing.reconcile  case=bulbul client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=bittern amount=R1,436
+2026-10-14T14:18:26Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:18:42Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:18:58Z INFO  crew.app  technician checked in on site
+2026-10-14T14:19:22Z INFO  bookings.api  GET /bookings/upcoming 200 in 870ms
+2026-10-14T14:19:38Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:19:49Z INFO  bookings.api  GET /bookings/upcoming 200 in 885ms
+2026-10-14T14:20:09Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T14:20:25Z INFO  bookings.api  GET /bookings/upcoming 200 in 704ms
+2026-10-14T14:20:42Z INFO  crew.app  technician checked in on site
+2026-10-14T14:20:56Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:21:22Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:21:36Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T14:21:50Z INFO  billing.reconcile  case=drongo client="Juniper Physiotherapy Rooms" action="manual adjustment after the booking was moved" next=boubou amount=R1,173
+2026-10-14T14:22:04Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:22:29Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=82
+2026-10-14T14:22:45Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:23:03Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=238
+2026-10-14T14:23:14Z INFO  billing.reconcile  case=swift client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=apalis amount=R1,977
+2026-10-14T14:23:34Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:23:46Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T14:24:09Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:24:20Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:24:46Z INFO  billing.reconcile  case=hoopoe client="Birch Street Bookshop" action="manual adjustment after the booking was moved" next=apalis amount=R2,109
+2026-10-14T14:24:54Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:25:12Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:25:28Z INFO  crew.app  technician checked in on site
+2026-10-14T14:25:48Z INFO  crew.app  technician checked in on site
+2026-10-14T14:26:03Z INFO  bookings.api  GET /bookings/upcoming 200 in 601ms
+2026-10-14T14:26:26Z INFO  crew.app  technician checked in on site
+2026-10-14T14:26:43Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:27:00Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:27:19Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:27:34Z INFO  bookings.api  GET /bookings/upcoming 200 in 150ms
+2026-10-14T14:27:52Z INFO  crew.app  technician checked in on site
+2026-10-14T14:28:10Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:28:26Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T14:28:38Z INFO  bookings.api  GET /bookings/upcoming 200 in 543ms
+2026-10-14T14:28:53Z INFO  billing.reconcile  case=tchagra client="Maple Tree Veterinary Clinic" action="fee waived as a goodwill gesture" next=stork amount=R1,720
+2026-10-14T14:29:18Z INFO  billing.reconcile  case=coucal client="Rowan Hall Community Centre" action="partial refund agreed with the client" next=cisticola amount=R805
+2026-10-14T14:29:32Z INFO  bookings.api  GET /bookings/upcoming 200 in 799ms
+2026-10-14T14:29:44Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:30:09Z INFO  billing.reconcile  case=apalis client="Willow Bend Hair Studio" action="credit re-applied to the client account" next=widowbird amount=R2,005
+2026-10-14T14:30:19Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:30:43Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T14:30:55Z INFO  crew.app  technician checked in on site
+2026-10-14T14:31:14Z INFO  crew.app  technician checked in on site
+2026-10-14T14:31:30Z INFO  crew.app  technician checked in on site
+2026-10-14T14:31:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:32:03Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T14:32:19Z INFO  bookings.api  GET /bookings/upcoming 200 in 530ms
+2026-10-14T14:32:33Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T14:32:54Z INFO  crew.app  technician checked in on site
+2026-10-14T14:33:16Z INFO  billing.reconcile  case=prinia client="Alder Lane Dental Practice" action="manual adjustment after the booking was moved" next=sparrow amount=R1,864
+2026-10-14T14:33:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:33:49Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:33:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=290
+2026-10-14T14:34:23Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=784
+2026-10-14T14:34:36Z INFO  billing.reconcile  case=barbet client="Seabreeze Guest Lodge" action="fee waived as a goodwill gesture" next=gannet amount=R662
+2026-10-14T14:34:51Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:35:11Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T14:35:26Z INFO  billing.reconcile  case=thrush client="Juniper Physiotherapy Rooms" action="refund issued after duplicate card capture" next=shrike amount=R547
+2026-10-14T14:35:43Z INFO  bookings.api  GET /bookings/upcoming 200 in 518ms
+2026-10-14T14:35:59Z INFO  bookings.api  GET /bookings/upcoming 200 in 505ms
+2026-10-14T14:36:15Z INFO  billing.reconcile  case=lark client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=crane amount=R736
+2026-10-14T14:36:34Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:36:53Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:37:14Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:37:26Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T14:37:48Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:37:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=153
+2026-10-14T14:38:17Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:38:38Z INFO  bookings.api  GET /bookings/upcoming 200 in 523ms
+2026-10-14T14:38:51Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:39:06Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:39:25Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=748
+2026-10-14T14:39:46Z INFO  crew.app  technician checked in on site
+2026-10-14T14:40:03Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:40:14Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:40:30Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=73
+2026-10-14T14:40:49Z INFO  billing.reconcile  case=apalis client="Maple Tree Veterinary Clinic" action="manual adjustment after the booking was moved" next=hoopoe amount=R726
+2026-10-14T14:41:11Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:41:28Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T14:41:39Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:42:02Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:42:11Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:42:33Z INFO  bookings.api  GET /bookings/upcoming 200 in 293ms
+2026-10-14T14:42:52Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=306
+2026-10-14T14:43:08Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:43:24Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T14:43:37Z INFO  billing.reconcile  case=gannet client="Cedar Court Accountants" action="manual adjustment after the booking was moved" next=hornbill amount=R825
+2026-10-14T14:43:58Z INFO  bookings.api  GET /bookings/upcoming 200 in 744ms
+2026-10-14T14:44:11Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:44:32Z INFO  crew.app  technician checked in on site
+2026-10-14T14:44:46Z INFO  billing.reconcile  case=wagtail client="Harbourview Guesthouse" action="refund issued after duplicate card capture" next=swift amount=R1,882
+2026-10-14T14:45:03Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:45:26Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=632
+2026-10-14T14:45:41Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:45:56Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:46:11Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:46:30Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:46:44Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:47:06Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:47:24Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:47:42Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:47:51Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T14:48:12Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T14:48:25Z INFO  crew.app  technician checked in on site
+2026-10-14T14:48:43Z INFO  bookings.api  GET /bookings/upcoming 200 in 141ms
+2026-10-14T14:49:00Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:49:23Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:49:39Z INFO  billing.reconcile  case=starling client="Cedar Court Accountants" action="credit re-applied to the client account" next=none amount=R231
+2026-10-14T14:49:59Z INFO  billing.reconcile  case=bulbul client="Cedar Court Accountants" action="partial refund agreed with the client" next=tern amount=R1,992
+2026-10-14T14:50:10Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:50:29Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T14:50:50Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T14:51:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T14:51:21Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:51:40Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T14:51:57Z INFO  crew.app  technician checked in on site
+2026-10-14T14:52:06Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:52:29Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:52:44Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:53:02Z INFO  crew.app  job sheet uploaded with photos=2
+2026-10-14T14:53:18Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:53:36Z INFO  crew.app  technician checked in on site
+2026-10-14T14:53:54Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:54:11Z INFO  payments.gateway  card authorisation approved
+2026-10-14T14:54:24Z INFO  billing.reconcile  case=hoopoe client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=cormorant amount=R1,990
+2026-10-14T14:54:46Z INFO  billing.reconcile  case=hornbill client="Harbourview Guesthouse" action="charge reversed by the card processor" next=stork amount=R1,172
+2026-10-14T14:54:56Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:55:17Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T14:55:30Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=84
+2026-10-14T14:55:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:56:05Z WARN  mailer.smtp  retrying reminder email to client, attempt 2
+2026-10-14T14:56:23Z INFO  bookings.api  GET /bookings/upcoming 200 in 41ms
+2026-10-14T14:56:39Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T14:56:59Z INFO  billing.reconcile  case=lark client="Alder Lane Dental Practice" action="partial refund agreed with the client" next=shrike amount=R1,276
+2026-10-14T14:57:13Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=558
+2026-10-14T14:57:34Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=102
+2026-10-14T14:57:48Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T14:58:06Z INFO  bookings.api  GET /bookings/upcoming 200 in 159ms
+2026-10-14T14:58:20Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T14:58:37Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=486
+2026-10-14T14:59:01Z INFO  billing.reconcile  case=boubou client="Birch Street Bookshop" action="fee waived as a goodwill gesture" next=none amount=R1,748
+2026-10-14T14:59:19Z INFO  crew.app  technician checked in on site
+2026-10-14T14:59:36Z WARN  mailer.smtp  retrying reminder email to client, attempt 4
+2026-10-14T14:59:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:00:09Z INFO  crew.app  job sheet uploaded with photos=1
+2026-10-14T15:00:27Z INFO  bookings.api  GET /bookings/upcoming 200 in 800ms
+2026-10-14T15:00:43Z INFO  billing.reconcile  case=widowbird client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=warbler amount=R164
+2026-10-14T15:01:02Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:01:18Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:01:36Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:01:48Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:02:05Z INFO  bookings.api  GET /bookings/upcoming 200 in 306ms
+2026-10-14T15:02:18Z INFO  payments.gateway  card authorisation approved
+2026-10-14T15:02:39Z INFO  bookings.api  GET /bookings/upcoming 200 in 889ms
+2026-10-14T15:03:00Z INFO  bookings.api  GET /bookings/upcoming 200 in 651ms
+2026-10-14T15:03:14Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:03:32Z INFO  billing.reconcile  case=bittern client="Rowan Hall Community Centre" action="partial refund agreed with the client" next=batis amount=R40
+2026-10-14T15:03:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=119
+2026-10-14T15:04:02Z INFO  billing.reconcile  case=gull client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=boubou amount=R164
+2026-10-14T15:04:25Z INFO  billing.reconcile  case=hoopoe client="Meridian Physiotherapy" action="partial refund agreed with the client" next=tinker amount=R1,565
+2026-10-14T15:04:34Z INFO  bookings.api  GET /bookings/upcoming 200 in 77ms
+2026-10-14T15:04:59Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=797
+2026-10-14T15:05:09Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T15:05:25Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:05:46Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:06:05Z INFO  billing.reconcile  case=hornbill client="Rowan Hall Community Centre" action="manual adjustment after the booking was moved" next=none amount=R2,397
+2026-10-14T15:06:20Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=391
+2026-10-14T15:06:36Z WARN  mailer.smtp  retrying reminder email to client, attempt 5
+2026-10-14T15:06:53Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:07:07Z INFO  bookings.api  GET /bookings/upcoming 200 in 102ms
+2026-10-14T15:07:33Z INFO  bookings.api  GET /bookings/upcoming 200 in 620ms
+2026-10-14T15:07:41Z INFO  billing.reconcile  case=cormorant client="Harbourview Guesthouse" action="manual adjustment after the booking was moved" next=bulbul amount=R1,663
+2026-10-14T15:08:07Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:08:20Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:08:39Z INFO  crew.app  technician checked in on site
+2026-10-14T15:08:52Z INFO  billing.reconcile  case=petrel client="Willow Bend Hair Studio" action="charge reversed by the card processor" next=none amount=R2,291
+2026-10-14T15:09:13Z INFO  crew.app  technician checked in on site
+2026-10-14T15:09:23Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:09:46Z INFO  payments.gateway  card authorisation approved
+2026-10-14T15:10:05Z INFO  billing.reconcile  case=prinia client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=bittern amount=R2,194
+2026-10-14T15:10:23Z INFO  crew.app  technician checked in on site
+2026-10-14T15:10:40Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=563
+2026-10-14T15:10:50Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=93
+2026-10-14T15:11:11Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:11:31Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:11:44Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=559
+2026-10-14T15:11:57Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:12:18Z INFO  crew.app  technician checked in on site
+2026-10-14T15:12:35Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:12:52Z INFO  crew.app  technician checked in on site
+2026-10-14T15:13:10Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=697
+2026-10-14T15:13:22Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:13:46Z INFO  bookings.api  GET /bookings/upcoming 200 in 714ms
+2026-10-14T15:14:03Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:14:18Z INFO  crew.app  technician checked in on site
+2026-10-14T15:14:31Z INFO  payments.gateway  card authorisation approved
+2026-10-14T15:14:51Z INFO  billing.reconcile  case=crane client="Maple Tree Veterinary Clinic" action="refund issued after duplicate card capture" next=swift amount=R840
+2026-10-14T15:15:12Z WARN  mailer.smtp  retrying reminder email to client, attempt 1
+2026-10-14T15:15:27Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:15:40Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:15:55Z INFO  bookings.api  GET /bookings/upcoming 200 in 740ms
+2026-10-14T15:16:11Z INFO  crew.app  technician checked in on site
+2026-10-14T15:16:31Z INFO  crew.app  technician checked in on site
+2026-10-14T15:16:48Z INFO  payments.gateway  card authorisation approved
+2026-10-14T15:17:02Z INFO  bookings.api  GET /bookings/upcoming 200 in 143ms
+2026-10-14T15:17:21Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=686
+2026-10-14T15:17:39Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:17:58Z INFO  billing.reconcile  case=darter client="Harbourview Guesthouse" action="fee waived as a goodwill gesture" next=lark amount=R2,137
+2026-10-14T15:18:19Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=611
+2026-10-14T15:18:30Z INFO  billing.reconcile  case=boubou client="Alder Lane Dental Practice" action="refund issued after duplicate card capture" next=tern amount=R2,329
+2026-10-14T15:18:45Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:19:10Z INFO  crew.app  job sheet uploaded with photos=3
+2026-10-14T15:19:25Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T15:19:35Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:19:55Z INFO  billing.reconcile  case=petrel client="Alder Lane Dental Practice" action="fee waived as a goodwill gesture" next=bulbul amount=R1,354
+2026-10-14T15:20:11Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:20:32Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:20:47Z INFO  billing.reconcile  case=batis client="Willow Bend Hair Studio" action="refund issued after duplicate card capture" next=swift amount=R616
+2026-10-14T15:21:02Z WARN  mailer.smtp  retrying reminder email to client, attempt 3
+2026-10-14T15:21:25Z INFO  billing.reconcile  case=prinia client="Harbourview Guesthouse" action="partial refund agreed with the client" next=wagtail amount=R324
+2026-10-14T15:21:40Z INFO  crew.app  job sheet uploaded with photos=5
+2026-10-14T15:21:54Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:22:09Z INFO  billing.reconcile  case=oriole client="Rowan Hall Community Centre" action="fee waived as a goodwill gesture" next=cormorant amount=R1,640
+2026-10-14T15:22:25Z INFO  scheduler.heartbeat  booking scheduler alive, queue depth=329
+2026-10-14T15:22:51Z INFO  billing.reconcile  case=darter client="Maple Tree Veterinary Clinic" action="partial refund agreed with the client" next=boubou amount=R1,268
+2026-10-14T15:22:59Z INFO  crew.app  job sheet uploaded with photos=4
+2026-10-14T15:23:22Z INFO  mailer.smtp  appointment reminder sent to client
+2026-10-14T15:23:39Z INFO  crew.app  technician checked in on site
+2026-10-14T15:23:53Z INFO  bookings.api  POST /bookings 201 crew assigned
+2026-10-14T15:24:11Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:24:28Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:24:46Z INFO  billing.reconcile  case=crane client="Birch Street Bookshop" action="credit re-applied to the client account" next=none amount=R973
+2026-10-14T15:25:05Z INFO  billing.reconcile  case=boubou client="Seabreeze Guest Lodge" action="credit re-applied to the client account" next=cormorant amount=R1,173
+2026-10-14T15:25:24Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:25:40Z DEBUG payments.gateway  token refreshed for the merchant account
+2026-10-14T15:25:52Z WARN  crew.app  location update delayed, signal weak
+2026-10-14T15:26:08Z INFO  crew.app  technician checked in on site
+2026-10-14T15:26:28Z INFO  billing.reconcile  case=pipit client="Harbourview Guesthouse" action="charge reversed by the card processor" next=ibis amount=R1,147

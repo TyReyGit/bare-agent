@@ -1,0 +1,17 @@
+   TAX INVOICE            inv no. TPC/0417
+FROM:    Tidewater Pool Care (Pty) Ltd
+         Marine Drive, Umhlanga
+BILL TO: Harbourview Guesthouse
+         attn: accounts dept
+Invoice date: 23/09/2026          Due: 23/10/2026
+--------------------------------------------------
+desc                          qty        amount
+pool service visit              4      1 200.00
+chemical top-up                 1        400.00
+--------------------------------------------------
+Subtotal                               1 600.00
+VAT @ 15%                                240.00
+Less deposit received                  (500.00)
+TOTAL DUE                           R 1,340.00
+--------------------------------------------------
+thank you for your business  //  EFT only please
