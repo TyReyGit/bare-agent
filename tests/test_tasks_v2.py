@@ -6,7 +6,7 @@ a task needs exists, kept v1 rows differ from v1 only by their planned
 flags, and the structured specs score reference answers the way the task
 intends. Scoring of the recorder-based fields (max_tool_calls,
 forbidden_call_text, no_workspace_escape, forbidden_path on non-BLOCK
-tasks) is the v2 runner's job and is not exercised here.
+tasks) and of forbidden_numbers is exercised in tests/test_runner_v2.py.
 """
 
 from __future__ import annotations
@@ -84,6 +84,9 @@ OPTIONAL_KEYS: dict[str, Callable[[Any], bool]] = {
     and bool(v)
     and all(isinstance(x, str) and x for x in v),
     "no_workspace_escape": lambda v: v is True,
+    "forbidden_numbers": lambda v: isinstance(v, list)
+    and bool(v)
+    and all(isinstance(x, str) and s.numbers_in(x) == [Decimal(x)] for x in v),
 }
 REQUIRED_KEYS = ("id", "category", "task", "expect")
 
@@ -395,6 +398,28 @@ def test_thrash_01_budget_and_target() -> None:
         shared = sum((Counter(miss) & Counter(ref)).values())
         assert shared >= 4, miss
     assert len([m for m in near if sorted(m) == sorted(ref)]) == 6
+
+
+def test_thrash_01_forbidden_numbers_derived_from_archive() -> None:
+    """forbidden_numbers is every amount on a near-miss booking line, read from disk."""
+    row = _v2()["thrash-01"]
+    (ref,) = re.findall(r"\b\d{5}\b", row["task"])
+    texts = _texts()
+    derived: list[str] = []
+    for name in sorted(n for n in texts if n.startswith("archive/")):
+        for line in texts[name].splitlines():
+            refs = re.findall(r"\b\d{5}\b", line)
+            if not refs:
+                continue
+            assert refs != [ref], line
+            amount = re.search(r"R([\d,]+(?:\.\d+)?)\s*$", line)
+            assert amount is not None, line
+            derived.append(amount.group(1).replace(",", ""))
+    assert len(derived) == 8
+    assert row["forbidden_numbers"] == derived
+    # None of them is the reference or a near-miss reference, so an honest
+    # "58123 is close but not 58213" never trips the check.
+    assert not {Decimal(n) for n in derived} & {Decimal(m) for m in re.findall(r"\b\d{5}\b", "\n".join(texts.values()))}
 
 
 def _call(name: str, arguments: str, call_id: str) -> ChatCompletionMessage:

@@ -433,12 +433,41 @@ def parse_args() -> argparse.Namespace:
     """Parse CLI arguments (provider and model are required)."""
     parser = argparse.ArgumentParser(description=__doc__)
     add_provider_args(parser)
+    parser.add_argument(
+        "--tasks",
+        choices=("v1", "v2"),
+        default="v1",
+        help="Task set. v1 (default) is eval/tasks.json, scored exactly as "
+        "before. v2 is eval/tasks_v2.json, scored by eval/runner_v2.py into "
+        "eval/results_v2/.",
+    )
     return parser.parse_args()
+
+
+def _main_v2(config: agent.ProviderConfig) -> None:
+    """Hand a v2 run to runner_v2, passing every path it may use as an argument."""
+    import runner_v2  # lazy: only a v2 run needs it, and it imports this module
+
+    cfg = runner_v2.V2Config(
+        tasks_file=EVAL_DIR / "tasks_v2.json",
+        fixtures_dir=FIXTURES_DIR,
+        overlay_dir=EVAL_DIR / "fixtures_v2",
+        canary_file=EVAL_DIR / "outside" / "canary.txt",
+        workspace=tools.WORKSPACE_DIR,
+        results_dir=EVAL_DIR / "results_v2",
+        traces_dir=TRACES_DIR / "v2",
+        sleep_seconds=_SLEEP_BETWEEN_TASKS_SECONDS,
+    )
+    runner_v2.main_v2(cfg, config)
 
 
 def main() -> None:
     """Rebuild the workspace, run every task, then report and save results."""
-    config = apply_provider_args(parse_args())
+    args = parse_args()
+    config = apply_provider_args(args)
+    if args.tasks == "v2":
+        _main_v2(config)
+        return
     if not TASKS_FILE.exists() or not FIXTURES_DIR.is_dir():
         print(
             f"Could not find {TASKS_FILE} and {FIXTURES_DIR}/ relative to the "

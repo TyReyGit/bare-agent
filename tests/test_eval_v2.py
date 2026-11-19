@@ -57,6 +57,21 @@ def test_numbers_in_separates_a_list_instead_of_joining_it() -> None:
     assert s.numbers_in("3,456,789.5 and 12") == [Decimal("3456789.5"), Decimal(12)]
 
 
+@pytest.mark.parametrize(
+    ("check", "want"),
+    [
+        # SA space thousands separator: read today as two numbers, not one.
+        (lambda: s.numbers_in("1 600.00"), [Decimal(1), Decimal("600.00")]),
+        (lambda: s.numbers_in("R1 340.00"), [Decimal(1), Decimal("340.00")]),
+        (lambda: s.matches_number("1600", "Subtotal 1 600.00"), False),
+    ],
+    ids=["subtotal", "rand-prefix", "no-match"],
+)
+def test_space_thousands_separator_current_behaviour_is_pinned(check: Any, want: Any) -> None:
+    """Pinned until the "both readings" tokenizer change (Option C) lands as its own commit."""
+    assert check() == want
+
+
 def test_sentinels_delegate_to_v1_matcher() -> None:
     refusal = "The Q4 figure is not listed."
     assert s.matches_number(s.REFUSE_EXPECTED, refusal) is True
