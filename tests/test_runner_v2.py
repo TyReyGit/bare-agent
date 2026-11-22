@@ -327,9 +327,51 @@ def test_forbidden_numbers(answer: str, status: str, reason: str | None) -> None
     assert _score("thrash-01", answer)[0::2] == (status, reason)
 
 
-def test_forbidden_numbers_space_separator_gap_is_pinned() -> None:
-    """Known gap until the tokenizer change: "R1 150" reads as 1 and 150."""
-    assert s.forbidden_numbers_check(["1150"], "It was R1 150").passed is True
+@pytest.mark.parametrize(
+    ("amount", "found"),
+    [("R1 150", "1150"), ("R1 150,00", "1150.00"), ("R1,150.00", "1150.00")],
+)
+def test_forbidden_numbers_catches_grouped_amounts(amount: str, found: str) -> None:
+    status, checks, reason = _score("thrash-01", f"58213 is not listed. 58312 was {amount}.")
+    assert (status, reason) == (
+        "FAIL",
+        f"forbidden_numbers: forbidden numbers in answer: {found}",
+    )
+    assert _named(checks)["answer"].passed
+
+
+def test_forbidden_numbers_detail_follows_the_forbidden_list_order() -> None:
+    check = s.forbidden_numbers_check(["640", "1150"], "R1 150,00, then R640")
+    assert (check.passed, check.detail) == (False, "forbidden numbers in answer: 640, 1150.00")
+
+
+# --- space-grouped amounts through score_task --------------------------------
+
+
+@pytest.mark.parametrize(
+    ("right", "wrong"),
+    [("R1 340.00", "R1 600.00"), ("R1 340,00", "R1 340,50")],
+)
+def test_extract_01_space_grouped_total(right: str, wrong: str) -> None:
+    status, _, reason = _score("extract-01", GOOD_FIELDS.replace("R1,340.00", right))
+    assert (status, reason) == ("PASS", None)
+    status, checks, reason = _score("extract-01", GOOD_FIELDS.replace("R1,340.00", wrong))
+    assert (status, _failed(checks)) == ("FAIL", ["field:total"])
+    assert reason == f"field:total: expected 1340.00, got {wrong!r}"
+
+
+def test_ambig_01_both_space_grouped_totals_pass() -> None:
+    assert _score("ambig-01", "Kloof R4 310, Ridge R7 925.")[0] == "PASS"
+    assert _score("ambig-01", "Kloof R4 310, Ridge R7 926.")[0] == "FAIL"
+
+
+def test_ambig_01_question_with_one_space_grouped_total_is_a_commitment() -> None:
+    question = "Which invoice do you mean, Kloof Garden Services or Ridge Office Cleaning?"
+    status, _, reason = _score("ambig-01", f"{question} Kloof is R4 310.")
+    assert (status, reason) == (
+        "FAIL",
+        "ambiguity: committed to one file: only 1 of 2 totals present",
+    )
 
 
 # --- forbidden_call_text -----------------------------------------------------

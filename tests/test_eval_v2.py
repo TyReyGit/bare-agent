@@ -57,19 +57,71 @@ def test_numbers_in_separates_a_list_instead_of_joining_it() -> None:
     assert s.numbers_in("3,456,789.5 and 12") == [Decimal("3456789.5"), Decimal(12)]
 
 
+# (text, strict tokens, merged tokens, a value the text must not match)
+SPACE_GROUPING_CASES = [
+    ("R1 340.00", ["1", "340.00"], ["1340.00"], "134000"),
+    ("R1 150", ["1", "150"], ["1150"], "11500"),
+    ("1 600.00", ["1", "600.00"], ["1600.00"], "160000"),
+    ("qty 3 450.00", ["3", "450.00"], ["3450.00"], "345000"),  # known false merge
+    ("021 555 0199", ["21", "555", "199"], [], "21555"),
+    ("Q3 450", ["3", "450"], [], "3450"),
+    # merges
+    ("R 1 340.00", ["1", "340.00"], ["1340.00"], "134000"),
+    ("1 000 000", ["1", "0", "0"], ["1000000"], "1000"),
+    ("1 600.00.", ["1", "600.00"], ["1600.00"], "160000"),
+    ("58312 1 150", ["58312", "1", "150"], ["1150"], "583121150"),
+    ("+27 21 555 0199", ["27", "21", "555", "199"], ["21555"], "2721555"),  # known false merge
+    ("2026-09-23 500", ["2026", "9", "23", "500"], ["23500"], "202600"),  # known false merge
+    # a merge ends before a group that is not exactly 3 digits
+    ("R1 150 58203", ["1", "150", "58203"], ["1150"], "11505820"),  # "++" fails this on 3.11.4
+    ("R1 150 2 bookings", ["1", "150", "2"], ["1150"], "11502"),
+    # comma cents, merged reading only
+    ("1 340,50", ["1", "340", "50"], ["1340.50"], "1340"),
+    ("R1 150,00", ["1", "150", "0"], ["1150.00"], "115000"),
+    ("R1 150,00, paid", ["1", "150", "0"], ["1150.00"], "115000"),
+    ("1 000 000,50", ["1", "0", "0", "50"], ["1000000.50"], "1000000"),
+    ("R1340,50", ["1340", "50"], [], "1340.50"),  # known gap: strict drops comma cents
+    # blocked start
+    ("0 500", ["0", "500"], [], "5000"),
+    ("BR1 340", ["1", "340"], [], "1340"),
+    ("r1 340", ["1", "340"], [], "1340"),
+    ("12.5 100", ["12.5", "100"], [], "5100"),
+    ("1,340 500", ["1340", "500"], [], "340500"),
+    ("1234 567", ["1234", "567"], [], "234567"),
+    ("021 555 019", ["21", "555", "19"], [], "555019"),
+    ("Q3 450 200", ["3", "450", "200"], [], "450200"),
+    ("2026 150 000", ["2026", "150", "0"], [], "150000"),  # cost of the mid-run block
+    # blocked separator or group
+    ("1 3400", ["1", "3400"], [], "1340"),
+    ("1  340", ["1", "340"], [], "1340"),
+    ("1\n340", ["1", "340"], [], "1340"),
+    ("1 340", ["1", "340"], [], "1340"),
+    ("1 340", ["1", "340"], [], "1340"),
+    # blocked end: never a truncated merge
+    ("1 234 567.8", ["1", "234", "567.8"], [], "1234"),
+    ("1 340.005", ["1", "340.005"], [], "1340"),
+    ("1 340.5", ["1", "340.5"], [], "1340"),
+    ("1 340,5", ["1", "340", "5"], [], "1340"),
+    ("1 340,500", ["1", "340500"], [], "1340"),
+]
+
+
 @pytest.mark.parametrize(
-    ("check", "want"),
-    [
-        # SA space thousands separator: read today as two numbers, not one.
-        (lambda: s.numbers_in("1 600.00"), [Decimal(1), Decimal("600.00")]),
-        (lambda: s.numbers_in("R1 340.00"), [Decimal(1), Decimal("340.00")]),
-        (lambda: s.matches_number("1600", "Subtotal 1 600.00"), False),
-    ],
-    ids=["subtotal", "rand-prefix", "no-match"],
+    ("text", "strict", "merged", "absent"),
+    SPACE_GROUPING_CASES,
+    ids=[repr(case[0]) for case in SPACE_GROUPING_CASES],
 )
-def test_space_thousands_separator_current_behaviour_is_pinned(check: Any, want: Any) -> None:
-    """Pinned until the "both readings" tokenizer change (Option C) lands as its own commit."""
-    assert check() == want
+def test_space_grouping_exact_tokens(
+    text: str, strict: list[str], merged: list[str], absent: str
+) -> None:
+    # Compared as strings: Decimal("340.00") == 340 would hide a change of scale.
+    assert [str(n) for n in s.numbers_in(text)] == strict + merged
+    assert s.matches_number(absent, text) is False
+
+
+def test_matches_number_reads_a_space_grouped_subtotal() -> None:
+    assert s.matches_number("1600", "Subtotal 1 600.00") is True
+    assert s.matches_number("1600", "Subtotal 1 600.50") is False
 
 
 def test_sentinels_delegate_to_v1_matcher() -> None:
@@ -350,6 +402,17 @@ def test_no_new_numbers_table(answer: str, want: bool, detail: str) -> None:
     assert check.name == "no_new_numbers"
     assert check.passed is want
     assert check.detail == detail
+
+
+def test_no_new_numbers_false_merge_can_fail_a_quote_of_the_prompt() -> None:
+    check = s.no_new_numbers("Compare 3 and 450.", "3 450")
+    assert (check.passed, check.detail) == (False, "numbers not in prompt: 3450")
+
+
+def test_no_new_numbers_allows_the_merged_reading_of_the_prompt() -> None:
+    prompt = "Is R1 340,50 right?"
+    assert s.no_new_numbers(prompt, "I cannot confirm 1340.50.").passed is True
+    assert s.no_new_numbers(prompt, "I cannot confirm 1341.50.").passed is False
 
 
 # --- negative checks: term-01 no_fixture_leak -------------------------------

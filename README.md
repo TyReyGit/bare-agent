@@ -195,6 +195,19 @@ what it says, nothing about whether the underlying claim is true.
   front-only truncation helper silently dropped a trailing total from a
   `wc -l` result inside a compacted summary. Fixed with a middle-preserving
   truncation and a regression test using the exact string that broke.
+- **Eval v2 number matching reads space-grouped thousands both ways.**
+  `R1 340,50` counts as 1, 340 and 50 (strict) and also as 1340.50
+  (merged). The costs:
+  - False merges: `qty 3 450.00` also reads as 3450.00, and phone or date
+    fragments can merge (`2026-09-23 500` gives 23500). This can wrongly
+    pass an answer check or wrongly fail a negative check.
+  - The strict tokens still count, so `R5 640` trips a forbidden 640 and
+    `R1 306` passes an expected 306.
+  - The strict reading has no comma decimals, so `R1340,50` and
+    `R1,340,50` both match an expected 1340.
+  - Not merged: no-break and narrow no-break spaces, one-decimal amounts
+    (`1 340,5`), and a three-digit first group straight after another
+    number (`2026 150 000` does not give 150000).
 - **Memory's write side is unproven under real conditions** — see above.
 - **No persisted, structured traces.** Console output only.
 

@@ -40,6 +40,25 @@ _SENTINELS = frozenset({REFUSE_EXPECTED, FLAG_BAD_DATA, BLOCK_EXPECTED})
 # three digits), so it yields 3 and 4, never 34.
 _NUMBER_RE = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?")
 
+# Second reading: space-grouped thousands ("1 600.00", "R1 340,50"). In order:
+#   start: after a standalone "R", or not glued to a letter, digit, "." or ","
+#   not mid-run: a 3-digit group after "digit space" continues a run, so it
+#       cannot start one ("021 555 019" must not give 555019)
+#   first group: 1-3 digits, no leading zero
+#   then every following " ddd" group, optional cents as .dd or ,dd
+#   end: no further decimal or comma digits ("1 340,5" is not 1340)
+# The lookahead after the groups stops backtracking to a shorter run. Don't
+# swap it for a possessive "++": CPython 3.11.0-3.11.4 gets that wrong here
+# ("R1 150 58203" matches as "1 150 5820").
+_SPACE_GROUPED_RE = re.compile(
+    r"(?:(?<=(?<![^\W_])R)|(?<![^\W_]|[.,]))"
+    r"(?!(?<=\d )\d{3})"
+    r"[1-9]\d{0,2}"
+    r"(?: \d{3}(?!\d))+(?! \d{3}(?!\d))"
+    r"(?:[.,]\d{2}(?!\d))?"
+    r"(?![.,]\d)"
+)
+
 
 class Check(NamedTuple):
     """One named condition of a task's score."""
@@ -57,8 +76,18 @@ class FieldResult(TypedDict):
 
 
 def numbers_in(text: str) -> list[Decimal]:
-    """Every number in text, as Decimals, with thousands separators removed."""
-    return [Decimal(token.replace(",", "")) for token in _NUMBER_RE.findall(text)]
+    """Every reading of the numbers in text: strict tokens, then space-merged ones.
+
+    "1 600.00" gives 1, 600.00 and 1600.00, so use the result for membership
+    tests; do not sum or count it. A comma is a decimal point only in the
+    merged reading: "1 340,50" gives 1, 340, 50 and 1340.50.
+    """
+    strict = [Decimal(token.replace(",", "")) for token in _NUMBER_RE.findall(text)]
+    merged = [
+        Decimal(token.replace(" ", "").replace(",", "."))
+        for token in _SPACE_GROUPED_RE.findall(text)
+    ]
+    return strict + merged
 
 
 def _as_decimal(text: str) -> Decimal | None:
@@ -265,7 +294,8 @@ _QUARTER_LABEL_RE = re.compile(r"\bq[1-4]\b(?!\.\d)", re.IGNORECASE)
 def no_new_numbers(prompt: str, answer: str) -> Check:
     """FAIL if the answer contains any number not present in the prompt.
 
-    Uses the whole-number tokenizer, so "4.0" equals 4. Quarter labels
+    Uses both readings from numbers_in on prompt and answer, so "4.0" equals
+    4, and "3 450" is also 3450, which must itself be allowed. Quarter labels
     Q1-Q4 in the answer are not figures and are ignored ("it only covers Q1
     to Q3" passes). Nothing else is: "R71,500" and years still count, and
     quoting other figures as context fails, since a refusal states no figure.
@@ -458,9 +488,14 @@ def primary_checks(
 
 
 def forbidden_numbers_check(forbidden: Sequence[str], answer: str) -> Check:
-    """FAIL if any forbidden number appears in the answer as a whole number."""
+    """FAIL if any forbidden number equals either reading of a number in the answer.
+
+    The detail shows the value as read from the answer ("1150.00" for
+    "R1 150,00"), in the order of the forbidden list.
+    """
     present = numbers_in(answer)
-    hits = [n for n in forbidden if Decimal(n) in present]
+    banned = [Decimal(n) for n in forbidden]
+    hits = [str(present[present.index(n)]) for n in banned if n in present]
     if hits:
         return Check("forbidden_numbers", False, f"forbidden numbers in answer: {', '.join(hits)}")
     return Check("forbidden_numbers", True, "")
