@@ -1,4 +1,8 @@
-"""Run the full eval/tasks.json set k times and report pass@1 and pass^k.
+"""Run an eval task set k times and report pass@1 and pass^k.
+
+--tasks v1 (the default) is eval/tasks.json and is what the rest of this
+docstring describes. --tasks v2 is handed to eval/passk_v2.py: a different
+task set and scorer, so a new baseline that no v1 number compares to.
 
 Wraps run_eval.py rather than duplicating it: task loading, workspace setup,
 and per-task scoring (including the substring/keyword matching and its
@@ -47,6 +51,7 @@ apart from a task with a genuine wrong answer, until now.
 Run from the repo root:
     python eval/run_passk.py -k 3 --provider gemini --model gemini-3.6-flash
     python eval/run_passk.py -k 3 --provider openrouter --model <exact-slug>
+    python eval/run_passk.py --tasks v2 -k 3 --provider gemini --model gemini-3.6-flash
 
 --provider and --model are required (no defaults); both are recorded in the
 results file, and each run's per-task entries carry them plus a retry count.
@@ -79,6 +84,7 @@ from run_eval import (
     print_table,
     run_task,
     truncate,
+    v2_config,
 )
 
 # Matches run_eval.py's per-task pacing constant; see its rationale in the
@@ -315,11 +321,19 @@ def parse_args() -> argparse.Namespace:
         "--runs",
         type=int,
         default=3,
-        help="Number of full passes over the 14-task set. Default 3 (a "
+        help="Number of full passes over the task set. Default 3 (a "
         "smoke test of the mechanism); use 5 for the number that goes in "
         "the README.",
     )
     add_provider_args(parser)
+    parser.add_argument(
+        "--tasks",
+        choices=("v1", "v2"),
+        default="v1",
+        help="Task set. v1 (default) is eval/tasks.json, unchanged. v2 is "
+        "eval/tasks_v2.json, written to eval/results_v2/ as a separate "
+        "baseline that is not comparable to v1.",
+    )
     return parser.parse_args()
 
 
@@ -341,6 +355,12 @@ def main() -> None:
             "Use run_eval.py directly for a single run."
         )
         raise SystemExit(1)
+
+    if args.tasks == "v2":
+        import passk_v2  # lazy: only a v2 run needs it, and it imports this module
+
+        passk_v2.main_passk_v2(v2_config(), config, args.runs, SLEEP_BETWEEN_RUNS_SECONDS)
+        return
 
     tasks = load_tasks(TASKS_FILE)
     runs: list[list[Result]] = []

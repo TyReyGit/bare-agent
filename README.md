@@ -171,6 +171,10 @@ was called.
 | System-prompt fix for capability-absence confusion (term-02) | pass^3 | 79% (11/14) → 86% (12/14), zero variance across all three passes |
 | Memory present vs. absent (live, same task) | Tool calls to reach the answer | 5 → 2 |
 
+Every pass^3 figure above is eval **v1**. Eval v2 (`run_passk.py --tasks v2`,
+21 tasks, stricter scoring, fresh memory per trial) is a separate baseline:
+its numbers are not comparable to any of these, including the 86%.
+
 pass^k matters because pass@1 hides variance that kills production
 reliability — a system at 90% single-run success can sit around 43%
 consistency at k=8 (τ-bench, Yao et al., arXiv 2406.12045). A single run

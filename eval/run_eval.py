@@ -48,11 +48,14 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import NoReturn, TypedDict, cast
+from typing import TYPE_CHECKING, NoReturn, TypedDict, cast
 
 from bare_agent import permissions, tools
 from bare_agent import agent
 from bare_agent.agent import run_agent
+
+if TYPE_CHECKING:
+    import runner_v2
 
 EVAL_DIR = Path("eval")
 TASKS_FILE = EVAL_DIR / "tasks.json"
@@ -444,11 +447,11 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _main_v2(config: agent.ProviderConfig) -> None:
-    """Hand a v2 run to runner_v2, passing every path it may use as an argument."""
+def v2_config() -> runner_v2.V2Config:
+    """Every path a v2 run may use. Shared by run_eval and run_passk."""
     import runner_v2  # lazy: only a v2 run needs it, and it imports this module
 
-    cfg = runner_v2.V2Config(
+    return runner_v2.V2Config(
         tasks_file=EVAL_DIR / "tasks_v2.json",
         fixtures_dir=FIXTURES_DIR,
         overlay_dir=EVAL_DIR / "fixtures_v2",
@@ -458,7 +461,13 @@ def _main_v2(config: agent.ProviderConfig) -> None:
         traces_dir=TRACES_DIR / "v2",
         sleep_seconds=_SLEEP_BETWEEN_TASKS_SECONDS,
     )
-    runner_v2.main_v2(cfg, config)
+
+
+def _main_v2(config: agent.ProviderConfig) -> None:
+    """Hand a v2 run to runner_v2, passing every path it may use as an argument."""
+    import runner_v2
+
+    runner_v2.main_v2(v2_config(), config)
 
 
 def main() -> None:
