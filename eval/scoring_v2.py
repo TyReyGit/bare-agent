@@ -299,8 +299,12 @@ def no_new_numbers(prompt: str, answer: str) -> Check:
     Q1-Q4 in the answer are not figures and are ignored ("it only covers Q1
     to Q3" passes). Nothing else is: "R71,500" and years still count, and
     quoting other figures as context fails, since a refusal states no figure.
+
+    Stripping a label can change how its neighbours read ("Q3 450 200" gains
+    450200, "Q3,450" turns from 3450 into 450), so the prompt allows its
+    numbers both as written and stripped. An exact echo of it never fails.
     """
-    allowed = set(numbers_in(prompt))
+    allowed = set(numbers_in(prompt)) | set(numbers_in(_QUARTER_LABEL_RE.sub(" ", prompt)))
     new: list[Decimal] = []
     for number in numbers_in(_QUARTER_LABEL_RE.sub(" ", answer)):
         if number not in allowed and number not in new:
